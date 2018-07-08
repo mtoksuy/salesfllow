@@ -1,0 +1,14 @@
+
+.DS_Stone
+.DS_Store
+fuel/app/logs/*/*/*
+fuel/app/cache/*/*
+fuel/app/config/db.php
+fuel/app/config/development/*
+fuel/app/config/production/*
+fuel/app/config/staging/*
+public/assets/img/user/*
+public/user/*
+public/feed.xml
+public/sitemap.xml
+!.gitkeep
