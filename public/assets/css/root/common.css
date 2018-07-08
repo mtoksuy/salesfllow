@@ -1,0 +1,156 @@
+@charset "UTF-8";
+
+.lp_top_block {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: flex-start;
+	align-items: normal;
+	margin: 0 30px;
+}
+.lp_top_block .left_item {
+	flex-basis: 50%;
+	margin: 150px 0 0;
+}
+.lp_top_block .right_item {
+	flex-basis: 50%;
+	margin: 120px 0 0 0;
+}
+.lp_top_block .left_item img {
+	width: 75%;
+	height: auto;
+}
+
+.lp_top_block .right_item h1 {
+	font-size: 38px;
+	font-weight: bold;
+	letter-spacing: -2.1px;
+}
+
+.lp_top_block .right_item p {
+
+
+}
+
+.lp_top_block .right_item form {
+
+
+}
+
+.lp_top_block .right_item form input {
+    border: 1px solid #e7e7e7;
+    border-radius: 5px;
+    color: #606060;
+    font-size: 82%;
+    margin: 0 0 15px;
+    padding: 15px;
+    width: 60%;
+}
+
+.lp_top_block .right_item form button {
+    background-color: #3f46ad;
+    border: 0 solid;
+    border-radius: 3px;
+    color: #fff;
+    fill: #fff;
+    cursor: pointer;
+    padding: 15px;
+}
+.lp_top_block .right_item form bottom_p {
+
+}
+.lp_top_block .right_item form .bottom_p a {
+   border-bottom: 1px solid #3f46ad;
+    color: #3f46ad;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.lp_block {
+
+}
+
+
+
+
+/***************
+1024px以下の設定
+***************/
+@media screen and (min-width: 0px) and (max-width: 1024px) {
+
+}
+/***************
+1023px以下の設定
+***************/
+@media screen and (min-width: 0px) and (max-width: 1023px) {
+
+}
+/**************
+768px以下の設定
+**************/
+@media screen and (min-width: 0px) and (max-width: 768px) {
+
+}
+/**************
+720px以下の設定
+**************/
+@media screen and (min-width: 0px) and (max-width: 720px) {
+
+}
+/**************
+640px以下の設定
+**************/
+@media screen and (min-width: 0px) and (max-width: 640px) {
+
+}
+/**************
+620px以下の設定
+**************/
+@media screen and (min-width: 0px) and (max-width: 620px) {
+}
+/**************
+568px以下の設定
+**************/
+@media screen and (min-width: 0px) and (max-width: 568px) {
+
+}
+/**************
+480px以下の設定
+**************/
+@media screen and (min-width: 0px) and (max-width: 480px) {
+
+}
+/**************
+360px以下の設定
+**************/
+@media screen and (min-width: 0px) and (max-width: 360px) {
+
+}
+/**************
+320px以下の設定
+**************/
+@media screen and (min-width: 0px) and (max-width: 320px) {
+
+}
