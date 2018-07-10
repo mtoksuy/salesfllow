@@ -14,26 +14,20 @@ class Controller_Signup_Template extends Controller {
 	}
 	// テンプレート
 	public function before() {
-		$this->basic_template            = View::forge('basic/template');
-		$this->basic_template->view_data = array(
+		$this->signup_template            = View::forge('basic/template');
+		$this->signup_template->view_data = array(
 			'title'        => TITLE,
 			'meta'         => View::forge('basic/meta'),
-//			'import_css'   => View::forge('basic/importcss'),
-//			'drawer'       => View::forge('basic/drawer'),
-			'header'       => View::forge('basic/header'),
-//			'mobile_ad'    => View::forge('basic/mobilead'),
-//			'sp_thumbnail' => View::forge('basic/spthumbnail'),
+			'import_css'   => View::forge('signup/importcss'),
+			'header'       => View::forge('signup/header'),
 			'content'      => View::forge('basic/content'),
-//			'sidebar'      => View::forge('basic/sidebar'),
-//			'plus_add'     => '',
-//			'footer'       => View::forge('basic/footer'),
 			'script'       => View::forge('basic/script'),
 		);
 	}
 	// 最後に値を渡す
 	public function after($response) {
 		if($response === null) {
-			$response = $this->basic_template;
+			$response = $this->signup_template;
 		}
 		return parent::after($response);
 	}

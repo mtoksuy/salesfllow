@@ -20,21 +20,42 @@
  * @extends  Controller
  */
 class Controller_Signup extends Controller_Signup_Template {
+	// ルーター
+	public function router($method, $params) {
+		return $this->action_index($method);
+	}
 	// 親のbefore実行
 	public function before() {
 		parent::before();
 	}
 	// 基本アクション
-	public function action_index() {
-		pre_var_dump($_POST);
+	public function action_index($method) {
+		$post = Model_Security_Basis::post_security($_POST);
+		// ポストがある場合
+		if($post) {
+			// メールアドレスをチェックする
+			$user_email_check = Model_Signup_Basis::email_check($post);
+			// メールアドレスが登録されていなくて正しい場合
+			if($user_email_check) {
+				// 新規登録ステップ1HTML生成
+				$signup_step_1_html = View::forge('signup/signup');
+			}
+				else {
 
-		// CSSセット
-		$this->basic_template->view_data['import_css'] = View::forge('root/importcss');
+				}
+		}
+			// ポストがない場合
+			else {
 
-		// コンテンツデータセット
-		$this->basic_template->view_data["content"]->set('content_data', array(
-//			'recommend_html' => View::forge('root/lp'),
-		), false);
+			}
+				// コンテンツセット
+				$this->signup_template->view_data["content"]->set('content_data', array(
+					'content_html' => $signup_step_1_html,
+				));
+				// フォーム制御変数コンテンツセット
+				$this->signup_template->view_data["content"]->content_data["content_html"]->set('sign_data', array(
+					'email' => $post['email'],
+				));
 	}
 
 
