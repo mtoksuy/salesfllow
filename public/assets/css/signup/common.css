@@ -19,10 +19,12 @@
     color: #606060;
     display: block;
     font-size: 82%;
-    margin: 0 auto;
+    margin: 0 auto 15px;
     padding: 15px;
     width: 320px;
 }
+
+
 .signup_content .signup_content_inner form button {
     background-color: #3f46ad;
     border: 0 solid;
@@ -35,6 +37,21 @@
 		width: 350px;
 }
 
+
+.login_button {
+
+}
+.login_button a {
+    background-color: #3f46ad;
+    border: 0 solid;
+    border-radius: 3px;
+    color: #fff;
+    cursor: pointer;
+    fill: #fff;
+		margin: 15px auto;
+    padding: 15px 30px;
+		width: 350px;
+}
 
 
 

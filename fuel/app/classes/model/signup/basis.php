@@ -8,34 +8,34 @@
 */
 class Model_Signup_Basis {
 	//----------------------------
-	//新規登録sharetube_idチェック
+	//新規登録salesfllow_idチェック
 	//----------------------------
-	public static function sharetube_id_check($post) {
+	public static function salesfllow_id_check($post) {
 		// チェック変数
-		$user_sharetube_id_check = true;
+		$user_salesfllow_id_check = true;
 
 		// 半角英数字(-_含む)だけか調べる
 		$pattern = '/^[a-zA-Z0-9_-]+$/';
-		if(preg_match($pattern, $post["sharetube_id"], $sharetube_id_array)) {
+		if(preg_match($pattern, $post["salesfllow_id"], $salesfllow_id_array)) {
 			// idかぶってないかチェック
-			if($sharetube_id_array[0] != 'Sharetube' && $sharetube_id_array[0] != 'sharetube') {
-				$signup_sharetube_id_res = DB::query("
+			if($salesfllow_id_array[0] != 'Sharetube' && $salesfllow_id_array[0] != 'sharetube') {
+				$signup_salesfllow_id_res = DB::query("
 					SELECT *
 					FROM user
-					WHERE sharetube_id = '".$post["sharetube_id"]."'")->execute();	
-					foreach($signup_sharetube_id_res as $key => $value) {
-						$user_sharetube_id_check = false;
+					WHERE salesfllow_id = '".$post["salesfllow_id"]."'")->execute();	
+					foreach($signup_salesfllow_id_res as $key => $value) {
+						$user_salesfllow_id_check = false;
 					}
 			}
 			// サイト名は弾く
 				else {
-					$user_sharetube_id_check = false;
+					$user_salesfllow_id_check = false;
 				}
 		}
 			else {
-				$user_sharetube_id_check = false;
+				$user_salesfllow_id_check = false;
 			}
-		return $user_sharetube_id_check;
+		return $user_salesfllow_id_check;
 	}
 	//----------------------------
 	//メールアドレスをチェックする
@@ -98,32 +98,57 @@ class Model_Signup_Basis {
 	//ユーザー登録
 	//------------
 	public static function user_signup($post) {
-				$now_time          = time();
-				$now_date          = date('Y-m-d', $now_time);
-				$create_date       = date('Y-m-d H:i:s', $now_time);
-				$article_year_time = date('Y', $now_time);
-//				echo md5($post["password"]);
-
-				// ユーザー登録
-				DB::query("
-					INSERT INTO user (
-					sharetube_id ,
-					email, 
-					password ,
-					name, 
-					update_time)
-					VALUES (
-					'".$post["sharetube_id"]."', 
-					'".$post["email"]."', 
-					'".md5($post["password"])."', 
-					'".$post["sharetube_id"]."', 
-					'".$create_date."')")->execute();
-
-			// パスワードを●に変換する
-			$password_hidden_string = Model_Signup_Basis::password_hidden_string($post);
-			// ユーザーへ登録完了メール送信
-			Model_Mail_Basis::new_account_contact_mail($post, $password_hidden_string);
-			// ユーザー登録された主旨のレポートメールを受け取る
-			Model_Mail_Basis::new_account_report_mail($post, $password_hidden_string);
+		$password_text = $post['password'];
+		$options = [
+			'cost' => 4,
+		];
+		$password_hash = password_hash($password_text, PASSWORD_DEFAULT, $options);
+/*
+		// 暗号化したいテキストを設定。今回は仮に「test」とします。
+		$password_text = 'test';
+		$options = [
+			'cost' => 4,
+		];
+		$hash = password_hash($password_text, PASSWORD_DEFAULT, $options);
+		pre_var_dump($hash);
+		$true_password = 'test';
+		// パスワードを照合
+		pre_var_dump(password_verify($true_password, $hash));
+*/
+		$now_time          = time();
+		$now_date          = date('Y-m-d', $now_time);
+		$update_date       = date('Y-m-d H:i:s', $now_time);
+		// ユーザー登録
+		 $insert_res =DB::query("
+			INSERT INTO user (
+			email, 
+			password ,
+			name, 
+			update_time)
+			VALUES (
+			'".$post["email"]."', 
+			'".$password_hash."', 
+			'".$post["name"]."', 
+			'".$update_date."')")->execute();
+		foreach($insert_res as $key => $value) {
+			if($key == 0) {
+				$salesfllow_id = (int)$value;
+			}
+		}
+		DB::query("
+			UPDATE user
+			SET   salesfllow_id = '".$salesfllow_id."'
+			WHERE primary_id    = ".$salesfllow_id."")->execute();
 	}
+
+
+
+
+
+
+
+
+
+
+
 }
