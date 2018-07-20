@@ -48,12 +48,14 @@ class Model_Login_Basis extends Model {
 					'".$login_token."'
 				)")->execute();
 			// クッキー生成(一ヶ月有効)
-			setcookie('salesfllow_id', $user_data["salesfllow_id"], time() + 2592000, '/');
-			setcookie('salesfllow_login_token', $login_token, time() + 2592000, '/');
-			setcookie('email', $user_data['email'], time() + 2592000, '/');
-			setcookie('name', $user_data['name'], time() + 2592000, '/');
-			setcookie('profile_icon', $user_data['profile_icon'], time() + 2592000, '/');
-			setcookie('profile_html', $user_data['profile_html'], time() + 2592000, '/');
+			setcookie('user_data[salesfllow_id]', $user_data['salesfllow_id'], time() + 2592000, '/');
+			setcookie('user_data[salesfllow_login_token]', $login_token, time() + 2592000, '/');
+			setcookie('user_data[email]', $user_data['email'], time() + 2592000, '/');
+			setcookie('user_data[name]', $user_data['name'], time() + 2592000, '/');
+			setcookie('user_data[profile_icon]', $user_data['profile_icon'], time() + 2592000, '/');
+			setcookie('user_data[profile_html]', $user_data['profile_html'], time() + 2592000, '/');
+
+
 			// ログイン履歴登録
 			Model_Login_Basis::login_history_record($_COOKIE["salesfllow_id"]);
 			header('Location: '.HTTP.'');

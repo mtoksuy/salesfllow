@@ -79,6 +79,9 @@ if(! preg_match("/\/$/", $_SERVER['REQUEST_URI']) ) {
 }
 
 
+//
+//クッキーログイン
+//
 
 
 

@@ -10,7 +10,7 @@
 			<input type="email" aria-label="メールアドレスを入力してください" placeholder="メールアドレス" name="email">
 			<button class="o_9" type="submit">Salesfllow を始める</button>
 			<p class="bottom_p">
-			すでに Salesfllow をお使いですか？<a class="o_8" href="">サインインはここから</a>
+			すでに Salesfllow をお使いですか？<a class="o_8" href="<?php echo HTTP; ?>login/">サインインはここから</a>
 			</p>
 		</form>
 	</div>
