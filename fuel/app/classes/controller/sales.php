@@ -19,7 +19,7 @@
  * @package  app
  * @extends  Controller
  */
-class Controller_Root extends Controller_Basic_Template {
+class Controller_Sales extends Controller_Sales_Template {
 	// 親のbefore実行
 	public function before() {
 		parent::before();
@@ -30,29 +30,35 @@ class Controller_Root extends Controller_Basic_Template {
 		$token_check = Model_Login_Basis::token_check($_COOKIE['user_data']['email'], $_COOKIE['user_data']['salesfllow_login_token']);
 		if($token_check) {
 			// ヘッダーセット
-			$this->basic_template->view_data['header'] = View::forge('salesfllow/header');
+			$this->sales_template->view_data['header'] = View::forge('salesfllow/header');
 			// CSSセット
-			$this->basic_template->view_data['import_css'] = View::forge('salesfllow/importcss');
+			$this->sales_template->view_data['import_css'] = View::forge('salesfllow/importcss');
 			//JSセット
-			$this->basic_template->view_data['script'] = View::forge('salesfllow/script');
+			$this->sales_template->view_data['script'] = View::forge('salesfllow/script');
 
 	
 
 			// コンテンツデータセット
-			$this->basic_template->view_data["header"]->set('content_data', array(
+			$this->sales_template->view_data["header"]->set('content_data', array(
 				'content_html' => 'afafds',
 			), false);
 
 			// コンテンツデータセット
-			$this->basic_template->view_data["content"]->set('content_data', array(
-				'function_html' => View::forge('salesfllow/function'),
-				'content_html'  => '',
+			$this->sales_template->view_data["content"]->set('content_data', array(
+				'function_html'    => View::forge('salesfllow/function'),
+				'sales_list_html'  => View::forge('salesfllow/sales/list'),
+				'content_html'     => '',
+
+			), false);
+			// コンテンツデータセット
+			$this->sales_template->view_data["content"]->content_data['function_html']->set('content_data', array(
+				'sales_now'  => 'now',
 			), false);
 
-			// コンテンツデータセット
-			$this->basic_template->view_data["content"]->content_data['function_html']->set('content_data', array(
-				'dash_bord_now'  => 'now',
-			), false);
+
+
+
+
 		} // if($token_check) {
 
 
@@ -84,10 +90,10 @@ class Controller_Root extends Controller_Basic_Template {
 
 			else {
 				// CSSセット
-				$this->basic_template->view_data['import_css'] = View::forge('root/importcss');
+				$this->sales_template->view_data['import_css'] = View::forge('root/importcss');
 		
 				// コンテンツデータセット
-				$this->basic_template->view_data["content"]->set('content_data', array(
+				$this->sales_template->view_data["content"]->set('content_data', array(
 					'recommend_html' => View::forge('root/lp'),
 				), false);
 			}

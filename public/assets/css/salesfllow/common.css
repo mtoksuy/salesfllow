@@ -91,10 +91,11 @@
 機能ページ
 *********/
 .function {
-	width: 200px;
+	width: 160px;
 	background-color: #F8F8FA;
 	height: 100%;
 	height: 610px;
+	float: left;
 }
 .function .function_inner {
 
@@ -128,10 +129,93 @@
 
 
 
+/*********
+案件リスト
+*********/
+.sales_list {
+	width: 220px;
+	background-color: #FFFFFF;
+	height: 100%;
+	height: 610px;
+	float: left;
+	border-right: 1px solid #eee;
+	overflow: scroll;
+}
+.sales_list .sales_list_inner {
+
+}
+.sales_list .sales_list_inner ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+.sales_list .sales_list_inner ul li {
+	border-bottom: 1px solid #eee;
+}
+.sales_list .sales_list_inner ul li a {
+	display: block;
+	padding: 15px;
+	color: #72777B;
+}
+.sales_list .sales_list_inner ul li a:hover {
+
+}
+.sales_list .sales_list_inner ul li h1 {
+	font-size: 18px;
+}
+.sales_list .sales_list_inner ul li p {
+
+}
+/*********/
+.sales_list .sales_list_inner ul li.no_border {
+	border-bottom: 0px solid #eee;
+}
+.sales_list .sales_list_inner ul li.float {
+	background-color: #FCFCFC;
+}
 
 
 
+/*****
+検索窓
+*****/
+.search_window {
 
+}
+.search_window input {
+background-color: #FFF;
+border-color: #eee;
+border-radius: 2px;
+border-style: solid;
+border-width: 1px;
+color: #3a3a3a;
+display: inline;
+font-size: 82%;
+height: 18px;
+margin: 15px 15px 0px 15px;
+padding: 5px 0 5px 10px;
+width: 96px;
+-webkit-appearance: none;
+-moz-appearance: none;
+appearance: none;
+}
+/*************
+案件作成ボタン
+*************/
+.sales_submit {
+background-color: dodgerblue;
+border-radius: 3px;
+padding: 7px;
+margin: 0px 15px 15px 15px;
+text-align: center;
+display: inline;
+font-size: 14px;
+color: #FFF;
+cursor: pointer;
+position: relative;
+top: -30px;
+left: 120px;
+}
 
 
 /***************
