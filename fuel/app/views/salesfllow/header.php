@@ -18,9 +18,9 @@
 						<!-- dropdown_header -->
 						<div class="dropdown_header">
 							<ul class="clearfix">
-								<li><a href="http://localhost/salesfllow/">プロフィール</a></li>
-								<li><a href="http://localhost/salesfllow/">設定</a></li>
-								<li><a href="http://localhost/salesfllow/">ログアウト</a></li>
+								<li><a href="<?php echo HTTP; ?>profile/">プロフィール</a></li>
+								<li><a href="<?php echo HTTP; ?>setting/">設定</a></li>
+								<li><a href="<?php echo HTTP; ?>logout/">ログアウト</a></li>
 							</ul>
 						</div><!-- dropdown_header -->
 					</li>

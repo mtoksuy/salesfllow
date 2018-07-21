@@ -26,6 +26,17 @@ class Controller_Sales extends Controller_Sales_Template {
 	}
 	// 基本アクション
 	public function action_index() {
+		// ポストの中身をエンティティ化する
+		$post = Model_Security_Basis::post_security($_POST);
+
+pre_var_dump($post);
+
+
+
+
+
+
+
 		// トークン確認
 		$token_check = Model_Login_Basis::token_check($_COOKIE['user_data']['email'], $_COOKIE['user_data']['salesfllow_login_token']);
 		if($token_check) {
@@ -36,29 +47,21 @@ class Controller_Sales extends Controller_Sales_Template {
 			//JSセット
 			$this->sales_template->view_data['script'] = View::forge('salesfllow/script');
 
-	
 
 			// コンテンツデータセット
 			$this->sales_template->view_data["header"]->set('content_data', array(
 				'content_html' => 'afafds',
 			), false);
-
 			// コンテンツデータセット
 			$this->sales_template->view_data["content"]->set('content_data', array(
 				'function_html'    => View::forge('salesfllow/function'),
 				'sales_list_html'  => View::forge('salesfllow/sales/list'),
 				'content_html'     => '',
-
 			), false);
 			// コンテンツデータセット
 			$this->sales_template->view_data["content"]->content_data['function_html']->set('content_data', array(
 				'sales_now'  => 'now',
 			), false);
-
-
-
-
-
 		} // if($token_check) {
 
 

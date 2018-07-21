@@ -24,7 +24,14 @@ $(function() {
 			return false;
 		},
 	}, '.user_icon');
-
+	//--------
+	//案件作成
+	//--------
+	$('.sales_list').on( {
+		'click': function() {
+			p('dsfsd');
+		}
+	}, '.sales_submit');
 
 
 

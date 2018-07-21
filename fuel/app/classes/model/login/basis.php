@@ -34,7 +34,7 @@ class Model_Login_Basis extends Model {
 				UPDATE login_token 
 					SET token_check = 0
 					WHERE email = '".$user_data['email']."'
-					AND token = '".$_COOKIE['salesfllow_login_token']."'")->execute();
+					AND token = '".$_COOKIE['user_data']['salesfllow_login_token']."'")->execute();
 			// ログイントークン生成
 			$login_token = Model_Login_Basis::login_token_create(32);
 			// 現在のトークンを登録
@@ -55,9 +55,8 @@ class Model_Login_Basis extends Model {
 			setcookie('user_data[profile_icon]', $user_data['profile_icon'], time() + 2592000, '/');
 			setcookie('user_data[profile_html]', $user_data['profile_html'], time() + 2592000, '/');
 
-
 			// ログイン履歴登録
-			Model_Login_Basis::login_history_record($_COOKIE["salesfllow_id"]);
+			Model_Login_Basis::login_history_record($user_data['salesfllow_id']);
 			header('Location: '.HTTP.'');
 			exit;
 		}
@@ -66,43 +65,6 @@ class Model_Login_Basis extends Model {
 				$lohin_message = 'ユーザー名かパスワードが間違っています。';
 				return $lohin_message;
 			}
-	}
-	//----------------
-	//クッキーログイン
-	//----------------
-	public static function cookie_login() {
-		$login_check = false;
-		$query = DB::query("
-			SELECT *
-			FROM user
-			WHERE	salesfllow_id     = '".$_COOKIE['salesfllow_id']."'
-			AND   password         = '".$_COOKIE['salesfllow_login_key']."'
-
-			OR    email            = '".$_COOKIE['salesfllow_id']."'
-			AND   password         = '".$_COOKIE['salesfllow_login_key']."'")->execute();
-
-		foreach($query as $key => $value) {
-			// セッション生成
-			$_SESSION["primary_id"]          = $value["primary_id"];
-			$_SESSION["salesfllow_id"]        = $value["salesfllow_id"];
-			$_SESSION["email"]               = $value["email"];
-			$_SESSION["name"]                = $value["name"];
-			$_SESSION["management_site_url"] = $value["management_site_url"];
-			$_SESSION["profile_contents"]    = $value["profile_contents"];
-			$_SESSION["profile_icon"]        = $value["profile_icon"];
-			$_SESSION["twitter_id"]          = $value["twitter_id"];
-			$_SESSION["facebook_id"]         = $value["facebook_id"];
-			$_SESSION["all_page_view"]       = $value["all_page_view"];
-			$_SESSION["creation_time"]       = $value["creation_time"];
-			$_SESSION["update_time"]         = $value["update_time"];
-			// クッキー生成(一ヶ月有効)
-			setcookie('salesfllow_id', $value["salesfllow_id"], time() + 2592000, '/');
-			setcookie('salesfllow_login_key', $_COOKIE['salesfllow_login_key'], time() + 2592000, '/');
-			// ユーザーがログインしたらお知らせのメールを送信する
-			Model_Mail_Basis::login_account_report_mail($_SESSION);
-			$login_check = true;
-		}
-			return $login_check;
 	}
 	//----------------
 	//ログインチェック
@@ -132,12 +94,20 @@ class Model_Login_Basis extends Model {
 	//ログアウト
 	//----------
 	public static function logout() {
-		// セッション削除
-		$_SESSION = array();
-		session_destroy();
+		// 前のトークンを無効
+		$login_res = DB::query("
+			UPDATE login_token 
+				SET token_check = 0
+				WHERE email = '".$_COOKIE['user_data']['email']."'
+				AND token   = '".$_COOKIE['user_data']['salesfllow_login_token']."'")->execute();
+
 		// クッキー削除
-		setcookie('salesfllow_id', '', time()-10000, '/');
-		setcookie('salesfllow_login_key', '',time()-10000, '/');
+		setcookie('user_data[salesfllow_id]', '', time() + -10000, '/');
+		setcookie('user_data[salesfllow_login_token]', '', time() + -10000, '/');
+		setcookie('user_data[email]', '', time() + -10000, '/');
+		setcookie('user_data[name]', '', time() + -10000, '/');
+		setcookie('user_data[profile_icon]', '', time() + -10000, '/');
+		setcookie('user_data[profile_html]', '', time() + -10000, '/');
 		header('location: '.HTTP.'');
 		exit;
 	}

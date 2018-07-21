@@ -70,25 +70,13 @@ class Controller_Root extends Controller_Basic_Template {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 			else {
 				// CSSセット
 				$this->basic_template->view_data['import_css'] = View::forge('root/importcss');
 		
 				// コンテンツデータセット
 				$this->basic_template->view_data["content"]->set('content_data', array(
-					'recommend_html' => View::forge('root/lp'),
+					'content_html' => View::forge('root/lp'),
 				), false);
 			}
 	}

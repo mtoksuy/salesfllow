@@ -133,18 +133,19 @@
 案件リスト
 *********/
 .sales_list {
-	width: 220px;
-	background-color: #FFFFFF;
-	height: 100%;
-	height: 610px;
 	float: left;
-	border-right: 1px solid #eee;
-	overflow: scroll;
 }
 .sales_list .sales_list_inner {
 
 }
 .sales_list .sales_list_inner ul {
+	width: 220px;
+	background-color: #FFFFFF;
+	height: 100%;
+	height: 610px;
+	border-right: 1px solid #eee;
+	overflow: scroll;
+
 	list-style: none;
 	margin: 0;
 	padding: 0;
@@ -166,7 +167,20 @@
 .sales_list .sales_list_inner ul li p {
 
 }
-/*********/
+/*****************
+案件リストヘッダー
+*****************/
+.sales_list .sales_list_inner ul.header {
+	width: auto;
+	background-color: #FCFCFC;
+	height: auto;
+	border-right: 1px solid #eee;
+	overflow: auto;
+
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
 .sales_list .sales_list_inner ul li.no_border {
 	border-bottom: 0px solid #eee;
 }
@@ -216,6 +230,190 @@ position: relative;
 top: -30px;
 left: 120px;
 }
+
+
+
+
+/*******
+案件登録
+********/
+.sales_create {
+float: left;
+width: 70%;
+height: 600px;
+overflow-y: scroll;
+overflow-x: hidden;
+position:relative;
+}
+.sales_create .sales_create_inner {
+	padding: 15px;
+	position:relative;
+}
+.sales_create .sales_create_inner .left {
+	float: left;
+	position:relative;
+margin: 15px 0 0 0;
+}
+.sales_create .sales_create_inner .left img {
+
+}
+
+.sales_create .sales_create_inner .right {
+	float: left;
+border: 1px solid #eee;
+border-radius: 8px;
+position:relative;
+margin: 0px 0px 0px 15px;
+background-color: #fcfcfc;
+}
+.sales_create .sales_create_inner .right::before,
+.sales_create .sales_create_inner .right::after {
+
+
+}
+.sales_create .sales_create_inner .right::before {
+	content: "";
+	display: inline-block;
+	border: 10px solid transparent;
+	border-right-color: transparent;
+	border-right-color: #eee;
+	position: absolute;
+	left: -20px;
+	top: 16%;
+	margin-top: -9px;
+}
+.sales_create .sales_create_inner .right::after {
+	content: "";
+	display: inline-block;
+	border: 9px solid transparent;
+	border-right-color: transparent;
+	border-right-color: #fff;
+	position: absolute;
+	left: -18px;
+	top: 16%;
+	margin-top: -8px;
+}
+
+.sales_create .sales_create_inner .right input[type="text"] {
+	background-color: #FFF;
+	border-color: #eee;
+	border-radius: 2px;
+	border-style: solid;
+	border-width: 1px;
+	color: #3a3a3a;
+	display: block;
+	font-size: 120%;
+	height: 18px;
+	margin: 15px;
+	padding: 10px;
+	width: 680px;
+	font-size: 16px;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+}
+.sales_create .sales_create_inner .right textarea {
+background-color: #FFF;
+border-color: #eee;
+border-radius: 2px;
+border-style: solid;
+border-width: 1px;
+color: #3a3a3a;
+display: block;
+font-size: 16px;
+font-weight: normal;
+height: 18px;
+margin: 15px;
+padding: 10px;
+width: 680px;
+height: 100px;
+-webkit-appearance: none;
+-moz-appearance: none;
+appearance: none;
+}
+.sales_create .sales_create_inner .right input[type="submit"] {
+	background-color: #2ebe4f;
+	border-radius: 3px;
+	border: 1px solid #2eac4d;
+	color: #FCFCFC;
+	cursor: pointer;
+	display: block;
+	margin: 15px;
+	padding: 6px 10px 6px 10px;
+	font-size: 16px;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	float: right;
+	margin: 0 15px 15px 15px;
+}
+
+
+
+/********
+
+*********/
+.sales_settings {
+cursor: pointer;
+display: inline-block;
+margin: 0 0 0 15px;
+}
+.sales_settings .parts {
+	color: #586069;
+	font-size: 15px;
+	margin: 0 5px 0 0;
+}
+.sales_settings .lsf {
+	color: #c3c8cf;
+	font-size: 18px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 /***************
