@@ -10,20 +10,7 @@
 			</li>
 			<li class="float"><div class="sales_submit o_8">案件作成</div></li>
 		</ul>
-		<ul>
-			<li><a href="<?php echo HTTP; ?>"><h1>タイトルタイトル</h1><p>テキストテキストテキスト</p></a></li>
-			<li><a href="<?php echo HTTP; ?>"><h1>タイトルタイトル</h1><p>テキストテキストテキスト</p></a></li>
-			<li><a href="<?php echo HTTP; ?>"><h1>タイトルタイトル</h1><p>テキストテキストテキスト</p></a></li>
-			<li><a href="<?php echo HTTP; ?>"><h1>タイトルタイトル</h1><p>テキストテキストテキスト</p></a></li>
-			<li><a href="<?php echo HTTP; ?>"><h1>タイトルタイトル</h1><p>テキストテキストテキスト</p></a></li>
-			<li><a href="<?php echo HTTP; ?>"><h1>タイトルタイトル</h1><p>テキストテキストテキスト</p></a></li>
-			<li><a href="<?php echo HTTP; ?>"><h1>タイトルタイトル</h1><p>テキストテキストテキスト</p></a></li>
-			<li><a href="<?php echo HTTP; ?>"><h1>タイトルタイトル</h1><p>テキストテキストテキスト</p></a></li>
-			<li><a href="<?php echo HTTP; ?>"><h1>タイトルタイトル</h1><p>テキストテキストテキスト</p></a></li>
-			<li><a href="<?php echo HTTP; ?>"><h1>タイトルタイトル</h1><p>テキストテキストテキスト</p></a></li>
-			<li><a href="<?php echo HTTP; ?>"><h1>タイトルタイトル</h1><p>テキストテキストテキスト</p></a></li>
-			<li><a href="<?php echo HTTP; ?>"><h1>タイトルタイトル</h1><p>テキストテキストテキスト</p></a></li>
-	</ul>		
+		<?php echo $content_data['sales_list_html']; ?>
 	</div>
 </div> <!-- sales_list -->
 
@@ -37,7 +24,7 @@
 		</div>
 		<div class="right">
 			<form method="post" action="<?php echo HTTP; ?>sales/" class="sales_form">
-				<input placeholder="案件名" value="" name="sales_create" id="sales_create" type="text">
+				<input placeholder="案件名" value="" name="title" id="title" type="text">
 	
 				<div class="sales_settings o_8">
 					<span class="parts">ステータス</span>
@@ -80,7 +67,7 @@
 					<span class="lsf symbol">setting</span>
 				</div>
 	
-				<textarea name="sales_create_textarea" id="sales_create_textarea" placeholder="詳細"></textarea>
+				<textarea name="text" id="text" placeholder="詳細"></textarea>
 				<input class="o_8" value="作成" name="submit" type="submit">
 			</form>
 		</div>
