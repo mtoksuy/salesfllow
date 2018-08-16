@@ -26,16 +26,18 @@ class Controller_Sales extends Controller_Sales_Template {
 	}
 	// 基本アクション
 	public function action_index() {
+		// 数字を圧縮する
+		Library_Shorturl_Basis::shot_url_encode(1034778073013);
+
+
+
 		// ポストの中身をエンティティ化する
 		$post = Model_Security_Basis::post_security($_POST);
-
-pre_var_dump($post);
-
-
-
-
-
-
+		// ポストがあった場合
+		if($post) {
+			// 案件作成
+			Model_Sales_Basis::sales_create($post);
+		}
 
 		// トークン確認
 		$token_check = Model_Login_Basis::token_check($_COOKIE['user_data']['email'], $_COOKIE['user_data']['salesfllow_login_token']);
@@ -62,35 +64,17 @@ pre_var_dump($post);
 			$this->sales_template->view_data["content"]->content_data['function_html']->set('content_data', array(
 				'sales_now'  => 'now',
 			), false);
+
+			//案件リスト取得
+			$sales_res = Model_Sales_Basis::sales_list_get($_COOKIE['user_data']['user_primary_id']);
+			// 案件リストHTML生成
+			$sales_list_html = Model_Sales_Html::sales_list_html_create($sales_res);
+			// コンテンツデータセット
+			$this->sales_template->view_data["content"]->content_data['sales_list_html']->set('content_data', array(
+				'sales_list_html'  => $sales_list_html,
+			), false);
 		} // if($token_check) {
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+			// ログインしていない状態
 			else {
 				// CSSセット
 				$this->sales_template->view_data['import_css'] = View::forge('root/importcss');
