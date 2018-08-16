@@ -19,13 +19,14 @@ class Model_Login_Basis extends Model {
 			WHERE	salesfllow_id = '".$post["login_user"]."'
 			OR    email         = '".$post["login_user"]."'")->execute();
 		foreach($login_res as $key => $value) {
-			$hash                       = $value['password'];
-			$user_data['salesfllow_id'] = $value['salesfllow_id'];
-			$user_data['email']         = $value['email'];
-			$user_data['password']      = $value['password'];
-			$user_data['name']          = $value['name'];
-			$user_data['profile_icon']  = $value['profile_icon'];
-			$user_data['profile_html']  = $value['profile_html'];
+			$hash                         = $value['password'];
+			$user_data['user_primary_id'] = $value['primary_id'];
+			$user_data['salesfllow_id']   = $value['salesfllow_id'];
+			$user_data['email']           = $value['email'];
+			$user_data['password']        = $value['password'];
+			$user_data['name']            = $value['name'];
+			$user_data['profile_icon']    = $value['profile_icon'];
+			$user_data['profile_html']    = $value['profile_html'];
 		}
 		// パスワードを照合(ログイン)
 		if(password_verify($post['login_pass'], $hash)) {
@@ -48,6 +49,7 @@ class Model_Login_Basis extends Model {
 					'".$login_token."'
 				)")->execute();
 			// クッキー生成(一ヶ月有効)
+			setcookie('user_data[user_primary_id]', $user_data['user_primary_id'], time() + 2592000, '/');
 			setcookie('user_data[salesfllow_id]', $user_data['salesfllow_id'], time() + 2592000, '/');
 			setcookie('user_data[salesfllow_login_token]', $login_token, time() + 2592000, '/');
 			setcookie('user_data[email]', $user_data['email'], time() + 2592000, '/');
@@ -102,6 +104,7 @@ class Model_Login_Basis extends Model {
 				AND token   = '".$_COOKIE['user_data']['salesfllow_login_token']."'")->execute();
 
 		// クッキー削除
+		setcookie('user_data[user_primary_id]', '', time() + -10000, '/');
 		setcookie('user_data[salesfllow_id]', '', time() + -10000, '/');
 		setcookie('user_data[salesfllow_login_token]', '', time() + -10000, '/');
 		setcookie('user_data[email]', '', time() + -10000, '/');
