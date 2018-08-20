@@ -1,0 +1,888 @@
+@charset "UTF-8";
+
+/*********
+案件リスト
+*********/
+.sales_list {
+	float: left;
+}
+.sales_list .sales_list_inner {
+
+}
+.sales_list .sales_list_inner ul {
+	width: 220px;
+	background-color: #FFFFFF;
+	height: 100%;
+	height: 610px;
+	border-right: 1px solid #eee;
+	overflow: scroll;
+
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+.sales_list .sales_list_inner ul li {
+	border-bottom: 1px solid #eee;
+}
+.sales_list .sales_list_inner ul li.now {
+	border-left: 7px solid lightgreen;
+}
+.sales_list .sales_list_inner ul li a {
+	display: block;
+	padding: 15px;
+	color: #72777B;
+	text-decoration: none;
+}
+.sales_list .sales_list_inner ul li a:hover {
+	background-color: #FCFCFC;
+}
+.sales_list .sales_list_inner ul li h1 {
+	font-size: 18px;
+    font-size: 16px;
+    font-weight: normal;
+    line-height: 130%;
+		margin: 0 0 5px 0;
+}
+.sales_list .sales_list_inner ul li p {
+    font-size: 14px;
+	color: #72777B;
+line-height: 125%;
+	margin: 0;
+}
+
+/*****************
+案件リストヘッダー
+*****************/
+.sales_list .sales_list_inner ul.header {
+	width: auto;
+	background-color: #FCFCFC;
+	height: auto;
+	border-right: 1px solid #eee;
+	overflow: auto;
+
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+.sales_list .sales_list_inner ul li.no_border {
+	border-bottom: 0px solid #eee;
+}
+.sales_list .sales_list_inner ul li.float {
+	background-color: #FCFCFC;
+}
+
+
+
+/*****
+検索窓
+*****/
+.search_window {
+
+}
+.search_window input {
+background-color: #FFF;
+border-color: #eee;
+border-radius: 2px;
+border-style: solid;
+border-width: 1px;
+color: #3a3a3a;
+display: inline;
+font-size: 82%;
+height: 18px;
+margin: 15px 15px 0px 15px;
+padding: 5px 0 5px 10px;
+width: 96px;
+-webkit-appearance: none;
+-moz-appearance: none;
+appearance: none;
+}
+/*************
+案件作成ボタン
+*************/
+.sales_submit {
+background-color: dodgerblue;
+border-radius: 3px;
+padding: 7px;
+margin: 0px 15px 15px 15px;
+text-align: center;
+display: inline;
+font-size: 14px;
+color: #FFF;
+cursor: pointer;
+position: relative;
+top: -30px;
+left: 120px;
+}
+
+
+
+
+/*******
+案件登録
+********/
+.sales_create {
+float: left;
+width: 70%;
+height: 600px;
+overflow-y: scroll;
+overflow-x: hidden;
+position:relative;
+}
+.sales_create .sales_create_inner {
+	padding: 15px;
+	position:relative;
+}
+.sales_create .sales_create_inner .left {
+	float: left;
+	position:relative;
+margin: 15px 0 0 0;
+}
+.sales_create .sales_create_inner .left img {
+
+}
+
+.sales_create .sales_create_inner .right {
+	float: left;
+border: 1px solid #eee;
+border-radius: 8px;
+position:relative;
+margin: 0px 0px 0px 15px;
+background-color: #fcfcfc;
+}
+.sales_create .sales_create_inner .right::before,
+.sales_create .sales_create_inner .right::after {
+
+
+}
+.sales_create .sales_create_inner .right::before {
+	content: "";
+	display: inline-block;
+	border: 10px solid transparent;
+	border-right-color: transparent;
+	border-right-color: #eee;
+	position: absolute;
+	left: -20px;
+	top: 16%;
+	margin-top: -9px;
+}
+.sales_create .sales_create_inner .right::after {
+	content: "";
+	display: inline-block;
+	border: 9px solid transparent;
+	border-right-color: transparent;
+	border-right-color: #fcfcfc;
+	position: absolute;
+	left: -18px;
+	top: 16%;
+	margin-top: -8px;
+}
+
+.sales_create .sales_create_inner .right .sales_form #title /*input[type="text"]*/ {
+	background-color: #FFF;
+	border-color: #eee;
+	border-radius: 2px;
+	border-style: solid;
+	border-width: 1px;
+	color: #3a3a3a;
+	display: block;
+	font-size: 120%;
+	height: 18px;
+	margin: 15px;
+	padding: 10px;
+	width: 680px;
+	font-size: 16px;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+}
+.sales_create .sales_create_inner .right textarea {
+background-color: #FFF;
+border-color: #eee;
+border-radius: 2px;
+border-style: solid;
+border-width: 1px;
+color: #3a3a3a;
+display: block;
+font-size: 16px;
+font-weight: normal;
+height: 18px;
+margin: 12px 15px 15px 15px;
+padding: 10px;
+width: 680px;
+height: 100px;
+-webkit-appearance: none;
+-moz-appearance: none;
+appearance: none;
+}
+.sales_create .sales_create_inner .right input[type="submit"] {
+	background-color: #2ebe4f;
+	border-radius: 3px;
+	border: 1px solid #2eac4d;
+	color: #FCFCFC;
+	cursor: pointer;
+	display: block;
+	margin: 15px;
+	padding: 6px 10px 6px 10px;
+	font-size: 16px;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	float: right;
+	margin: 0 15px 15px 15px;
+}
+/***************
+案件セッティング
+***************/
+.sales_settings {
+cursor: pointer;
+position: relative;
+display: inline-block;
+margin: 0 0 0 15px;
+/*
+height: 80px;
+width: 120px;
+*/
+height: 56px;
+width: 120px;
+	-webkit-user-select: none;
+	   -moz-user-select: none;
+	    -ms-user-select: none;
+	        user-select: none;
+}
+.sales_settings .parts {
+	color: #586069;
+	font-size: 15px;
+	margin: 0 5px 0 0;
+}
+.sales_settings .lsf {
+	color: #c3c8cf;
+	font-size: 18px;
+}
+
+.status_setting_block,
+.approach_setting_block,
+.client_setting_block,
+.appointment_setting_block,
+.importance_setting_block,
+.budget_setting_block,
+.earnings_setting_block,
+.deadline_setting_block,
+.note_setting_block
+ {
+position: absolute;
+border-radius: 3px;
+top: 30px;
+left: 0;
+font-size: 13px;
+padding: 0px 5px 0 5px;
+color: #ffffff;
+z-index: 1;
+line-height: 175%;
+}
+
+.note_setting_block{
+	top: 4px;
+	left: 76px;
+}
+
+/*********************
+ステータスセッティング
+*********************/
+.status_setting_box {
+display: none;
+position: absolute;
+border-radius: 3px;
+top: 30px;
+right: 0;
+width: 140px;
+border: 1px solid #eee;
+background-color: #FFFFFF;
+z-index: 2;
+}
+
+.status_setting_box .status_setting_box_inner {
+
+}
+.status_setting_box .status_setting_box_inner ul {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+.status_setting_box .status_setting_box_inner ul li {
+	padding: 5px 10px 5px 30px;
+	border-top: 1px solid #eee;
+	position: relative;
+	font-size: 13px;
+}
+.status_setting_box .status_setting_box_inner ul li:first-child {
+	border-top: 0px solid #eee;
+}
+.status_setting_box .status_setting_box_inner ul li:hover {
+background-color: #FCFCFC;
+}
+.status_setting_box .status_setting_box_inner ul li .lsf {
+	font-size: 14px;
+	color: #3E3E3E;
+	position: absolute;
+	left: 7px;
+	top: 4px;
+}
+/*********************
+アプローチセッティング
+*********************/
+.approach_setting_box {
+display: none;
+position: absolute;
+border-radius: 3px;
+top: 30px;
+right: 0;
+width: 140px;
+border: 1px solid #eee;
+background-color: #FFFFFF;
+z-index: 2;
+}
+.approach_setting_box .approach_setting_box_inner {
+
+}
+.approach_setting_box .approach_setting_box_inner ul {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+.approach_setting_box .approach_setting_box_inner ul li {
+	padding: 5px 10px 5px 30px;
+	border-top: 1px solid #eee;
+	position: relative;
+	font-size: 13px;
+}
+.approach_setting_box .approach_setting_box_inner ul li:first-child {
+	border-top: 0px solid #eee;
+}
+.approach_setting_box .approach_setting_box_inner ul li:hover {
+background-color: #FCFCFC;
+}
+.approach_setting_box .approach_setting_box_inner ul li .lsf {
+	font-size: 14px;
+	color: #3E3E3E;
+	position: absolute;
+	left: 7px;
+	top: 4px;
+}
+/***********************
+クライアントセッティング
+***********************/
+.sales_settings.client {
+	width: 300px;
+}
+.client_setting_box {
+display: none;
+position: absolute;
+border-radius: 3px;
+top: 30px;
+left: 0;
+z-index: 2;
+}
+.client_setting_box .client_setting_box_inner {
+
+}
+.client_setting_box .client_setting_box_inner ul {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+.client_setting_box .client_setting_box_inner ul li {
+	position: relative;
+	font-size: 13px;
+}
+.client_setting_box .client_setting_box_inner ul li input[type="text"]{
+	background-color: #FFF;
+	border-color: #eee;
+	border-radius: 2px;
+	border-style: solid;
+	border-width: 1px;
+	color: #3a3a3a;
+	display: block;
+	height: 18px;
+	padding: 5px;
+	width: 260px;
+	font-size: 13px;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+}
+/**********************
+アポイントセッティング
+**********************/
+.appointment_setting_box {
+display: none;
+position: absolute;
+border-radius: 3px;
+top: 30px;
+right: 0;
+z-index: 2;
+}
+.appointment_setting_box .appointment_setting_box_inner {
+
+}
+.appointment_setting_box .appointment_setting_box_inner ul {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+.appointment_setting_box .appointment_setting_box_inner ul li {
+	position: relative;
+	font-size: 13px;
+}
+.appointment_setting_box .appointment_setting_box_inner ul li input[type="text"]{
+	background-color: #FFF;
+	border-color: #eee;
+	border-radius: 2px;
+	border-style: solid;
+	border-width: 1px;
+	color: #3a3a3a;
+	display: block;
+	height: 18px;
+	padding: 5px;
+	width: 120px;
+	font-size: 13px;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+}
+/*****************
+重要度セッティング
+*****************/
+.importance_setting_box {
+display: none;
+position: absolute;
+border-radius: 3px;
+top: 30px;
+right: 0;
+width: 140px;
+border: 1px solid #eee;
+background-color: #FFFFFF;
+z-index: 2;
+}
+
+.importance_setting_box .importance_setting_box_inner {
+
+}
+.importance_setting_box .importance_setting_box_inner ul {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+.importance_setting_box .importance_setting_box_inner ul li {
+	padding: 5px 10px 5px 30px;
+	border-top: 1px solid #eee;
+	position: relative;
+	font-size: 13px;
+}
+.importance_setting_box .importance_setting_box_inner ul li:first-child {
+	border-top: 0px solid #eee;
+}
+.importance_setting_box .importance_setting_box_inner ul li:hover {
+background-color: #FCFCFC;
+}
+.importance_setting_box .importance_setting_box_inner ul li .lsf {
+	font-size: 14px;
+	color: #3E3E3E;
+	position: absolute;
+	left: 7px;
+	top: 4px;
+}
+
+/***************
+予算セッティング
+***************/
+.budget_setting_box {
+display: none;
+position: absolute;
+border-radius: 3px;
+top: 30px;
+right: 0;
+z-index: 2;
+}
+.budget_setting_box .budget_setting_box_inner {
+
+}
+.budget_setting_box .budget_setting_box_inner ul {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+.budget_setting_box .budget_setting_box_inner ul li {
+	position: relative;
+	font-size: 13px;
+}
+.budget_setting_box .budget_setting_box_inner ul li input[type="text"]{
+	background-color: #FFF;
+	border-color: #eee;
+	border-radius: 2px;
+	border-style: solid;
+	border-width: 1px;
+	color: #3a3a3a;
+	display: inline-block;
+	height: 18px;
+	padding: 5px;
+	width: 75px;
+	font-size: 13px;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+}
+.budget_setting_box .budget_setting_box_inner ul li span {
+border: 1px solid #eee;
+padding: 7.5px 7px 7px 7px;
+background-color: #FCFCFC;
+left: -3px;
+position: relative;
+border-radius: 2px;
+}
+/***************
+売上セッティング
+***************/
+.earnings_setting_box {
+display: none;
+position: absolute;
+border-radius: 3px;
+top: 30px;
+right: 0;
+z-index: 2;
+}
+.earnings_setting_box .earnings_setting_box_inner {
+
+}
+.earnings_setting_box .earnings_setting_box_inner ul {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+.earnings_setting_box .earnings_setting_box_inner ul li {
+	position: relative;
+	font-size: 13px;
+}
+.earnings_setting_box .earnings_setting_box_inner ul li input[type="text"]{
+	background-color: #FFF;
+	border-color: #eee;
+	border-radius: 2px;
+	border-style: solid;
+	border-width: 1px;
+	color: #3a3a3a;
+	display: inline-block;
+	height: 18px;
+	padding: 5px;
+	width: 75px;
+	font-size: 13px;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+}
+.earnings_setting_box .earnings_setting_box_inner ul li span {
+border: 1px solid #eee;
+padding: 7.5px 7px 7px 7px;
+background-color: #FCFCFC;
+left: -3px;
+position: relative;
+border-radius: 2px;
+}
+
+
+/********************
+締め切りセッティング
+********************/
+.deadline_setting_box {
+display: none;
+position: absolute;
+border-radius: 3px;
+top: 30px;
+right: 0;
+z-index: 2;
+}
+.deadline_setting_box .deadline_setting_box_inner {
+
+}
+.deadline_setting_box .deadline_setting_box_inner ul {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+.deadline_setting_box .deadline_setting_box_inner ul li {
+	position: relative;
+	font-size: 13px;
+}
+.deadline_setting_box .deadline_setting_box_inner ul li input[type="text"]{
+	background-color: #FFF;
+	border-color: #eee;
+	border-radius: 2px;
+	border-style: solid;
+	border-width: 1px;
+	color: #3a3a3a;
+	display: block;
+	height: 18px;
+	padding: 5px;
+	width: 120px;
+	font-size: 13px;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+}
+
+
+
+
+
+
+/*****************
+ノートセッティング
+*****************/
+.sales_settings.note {
+	width: 300px;
+}
+.note_setting_box {
+display: none;
+position: absolute;
+border-radius: 3px;
+top: 30px;
+left: 0;
+	top: 1px;
+	left: 76px;
+
+z-index: 2;
+}
+.note_setting_box .note_setting_box_inner {
+
+}
+.note_setting_box .note_setting_box_inner ul {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+.note_setting_box .note_setting_box_inner ul li {
+	position: relative;
+	font-size: 13px;
+}
+.note_setting_box .note_setting_box_inner ul li input[type="text"]{
+	background-color: #FFF;
+	border-color: #eee;
+	border-radius: 2px;
+	border-style: solid;
+	border-width: 1px;
+	color: #3a3a3a;
+	display: block;
+	height: 18px;
+	padding: 5px;
+	width: 260px;
+	font-size: 13px;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*************
+ボックスカラー
+*************/
+.box_color {
+	width: 14px;
+	height: 14px;
+	position: relative;
+	display: inline-block;
+	border-radius: 3px;
+	top: 2px;
+	right: 5px;
+	margin: 0 5px 0 0;
+}
+.box_color_red {
+	background-color: #fc3d39;
+}
+.box_font_color_red {
+	color: #fc3d39;
+}
+.box_color_limegreen {
+	background-color: limegreen;
+}
+.box_color_grey {
+	background-color: grey;
+}
+.box_color_deepskyblue {
+	background-color: deepskyblue;
+}
+.box_color_orange {
+	background-color: orange;
+}
+.box_color_yellow {
+	background-color: #f1c12c;
+}
+.box_color_blue {
+	background-color: #26a8ee;
+}
+.box_color_green {
+	background-color: #4dbd2e;
+}
+.box_color_purple {
+	background-color: #c46fd8;
+}
+/******
+********/
+.importance_setting_block .box_font_color_red {
+	color: #fc3d39;
+}
+.importance_setting_block .box_font_color_orange {
+	color: orange;
+}
+.importance_setting_block .box_font_color_yellow {
+	color: #f1c12c;
+}
+.importance_setting_block .box_font_color_green {
+	color: #4dbd2e;
+}
+.importance_setting_block .box_font_color_blue {
+	color: #26a8ee;
+}
+.importance_setting_block .box_font_color_purple {
+	color: #c46fd8;
+}
+.importance_setting_block .box_font_color_grey {
+	color: grey;
+}
+
+
+/***
+案件
+****/
+.sales {
+float: left;
+width: 70%;
+height: 600px;
+overflow-y: scroll;
+overflow-x: hidden;
+position:relative;
+}
+.sales .sales_inner {
+	padding: 15px;
+	position:relative;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/***************
+1024px以下の設定
+***************/
+@media screen and (min-width: 0px) and (max-width: 1024px) {
+
+}
+/***************
+1023px以下の設定
+***************/
+@media screen and (min-width: 0px) and (max-width: 1023px) {
+
+}
+/**************
+768px以下の設定
+**************/
+@media screen and (min-width: 0px) and (max-width: 768px) {
+
+}
+/**************
+720px以下の設定
+**************/
+@media screen and (min-width: 0px) and (max-width: 720px) {
+
+}
+/**************
+640px以下の設定
+**************/
+@media screen and (min-width: 0px) and (max-width: 640px) {
+
+}
+/**************
+620px以下の設定
+**************/
+@media screen and (min-width: 0px) and (max-width: 620px) {
+}
+/**************
+568px以下の設定
+**************/
+@media screen and (min-width: 0px) and (max-width: 568px) {
+
+}
+/**************
+480px以下の設定
+**************/
+@media screen and (min-width: 0px) and (max-width: 480px) {
+
+}
+/**************
+360px以下の設定
+**************/
+@media screen and (min-width: 0px) and (max-width: 360px) {
+
+}
+/**************
+320px以下の設定
+**************/
+@media screen and (min-width: 0px) and (max-width: 320px) {
+
+}
