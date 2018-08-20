@@ -5,57 +5,69 @@
  *  投稿されている javascriptコードを PHPで書き直しました。
 
 http://co.bsnws.net/article/256
+
+
+
+
+参考にしたレポジトリ
+https://github.com/mattallty/base58
  */
 
 
 class Library_Shorturl_Basis {
-//--------------
-//数字を圧縮する
-//--------------
-public static function shot_url_encode($num) {
+//--------------------------------------
+//圧縮するために使用するベースを取得する
+//--------------------------------------
+public static function base_string_get() {
 	//base58に準拠する場合
 	$baseString = "123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ";
 	// 大文字削除
 	$baseString = '123456789abcdefghijkmnopqrstuvwxyz'; //34
 	// Salesfllowオリジナル
 	$baseString = '123456789abcdefghikmnpqrstuvwxyz'; //32
-
+	return $baseString;
+}
+//--------------
+//数字を圧縮する
+//--------------
+public static function shot_url_encode($int) {
+	// 圧縮するために使用するベースを取得する
+	$baseString = Library_Shorturl_Basis::base_string_get();
+	// ベースの数を数える
 	$baseLength = strlen($baseString);
 
-	while ($num) {
+	while($int) {
 		// 余りの数値
-		$remainder = $num % $baseLength;
-		$num       = floor($num / $baseLength);
-		$encode   .= $baseString[$remainder];
+		$remainder = $int % $baseLength;	
+		$int       = floor($int / $baseLength);
+		$encode    = $baseString{$remainder}.$encode;
 	}
 	return $encode;
 }
+//--------------------------------
+//圧縮した数字(文字列)を数字に戻す
+//--------------------------------
+public static function shot_url_decode($str) {
+	// 圧縮するために使用するベースを取得する
+	$baseString = Library_Shorturl_Basis::base_string_get();
+	// ベースの数を数える
+	$baseLength = strlen($baseString);
 
-    /**
-     * @return Integer
-     */
-     public static function decode($str)
-    {
-        if (!is_string($str)) {
-            throw new Exception('not string');
-        }
+	$decode = 0;
+	while ($str) {
+		$position = strrpos($baseString, $str[0]);
+		$power = strlen($str) - 1;
+		$decode += $position * pow($baseLength, $power);
+		$str = substr($str, 1);
+	}
+	return $decode;
+}
 
-        $decode = 0;
 
-        while ($str) {
-            $position = strrpos($baseString, $str[0]);
 
-            if ($position < 0) {
-                throw new Exception('"decode" can\'t find "' + $str[0] + '" in the alphabet: "' + $baseString + '"');
-            }
 
-            $power = strlen($str) - 1;
-            $decode += $position * pow($baseLength, $power);
-            $str = substr($str, 1);
-        }
 
-        return $decode;
-    }
+
 
 
 

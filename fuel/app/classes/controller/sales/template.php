@@ -18,13 +18,11 @@ class Controller_Sales_Template extends Controller {
 		$this->sales_template->view_data = array(
 			'title'        => TITLE,
 			'meta'         => View::forge('basic/meta'),
-//			'import_css'   => View::forge('basic/importcss'),
-//			'drawer'       => View::forge('basic/drawer'),
-			'header'       => View::forge('basic/header'),
+			'import_css'   => View::forge('salesfllow/sales/importcss'),
+			'header'       => View::forge('salesfllow/header'),
 			'content'      => View::forge('basic/content'),
-//			'sidebar'      => View::forge('basic/sidebar'),
 //			'footer'       => View::forge('basic/footer'),
-			'script'       => View::forge('basic/script'),
+			'script'       => View::forge('salesfllow/sales/script'),
 		);
 	}
 	// 最後に値を渡す

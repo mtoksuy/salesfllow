@@ -20,17 +20,46 @@
  * @extends  Controller
  */
 class Controller_Sales extends Controller_Sales_Template {
+	// ルーター
+	public function router($method, $params) {
+		// トークン確認
+		$token_check = Model_Login_Basis::token_check($_COOKIE['user_data']['email'], $_COOKIE['user_data']['salesfllow_login_token']);
+		if($token_check) {
+		
+		} // if($token_check) {
+			else {
+				header('Location: '.HTTP.'');
+				exit;
+			}
+		// トップページ
+		if($method == 'index') {
+			return $this->action_index($post);
+		}
+			// 案件詳細ページ
+			else if($params == false) {
+				// 数字を圧縮する
+				$encode = Library_Shorturl_Basis::shot_url_encode(777);
+				// 圧縮した数字(文字列)を数字に戻す
+				$decode           = Library_Shorturl_Basis::shot_url_decode($method);
+				$sales_primary_id = $decode;
+				return $this->action_sales($sales_primary_id);
+			}
+				// エラーページ
+				else {
+					return $this->action_404($post);
+				}
+		// ポストの中身をエンティティ化する
+		$post = Model_Security_Basis::post_security($_POST);
+		return $this->action_index($post);
+	}
 	// 親のbefore実行
 	public function before() {
 		parent::before();
 	}
+	/////////////////
 	// 基本アクション
+	/////////////////
 	public function action_index() {
-		// 数字を圧縮する
-		Library_Shorturl_Basis::shot_url_encode(1034778073013);
-
-
-
 		// ポストの中身をエンティティ化する
 		$post = Model_Security_Basis::post_security($_POST);
 		// ポストがあった場合
@@ -39,51 +68,70 @@ class Controller_Sales extends Controller_Sales_Template {
 			Model_Sales_Basis::sales_create($post);
 		}
 
-		// トークン確認
-		$token_check = Model_Login_Basis::token_check($_COOKIE['user_data']['email'], $_COOKIE['user_data']['salesfllow_login_token']);
-		if($token_check) {
-			// ヘッダーセット
-			$this->sales_template->view_data['header'] = View::forge('salesfllow/header');
-			// CSSセット
-			$this->sales_template->view_data['import_css'] = View::forge('salesfllow/importcss');
-			//JSセット
-			$this->sales_template->view_data['script'] = View::forge('salesfllow/script');
+
+/*
+pre_var_dump(  strtotime('Wed Jul 04 2018 12:00:00 GMT+0900 (JST)') );
+
+//2018-08-19 00:10:06
+pre_var_dump(date('Y-m-d H:i:s', '1530673200'));
+*/
 
 
-			// コンテンツデータセット
-			$this->sales_template->view_data["header"]->set('content_data', array(
-				'content_html' => 'afafds',
-			), false);
-			// コンテンツデータセット
-			$this->sales_template->view_data["content"]->set('content_data', array(
-				'function_html'    => View::forge('salesfllow/function'),
-				'sales_list_html'  => View::forge('salesfllow/sales/list'),
-				'content_html'     => '',
-			), false);
-			// コンテンツデータセット
-			$this->sales_template->view_data["content"]->content_data['function_html']->set('content_data', array(
-				'sales_now'  => 'now',
-			), false);
 
-			//案件リスト取得
-			$sales_res = Model_Sales_Basis::sales_list_get($_COOKIE['user_data']['user_primary_id']);
-			// 案件リストHTML生成
-			$sales_list_html = Model_Sales_Html::sales_list_html_create($sales_res);
-			// コンテンツデータセット
-			$this->sales_template->view_data["content"]->content_data['sales_list_html']->set('content_data', array(
-				'sales_list_html'  => $sales_list_html,
-			), false);
-		} // if($token_check) {
-			// ログインしていない状態
-			else {
-				// CSSセット
-				$this->sales_template->view_data['import_css'] = View::forge('root/importcss');
-		
-				// コンテンツデータセット
-				$this->sales_template->view_data["content"]->set('content_data', array(
-					'recommend_html' => View::forge('root/lp'),
-				), false);
-			}
+
+
+
+
+
+
+		// コンテンツデータセット
+		$this->sales_template->view_data["content"]->set('content_data', array(
+			'function_html'   => View::forge('salesfllow/function'),
+			'sales_list_html' => View::forge('salesfllow/sales/list'),
+			'content_html'    => View::forge('salesfllow/sales/salescreate'),
+		), false);
+		// コンテンツデータセット
+		$this->sales_template->view_data["content"]->content_data['function_html']->set('content_data', array(
+			'sales_now'  => 'now',
+		), false);
+
+		//案件リスト取得
+		$sales_res = Model_Sales_Basis::sales_list_get($_COOKIE['user_data']['user_primary_id']);
+		// 案件リストHTML生成
+		$sales_list_html = Model_Sales_Html::sales_list_html_create($sales_res);
+		// コンテンツデータセット
+		$this->sales_template->view_data["content"]->content_data['sales_list_html']->set('content_data', array(
+			'sales_list_html'  => $sales_list_html,
+		), false);
+	}
+	/////////////////////
+	// 案件詳細アクション
+	/////////////////////
+	public function action_sales($sales_primary_id) {
+		// セールスresを取得
+		$sales_res = Model_Sales_Basis::sales_res_get($sales_primary_id);
+		// セールスHTML生成
+		$sales_html = Model_Sales_Html::sales_html_create($sales_res);
+		// コンテンツデータセット
+		$this->sales_template->view_data["content"]->set('content_data', array(
+			'function_html'   => View::forge('salesfllow/function'),
+			'sales_list_html' => View::forge('salesfllow/sales/list'),
+			'content_html'    => $sales_html,
+		), false);
+
+		// コンテンツデータセット
+		$this->sales_template->view_data["content"]->content_data['function_html']->set('content_data', array(
+			'sales_now'  => 'now',
+		), false);
+
+		//案件リスト取得
+		$sales_res = Model_Sales_Basis::sales_list_get($_COOKIE['user_data']['user_primary_id']);
+		// 案件リストHTML生成
+		$sales_list_html = Model_Sales_Html::sales_list_html_create($sales_res, $sales_primary_id);
+		// コンテンツデータセット
+		$this->sales_template->view_data["content"]->content_data['sales_list_html']->set('content_data', array(
+			'sales_list_html'  => $sales_list_html,
+		), false);
 	}
 
 
@@ -103,34 +151,23 @@ class Controller_Sales extends Controller_Sales_Template {
 
 
 
+	///////////////
+	// エラーページ
+	///////////////
+	public function action_404() {
+		$error_word = 'エラーページ';
+		// 404ステータスにする
+		$this->response_status                                      = 404;
+		$this->active_request->response->status                     = 404;
+		$this->active_request->controller_instance->response_status = 404;
 
+		// メタセット
+		$this->sales_template->view_data['meta'] = View::forge('404/meta');
 
-
-
-
-
-
-
-	/**
-	 * A typical "Hello, Bob!" type example.  This uses a Presenter to
-	 * show how to use them.
-	 *
-	 * @access  public
-	 * @return  Response
-	 */
-	public function action_hello()
-	{
-		return Response::forge(Presenter::forge('welcome/hello'));
+		// 記事コンテンツセット
+		$this->sales_template->view_data["content"]->set('content_data', array(
+			'content_html' => $error_word,
+		), false);
 	}
 
-	/**
-	 * The 404 action for the application.
-	 *
-	 * @access  public
-	 * @return  Response
-	 */
-	public function action_404()
-	{
-		return Response::forge(Presenter::forge('welcome/404'), 404);
-	}
 }
