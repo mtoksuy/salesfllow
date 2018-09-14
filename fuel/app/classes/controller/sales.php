@@ -67,26 +67,9 @@ class Controller_Sales extends Controller_Sales_Template {
 			// 案件作成
 			Model_Sales_Basis::sales_create($post);
 		}
-
-
-/*
-pre_var_dump(  strtotime('Wed Jul 04 2018 12:00:00 GMT+0900 (JST)') );
-
-//2018-08-19 00:10:06
-pre_var_dump(date('Y-m-d H:i:s', '1530673200'));
-*/
-
-
-
-
-
-
-
-
-
 		// コンテンツデータセット
 		$this->sales_template->view_data["content"]->set('content_data', array(
-			'function_html'   => View::forge('salesfllow/function'),
+			'function_html'   => View::forge('salesfllow/function2'),
 			'sales_list_html' => View::forge('salesfllow/sales/list'),
 			'content_html'    => View::forge('salesfllow/sales/salescreate'),
 		), false);
