@@ -68,13 +68,14 @@ class Controller_Sales extends Controller_Sales_Template {
 			Model_Sales_Basis::sales_create($post);
 		}
 
-$time_start = microtime(true);
 
 
 
-		Model_Sales_Basis::sales_nest_type_1_list_get((int)$_COOKIE['user_data']['user_primary_id']);
-$time = microtime(true) - $time_start;
-//echo "{$time} 秒";
+
+		$time_start = microtime(true);
+		$function_html = Model_Sales_Basis::sales_nest_type_3_list_get((int)$_COOKIE['user_data']['user_primary_id']);
+		$time = microtime(true) - $time_start;
+		echo "{$time} 秒";
 
 
 
@@ -87,7 +88,8 @@ $time = microtime(true) - $time_start;
 		), false);
 		// コンテンツデータセット
 		$this->sales_template->view_data["content"]->content_data['function_html']->set('content_data', array(
-			'sales_now'  => 'now',
+			'sales_now'     => 'now',
+			'function_html' => $function_html,
 		), false);
 
 		//案件リスト取得

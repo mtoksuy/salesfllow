@@ -1,5 +1,49 @@
 @charset "UTF-8";
 
+
+/*********
+機能ページ
+*********/
+.function {
+	width: 160px;
+	background-color: #F8F8FA;
+	height: 100%;
+	height: 610px;
+	float: left;
+}
+.function .function_inner {
+
+}
+.function .function_inner ul {
+/*
+	list-style: none;
+*/
+	margin: 0;
+	padding: 0 0 0 15px;
+}
+.function .function_inner ul li {
+	margin: 0;
+}
+.function .function_inner ul li.now {
+	background-color: #369FDD;
+}
+.function .function_inner ul li.now a {
+	color: #FFFFFF;
+}
+.function .function_inner ul li.now a:hover {
+	background-color: #369FDD;
+}
+
+.function .function_inner ul li a {
+	display: block;
+	padding: 15px;
+	color: #72777B;
+}
+.function .function_inner ul li a:hover {
+	background-color: #F2F2F4;
+}
+
+
 /*********
 案件リスト
 *********/

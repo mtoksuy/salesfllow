@@ -614,6 +614,216 @@ $result = preg_grep('/\./', $user_note_node_array);
 
 
 	}
+	//------------------------
+	//ネスト型の案件リスト取得
+	//------------------------
+	public static function sales_nest_type_3_list_get($user_primary_id) {
+		/////////////////////////////////
+		// note_node_primary_idリスト取得
+		/////////////////////////////////
+		$note_node_primary_id_list_word = '';
+		$sales_note_res = DB::query("SELECT distinct note
+		FROM sales
+		WHERE user_primary_id = ".$user_primary_id."
+		AND del = 0
+		")->execute();
+		foreach($sales_note_res as $sales_note_res_key => $sales_note_res_value) {
+			$note_node_primary_id_list_word = $note_node_primary_id_list_word.$sales_note_res_value['note'].',';
+		}
+		$note_node_primary_id_list_word = rtrim($note_node_primary_id_list_word, ',');
+		if($note_node_primary_id_list_word) {
+			// 親ノードから見て子ノード一覧取得
+			$note_node_child_check_res = DB::query("
+				SELECT
+				parent.primary_id AS parent, parent.name parent_name,
+				child.primary_id AS child, child.name AS child_name
+				FROM note_node AS parent LEFT JOIN note_node AS child
+				ON parent.path = (SELECT MAX(path) 
+				FROM note_node 
+				WHERE note_node.user_primary_id = ".$user_primary_id."
+				AND child.path LIKE CONCAT(path,'_%'))")->execute();
+
+			$node_1_res = DB::query("SELECT *
+			FROM note_node
+			WHERE primary_id IN(".$note_node_primary_id_list_word.")
+			ORDER BY name  ASC")->execute();
+			$note_node_list_array_num = 0;
+			foreach($node_1_res as $node_1_res_key => $node_1_res_value) {
+				$pattern = '/[0-9]+/';
+				preg_match_all($pattern, $node_1_res_value['path'], $node_1_res_value_array);
+				foreach($node_1_res_value_array[0] as $node_1_res_value_array_key => $node_1_res_value_array_value) {
+					$note_node_list_array[$note_node_list_array_num] = (int)$node_1_res_value_array_value;
+					$note_node_list_array_num++;
+				}
+			}
+			$note_node_list_array_unique = array_unique($note_node_list_array);
+			$note_node_list_array        = array_values($note_node_list_array_unique);		
+			foreach($note_node_list_array as $note_node_list_array_kye => $note_node_list_array_value) {
+				$note_node_list_word = $note_node_list_word.$note_node_list_array_value.',';
+			}
+			$note_node_list_word = rtrim($note_node_list_word, ',');
+			//
+			//
+			//
+			$note_node_big_parent_res = DB::query("SELECT *
+			FROM note_node
+			WHERE primary_id IN(".$note_node_list_word.")
+			ORDER BY name  ASC")->execute();
+			foreach($note_node_big_parent_res as $note_node_big_parent_res_key => $note_node_big_parent_res_value) {
+				$user_note_node_array[$note_node_big_parent_res_key]['primary_id']      = (int)$note_node_big_parent_res_value['primary_id'];
+				$user_note_node_array[$note_node_big_parent_res_key]['user_primary_id'] = (int)$note_node_big_parent_res_value['user_primary_id'];
+				$user_note_node_array[$note_node_big_parent_res_key]['name']            = $note_node_big_parent_res_value['name'];
+				$user_note_node_array[$note_node_big_parent_res_key]['path']            = $note_node_big_parent_res_value['path'];
+				$pattern = '/\./';
+				preg_match_all($pattern, $note_node_big_parent_res_value['path'], $note_node_big_parent_res_value_array);
+				$level_count = (count($note_node_big_parent_res_value_array[0])) - 1;
+				$user_note_node_array[$note_node_big_parent_res_key]['level'] = $level_count;
+				if($level_count >= 2) {
+					$pattern = '/([0-9]+)\.([0-9]+)\.$/';
+					preg_match($pattern, $note_node_big_parent_res_value['path'], $parent_check_array);
+					$user_note_node_array[$note_node_big_parent_res_key]['parent'] = (int)$parent_check_array[1];
+				}
+					else {
+						$user_note_node_array[$note_node_big_parent_res_key]['parent'] = null;
+					}
+				foreach($note_node_child_check_res as $note_node_child_check_res_key => $note_node_child_check_res_value) {
+					if((int)$note_node_big_parent_res_value['primary_id'] === (int)$note_node_child_check_res_value['parent'] && $note_node_child_check_res_value['child'] != NULL) {
+						$user_note_node_array[$note_node_big_parent_res_key]['child'][] = (int)$note_node_child_check_res_value['child'];
+					}
+						else {
+
+						}
+				} // foreach($note_node_child_check_res as $note_node_child_check_res_key => $note_node_child_check_res_value) {
+			} // foreach($note_node_big_parent_res as $note_node_big_parent_res_key => $note_node_big_parent_res_value) {
+		} // if($note_node_primary_id_list_word) {
+			else {
+				return false;
+			}
+
+
+
+//pre_var_dump($user_note_node_array);
+$arr =
+	[
+	  ['primary_id' => 1, 'name' => 'ノート_1', 'path' => '.1.', 'level' => 1, 'parent' => null, 'child' => [2,3]],
+	  ['primary_id' => 2, 'name' => 'ノート_1_1', 'path' => '.1.2.', 'level' => 2, 'parent' => null, 'child' => []],
+	  ['primary_id' => 3, 'name' => 'ノート_1_2', 'path' => '.1.3.', 'level' => 2, 'parent' => null, 'child' => []],
+	  ['primary_id' => 4, 'name' => 'ノート_2', 'path' => '.4.', 'level' => 1, 'parent' => null, 'child' => []],
+	  ['primary_id' => 5, 'name' => 'ノート_3', 'path' => '.5.', 'level' => 1, 'parent' => null, 'child' => []],
+	  ['primary_id' => 6, 'name' => 'ノート_4', 'path' => '.5.', 'level' => 1, 'parent' => null, 'child' => []],
+	  ['primary_id' => 7, 'name' => 'ノート_55', 'path' => '.5.', 'level' => 1, 'parent' => null, 'child' => [8,9,10]],
+	  ['primary_id' => 8, 'name' => 'ノート_5', 'path' => '.5.', 'level' => 1, 'parent' => null, 'child' => []],
+	  ['primary_id' => 9, 'name' => 'ノート_5', 'path' => '.5.', 'level' => 1, 'parent' => null, 'child' => []],
+	  ['primary_id' => 10, 'name' => 'ノート_5です', 'path' => '.5.', 'level' => 1, 'parent' => null, 'child' => [11]],
+	  ['primary_id' => 11, 'name' => 'ノート_5お', 'path' => '.5.', 'level' => 1, 'parent' => null, 'child' => []],
+	];
+$arr =
+	[
+	  ['primary_id' => 1, 'name' => 'ノート_1', 'path' => '.1.', 'level' => 1, 'parent' => null, 'child' => [2]],
+	  ['primary_id' => 2, 'name' => 'ノート_1_1', 'path' => '.1.2.', 'level' => 2, 'parent' => null, 'child' => [3]],
+	  ['primary_id' => 3, 'name' => 'ノート_1_1_1', 'path' => '.1.2.3.', 'level' => 3, 'parent' => null, 'child' => []],
+	];
+
+//pre_var_dump($arr);
+
+//////////
+//差し替え
+//////////
+$arr = $user_note_node_array;
+//pre_var_dump($arr);
+////////////
+//検索の仕方
+////////////
+$array_search_key = array_search(3, array_column($arr, 'primary_id'));
+		///////////////////////////////////
+		//ソート ここで名前別のソートを行う
+		///////////////////////////////////
+		foreach($arr as $key => $value) {
+			$sort[$key] = $value['name'];
+		}
+		array_multisort($sort, SORT_ASC, $arr);
+//		pre_var_dump($sort);
+	/////////////////////////////////////
+	//$level_array_〜作成   階層別のarray
+	/////////////////////////////////////
+	$max_level   = 3;
+	$start_level = 1;
+	for($max_level; $max_level > 0; $max_level--) {
+		foreach($arr as $key => $value) {
+			if($start_level == $value['level']) {
+//				pre_var_dump($value);
+				${'level_array_'.$start_level}[] = $value;
+			}
+		}
+		$start_level++;
+	}
+//pre_var_dump($level_array_1);
+	////////////////////////////
+	//
+	////////////////////////////
+
+
+//pre_var_dump($level_array_1);
+	/////////////////////
+	//$note_node_html作成
+	/////////////////////
+	foreach($level_array_1 as $level_array_key => $level_array_value) {
+		// 1世代のHTML記述
+		// 最初の処理 ulを始まり
+    if ($level_array_value === reset($level_array_1)) {
+			$note_node_html = '<ul>';
+    }
+		// 1世代のli始まり
+		$note_node_html = $note_node_html.'<li primary_id-data="'.$level_array_value['primary_id'].'" path-data="'.$level_array_value['path'].'"><a href="">'.$level_array_value['name'].'</a>';
+		// もし子供がいた場合(2世代検索) ///////////////////////////////
+		foreach($level_array_value['child'] as $level_2_child_key => $level_2_child_value) {
+			// 最初の処理 ulを始まり
+	    if ($level_2_child_value === reset($level_array_value['child'])) {
+				$note_node_html = $note_node_html.'<ul>';
+	    }
+			// array検索
+			$array_search_key_2 = array_search((int)$level_2_child_value, array_column($arr, 'primary_id'));
+			// 2世代のli始まり
+			$note_node_html = $note_node_html.'
+<li primary_id-data="'.$arr[$array_search_key_2]['primary_id'].'" path-data="'.$arr[$array_search_key_2]['path'].'"><a href="">'.$arr[$array_search_key_2]['name'].'</a>';
+				// もし子供がいた場合(3世代検索) ////////////////////////
+				foreach($arr[$array_search_key_2]['child'] as $level_3_child_key => $level_3_child_value) {
+					// 最初の処理 ulを始まり
+			    if ($level_3_child_value === reset($arr[$array_search_key_2]['child'])) {
+						$note_node_html = $note_node_html.'<ul>';
+			    }
+					// array検索
+					$array_search_key_3 = array_search((int)$level_3_child_value, array_column($arr, 'primary_id'));
+					// 3世代のli始まり
+					$note_node_html = $note_node_html.'
+		<li primary_id-data="'.$arr[$array_search_key_3]['primary_id'].'" path-data="'.$arr[$array_search_key_3]['path'].'"><a href="">'.$arr[$array_search_key_3]['name'].'</a>';
+					// 3世代のli閉じる
+					$note_node_html = $note_node_html.'</li>';
+					// 最後の処理 ulを閉じる
+			    if ($level_3_child_value === end($arr[$array_search_key_2]['child'])) {
+						$note_node_html = $note_node_html.'</ul>';
+			    }
+				} ///////////33333333333333333333////////////////////////
+			// 2世代のli閉じる
+			$note_node_html = $note_node_html.'</li>';
+			// 最後の処理 ulを閉じる
+	    if ($level_2_child_value === end($level_array_value['child'])) {
+				$note_node_html = $note_node_html.'</ul>';
+	    }
+		} //////////22222222222222////////////////////////////////
+		// 1世代のli閉じる
+		$note_node_html = $note_node_html.'</li>
+';
+		// 1世代のHTML記述
+		// 最後の処理 ulを閉じる
+    if ($level_array_value === end($level_array_1)) {
+			$note_node_html = $note_node_html.'</ul>';
+    }
+	} // foreach($level_array_1 as $level_array_key => $level_array_value) {
+//	var_dump($note_node_html);
+	$function_html = $note_node_html;
+	return $function_html;
+	}
 
 
 
