@@ -301,7 +301,266 @@ class Model_Sales_Basis extends Model {
 	//------------------------
 	//ネスト型の案件リスト取得
 	//------------------------
-	public static function sales_nest_type_list_get($user_primary_id) {
+	public static function sales_nest_type_1_list_get($user_primary_id) {
+		//
+		// note_node_primary_idリスト取得
+		//
+		$note_node_primary_id_list_word = '';
+		$sales_note_res = DB::query("SELECT distinct note
+		FROM sales
+		WHERE user_primary_id = ".$user_primary_id."
+		AND del = 0
+		")->execute();
+		foreach($sales_note_res as $sales_note_res_key => $sales_note_res_value) {
+			$note_node_primary_id_list_word = $note_node_primary_id_list_word.$sales_note_res_value['note'].',';
+		}
+		$note_node_primary_id_list_word = rtrim($note_node_primary_id_list_word, ',');
+		//
+		// 大親取得
+		//
+		$node_1_res = DB::query("SELECT *
+		FROM note_node
+		WHERE primary_id IN(".$note_node_primary_id_list_word.")
+		ORDER BY name  ASC")->execute();
+		$user_note_node_master_array   = array();
+		$user_note_node_array          = array();
+		$note_node_list_array          = array();
+		$note_node_list_parent_array   = array();
+		$note_node_list_test_array     = array();
+		$note_node_list_array_num      = 0;
+		$note_node_list_test_array_num = 0;
+		$note_node_list_word           = '';
+		$note_node_parent_list_word    = '';
+
+/*
+もう一度
+仕組みの流れ
+
+セールスからnote_idを取得し、
+そのnote_nodeを取得
+
+取得したnote_node_idのpathを全て取得し
+note_node_idのarrayとwordを作成する
+
+wordで全てのnote_node_idの情報をarray化する
+
+階層ずつでソートして行きながら、先に取得したarrayの情報を入れ込んでソートしているarrayを作成
+
+*/
+//$note_node_list_test_array[0] = 1
+//var_dump($note_node_list_test_array);
+		//
+		// 
+		//
+		foreach($node_1_res as $node_1_res_key => $node_1_res_value) {
+//			pre_var_dump($node_1_res_value);
+//			pre_var_dump($node_1_res_value['path']);
+			//
+			//$note_node_list_array作成
+			//
+			$node_1_res_value_path  = $node_1_res_value['path'];
+			$node_1_res_value_count = mb_substr_count($node_1_res_value['path'], '.');
+			// 存在するnote_node_idを取得(array)
+			$pattern = '/[0-9]+/';
+			preg_match_all($pattern, $node_1_res_value['path'], $node_1_res_value_array);
+			foreach($node_1_res_value_array[0] as $node_1_res_value_array_key => $node_1_res_value_array_value) {
+				$note_node_list_array[$note_node_list_array_num] = (int)$node_1_res_value_array_value;
+				$note_node_list_array_num++;
+			}
+			// 
+			// 大親取得
+			//
+			$pattern = '/[0-9]+/';
+			preg_match($pattern, $node_1_res_value['path'], $node_1_res_value_array);
+			$note_node_list_parent_array[$node_1_res_key] = $node_1_res_value_array[0];
+// for
+/*
+			// 階層分掘る
+			for($node_1_res_value_count; $node_1_res_value_count > 1; $node_1_res_value_count--) {
+				$pattern_1 = '/^\.[0-9]+\./';
+				$pattern_2 = '/^\.[0-9]+/';
+				preg_match($pattern_1, $node_1_res_value_path, $node_1_res_value_path_array);
+				$node_1_res_value_path = preg_replace($pattern_2, '', $node_1_res_value_path);
+
+ここで階層別のarryを作成する
+				pre_var_dump($node_1_res_value_path_array[0]);
+				pre_var_dump($node_1_res_value_path);
+				pre_var_dump('-----------');
+				$note_node_list_test_array[$note_node_list_test_array_num];
+			} // for
+*/
+		} // foreach($node_1_res as $node_1_res_key => $node_1_res_value) {
+		// 全体のarray
+		$note_node_list_array_unique = array_unique($note_node_list_array);
+		$note_node_list_array        = array_values($note_node_list_array_unique);
+		// 重要
+//		pre_var_dump($note_node_list_array);
+		// 大親のarray
+		$note_node_list_parent_array_unique = array_unique($note_node_list_parent_array);
+		$note_node_list_parent_array        = array_values($note_node_list_parent_array_unique);
+//		pre_var_dump($note_node_list_parent_array);
+		//
+		//$note_node_list_word作成 
+		//
+		foreach($note_node_list_array as $note_node_list_array_kye => $note_node_list_array_value) {
+//			pre_var_dump($note_node_list_array_value);
+			$note_node_list_word = $note_node_list_word.$note_node_list_array_value.',';
+		}
+		$note_node_list_word = rtrim($note_node_list_word, ',');
+//		pre_var_dump($note_node_list_word);
+		//
+		//$user_note_node_array作成
+		//
+		$note_node_list_word_res = DB::query("
+		SELECT
+		primary_id,CONCAT(REPEAT('\t',LENGTH(path) - LENGTH(REPLACE(path,'.',''))-2),name) as name,path
+		FROM note_node 
+		WHERE primary_id IN(".$note_node_list_word.")
+		ORDER BY path
+		")->execute();
+		foreach($note_node_list_word_res as $note_node_list_word_res_key => $note_node_list_word_res_value) {
+			$user_note_node_array[$note_node_list_word_res_key]['primary_id'] = (int)$note_node_list_word_res_value['primary_id'];
+			$user_note_node_array[$note_node_list_word_res_key]['name']       = $note_node_list_word_res_value['name'];
+			$user_note_node_array[$note_node_list_word_res_key]['path']       = $note_node_list_word_res_value['path'];
+		}
+		//////////////////////////////////
+		//$user_note_node_master_array作成
+		//////////////////////////////////
+		$$note_node_list_parent_array_num = 0;
+		foreach($note_node_list_parent_array as $note_node_list_parent_array_key => $note_node_list_parent_array_value) {
+//			pre_var_dump($note_node_list_parent_array_value);
+			$array_search_key              = array_search((int)$note_node_list_parent_array_value, array_column($user_note_node_array, 'primary_id'));
+			// 第1層
+// 下記でmaster使用 			$user_note_node_master_array[] = $user_note_node_array[$array_search_key];
+			// 第2層〜
+			$pattern = '/^\.'.(int)$note_node_list_parent_array_value.'\.[0-9]+\./';
+//.1.2."
+			foreach($user_note_node_array as $user_note_node_array_key => $user_note_node_array_value) {
+//				pre_var_dump($user_note_node_array_value['path']);
+				preg_match($pattern, $user_note_node_array_value['path'], $user_note_node_array_value_path_array);
+//				pre_var_dump($user_note_node_array_value_path_array[0]);
+			}
+			foreach($user_note_node_array as $user_note_node_array_key => $user_note_node_array_value) {
+//				pre_var_dump($user_note_node_array_value);
+			}
+//var_dump('---------');
+
+//			preg_match($pattern, );
+
+
+
+			///////////////////////////////////
+//			pre_var_dump($note_node_list_parent_array_value);
+			$note_node_parent_list_word = $note_node_parent_list_word.$note_node_list_parent_array_value.',';
+		}
+		//
+		//
+		//
+		foreach($user_note_node_array as $user_note_node_array_key => $user_note_node_array_value) {
+//			pre_var_dump($user_note_node_array_key);
+//			pre_var_dump($user_note_node_array_value);
+			// 第1層
+			$pattern = '/^\.[0-9]+\.$/';
+			preg_match($pattern, $user_note_node_array_value['path'], $user_note_node_array_value_path_array_1);
+//			pre_var_dump($user_note_node_array_value_path_array_1[0]);
+			if($user_note_node_array_value_path_array_1[0]) {
+//				pre_var_dump($user_note_node_array_value_1);
+				$user_note_node_master_array[] = $user_note_node_array_value;
+			}
+			// 第2層〜
+			$pattern = '/^\.[0-9]+\.[0-9]+\./';
+			preg_match($pattern, $user_note_node_array_value['path'], $user_note_node_array_value_path_array_2);
+//			pre_var_dump($user_note_node_array_value['path']);
+//			pre_var_dump($user_note_node_array_value_path_array_2[0]);
+//			pre_var_dump($user_note_node_array_key);
+//var_dump('------');
+
+
+
+
+
+
+
+
+
+
+		}
+//pre_var_dump($user_note_node_master_array);
+
+
+/*
+$user_note_node_master_array[0]['子供'] = 2;
+$user_note_node_master_array[0][] = array(
+'primary_id' => 4214,
+'name' => '名前',
+'path' => '.',);
+$user_note_node_master_array[0][] = array(
+'primary_id' => 4214,
+'name' => '名前',
+'path' => '.',);
+pre_var_dump($user_note_node_master_array[0]);
+*/
+
+
+
+
+
+
+//pre_var_dump($user_note_node_array);
+
+$result = preg_grep('/\./', $user_note_node_array);
+//pre_var_dump($result);
+
+
+
+
+
+
+		//
+		//ソート
+		//
+		foreach($user_note_node_master_array as $key => $value) {
+			$sort[$key] = $value['name'];
+		}
+		array_multisort($sort, SORT_ASC, $user_note_node_master_array);
+		//pre_var_dump($user_note_node_master_array);
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+		$note_node_parent_list_word = rtrim($note_node_parent_list_word, ',');
+		// 大親をソートで取得
+		$note_node_parent_sord_res = DB::query("
+			SELECT *
+			FROM note_node
+			WHERE primary_id IN(".$note_node_parent_list_word.")
+			ORDER BY name  ASC
+		")->execute();
+*/
+
+
+
+
+
+
+
+
+	}
+	//------------------------
+	//ネスト型の案件リスト取得
+	//------------------------
+	public static function sales_nest_type_2_list_get($user_primary_id) {
 		// 1
 		$sales_note_res = DB::query("SELECT distinct note
 		FROM sales

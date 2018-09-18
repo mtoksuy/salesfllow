@@ -67,6 +67,18 @@ class Controller_Sales extends Controller_Sales_Template {
 			// 案件作成
 			Model_Sales_Basis::sales_create($post);
 		}
+
+$time_start = microtime(true);
+
+
+
+		Model_Sales_Basis::sales_nest_type_1_list_get((int)$_COOKIE['user_data']['user_primary_id']);
+$time = microtime(true) - $time_start;
+//echo "{$time} 秒";
+
+
+
+
 		// コンテンツデータセット
 		$this->sales_template->view_data["content"]->set('content_data', array(
 			'function_html'   => View::forge('salesfllow/function2'),
