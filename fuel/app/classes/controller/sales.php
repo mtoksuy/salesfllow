@@ -73,23 +73,23 @@ class Controller_Sales extends Controller_Sales_Template {
 
 
 		$time_start = microtime(true);
-		$function_html = Model_Sales_Basis::sales_nest_type_3_list_get((int)$_COOKIE['user_data']['user_primary_id']);
+		$folder_html = Model_Sales_Basis::sales_nest_type_3_list_get((int)$_COOKIE['user_data']['user_primary_id']);
 		$time = microtime(true) - $time_start;
-		echo "{$time} 秒";
+//		echo "{$time} 秒";
 
 
 
 
 		// コンテンツデータセット
 		$this->sales_template->view_data["content"]->set('content_data', array(
-			'function_html'   => View::forge('salesfllow/function2'),
+			'folder_html'     => View::forge('salesfllow/sales/folder'),
 			'sales_list_html' => View::forge('salesfllow/sales/list'),
 			'content_html'    => View::forge('salesfllow/sales/salescreate'),
 		), false);
 		// コンテンツデータセット
-		$this->sales_template->view_data["content"]->content_data['function_html']->set('content_data', array(
-			'sales_now'     => 'now',
-			'function_html' => $function_html,
+		$this->sales_template->view_data["content"]->content_data['folder_html']->set('content_data', array(
+			'sales_now'   => 'now',
+			'folder_html' => $folder_html,
 		), false);
 
 		//案件リスト取得

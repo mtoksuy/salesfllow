@@ -15,7 +15,6 @@ class Model_Sales_Basis extends Model {
 	public static function sales_create($post) {
 		// 現在の時間表記を取得
 		$now_date = Model_Info_Basis::now_date_get();
-//		pre_var_dump($post['note']);
 		// 文頭
 		$pattern = '/^\//';
 		preg_match($pattern, $post['note'], $test_array);
@@ -28,7 +27,6 @@ class Model_Sales_Basis extends Model {
 		if($test_array != true) {
 			$post['note'] = $post['note'].'/';
 		}
-		//pre_var_dump($post['note']);
 		// 分解
 		$pattern = '/\/(.+?)\//';
 		$pattern = '/\/(案件|初めての)\//';
@@ -39,15 +37,12 @@ class Model_Sales_Basis extends Model {
 		foreach($note_preg_match_all_array[0] as $key => $value) {
 			$pattern = '/\//';
 			$note_array[$key] = preg_replace($pattern, '', $value);
-		}
-		//pre_var_dump($note_array);
-		
+		}		
 		// ノートの順番に制御
 		$note_num        = 1;
 		$node_primary_id = 0;
 		$node_path       = '';
 		foreach($note_array as $note_array_key => $note_array_value) {
-//var_dump($note_array_value);
 			// 1番目のノート
 			if($note_num == 1) {
 				// ノートがあるかどうかを検索
@@ -93,37 +88,68 @@ class Model_Sales_Basis extends Model {
 				/////////////////////////////
 				// ノートがネストしている場合
 				/////////////////////////////
-				else if($note_num > 1) {
+				else if($note_num == 2) {
 					// ノートがあるかどうかを検索
 					$note_next_res = DB::query("
 						SELECT * 
 						FROM note_node
 						WHERE user_primary_id = ".(int)$_COOKIE['user_data']['user_primary_id']." 
-						AND name  LIKE '".$note_array_value."'")->execute();
+						AND name LIKE '".$note_array_value."'")->execute();
 					$note_next_res_check = false;
 					foreach($note_next_res as $note_next_res_key => $note_next_res_value) {
-/*
-						pre_var_dump($note_next_res_value['path']);
-						pre_var_dump($node_path);
-						pre_var_dump($node_primary_id);
-*/
 						$pattern = "/^".$node_path."/";
 						if(preg_match($pattern, $note_next_res_value['path'], $nest_true_array)) {
 							if(mb_substr_count($note_next_res_value['path'], '.') == $note_num+1) {
 								$note_next_res_check = true;
-								$node_primary_id     = (int)$note_next_res_value['primary_id'];						
+								$node_primary_id     = (int)$note_next_res_value['primary_id'];
+								$node_path           = $note_next_res_value['path'];
 							}
 						}
-/*
-						$nest_path_count = mb_substr_count($note_1_res_value['path'], '.');
-//						pre_var_dump($nest_path_count);
-
-						if( ($nest_path_count - $note_num) === 1) {
-							$note_next_res_check = true;
-							$node_primary_id = (int)$note_next_res_value['primary_id'];						
+					}  // foreach($note_next_res as $note_next_res_key => $note_next_res_value) {
+					// なかった場合
+					if(!$note_next_res_check) {
+						$note_4_res = DB::query("
+							INSERT INTO note_node (
+								user_primary_id,
+								name
+							)
+							VALUES (
+								".(int)$_COOKIE['user_data']['user_primary_id'].",
+								'".$note_array_value."'
+							)")->execute();
+						foreach($note_4_res as $note_4_res_key => $note_4_res_value) {
+							if($note_4_res_key == 0) {
+								$node_path = $node_path.$note_4_res_value.'.';
+								$note_5_res = DB::query("
+									UPDATE note_node 
+										SET path         = '".$node_path."',
+ 										parent           = '".$node_primary_id."'
+										WHERE primary_id = ".$note_4_res_value."")->execute();
+								$node_primary_id = (int)$note_4_res_value;
+							}
 						}
-*/
-					}
+					} // if(!$note_next_res_check)
+				} // else if($note_num > 1) {
+				//
+				//
+				//
+				else if($note_num == 3) {
+					// ノートがあるかどうかを検索
+					$note_next_res = DB::query("
+						SELECT * 
+						FROM note_node
+						WHERE user_primary_id = ".(int)$_COOKIE['user_data']['user_primary_id']." 
+						AND name LIKE '".$note_array_value."'")->execute();
+					$note_next_res_check = false;
+					foreach($note_next_res as $note_next_res_key => $note_next_res_value) {
+						$pattern = "/^".$node_path."/";
+						if(preg_match($pattern, $note_next_res_value['path'], $nest_true_array)) {
+							if(mb_substr_count($note_next_res_value['path'], '.') == $note_num+1) {
+								$note_next_res_check = true;
+								$node_primary_id     = (int)$note_next_res_value['primary_id'];
+							}
+						}
+					}  // foreach($note_next_res as $note_next_res_key => $note_next_res_value) {
 					// なかった場合
 					if(!$note_next_res_check) {
 						$note_4_res = DB::query("
@@ -151,6 +177,15 @@ class Model_Sales_Basis extends Model {
 			$note_num++;
 		//	$note_wording = $note_wording.$value.'.';
 		} // foreach($note_array as $note_array_key => $note_array_value) {
+
+
+
+
+
+
+
+
+
 
 
 

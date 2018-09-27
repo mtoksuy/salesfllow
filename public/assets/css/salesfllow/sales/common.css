@@ -4,44 +4,88 @@
 /*********
 機能ページ
 *********/
-.function {
+.folder {
 	width: 160px;
 	background-color: #F8F8FA;
 	height: 100%;
 	height: 610px;
 	float: left;
 }
-.function .function_inner {
+.folder .folder_inner {
 
 }
-.function .function_inner ul {
-/*
+.folder .folder_inner ul {
 	list-style: none;
-*/
 	margin: 0;
-	padding: 0 0 0 15px;
+	padding: 0 0 0;
+  -webkit-transition: all 0.5s;
+	-moz-transition: all 0.5s;
+	-ms-transition: all 0.5s;
+	-o-transition: all 0.5s;
+	transition: all 0.5s;
 }
-.function .function_inner ul li {
+.folder .folder_inner ul.hidden {
+  max-height: 0;
+  overflow-y: hidden;
+}
+.folder .folder_inner ul li {
 	margin: 0;
 }
-.function .function_inner ul li.now {
+.folder .folder_inner ul li.now {
 	background-color: #369FDD;
 }
-.function .function_inner ul li.now a {
+.folder .folder_inner ul li.now a {
 	color: #FFFFFF;
 }
-.function .function_inner ul li.now a:hover {
+.folder .folder_inner ul li.now a:hover {
 	background-color: #369FDD;
 }
+.folder .folder_inner ul li a::before {
+/*
+	content: url('http://localhost/salesfllow/assets/img/common/function_alow_side_3.png');
+*/
+/*
+	vertical-align: middle;
+	-webkit-transform: scale(0.6);
+	transform: scale(0.6);
+	display: inline-block;
+	position: relative;
+	top: -2px;
+	width: 24px;
+	height: 24px;
+	overflow: hidden;
+*/
+}
 
-.function .function_inner ul li a {
+
+.folder .folder_inner ul li a {
 	display: block;
-	padding: 15px;
+	position: relative;
+	padding: 5px 5px 5px 30px;
 	color: #72777B;
 }
-.function .function_inner ul li a:hover {
+.folder .folder_inner ul li a:hover {
 	background-color: #F2F2F4;
 }
+
+.folder .folder_inner ul li a .allow {
+display: inline-block;
+position: absolute;
+top: 9px;
+width: 15px;
+height: auto;
+overflow: hidden;
+left: 10px;
+}
+
+
+
+
+
+
+
+
+
 
 
 /*********

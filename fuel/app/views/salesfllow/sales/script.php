@@ -12,6 +12,9 @@
 			<script type="text/javascript" src="<?php echo HTTP; ?>assets/js/salesfllow/common.js"></script>
 			<script type="text/javascript" src="<?php echo HTTP; ?>assets/js/salesfllow/sales/common.js"></script>
 
+			<!-- 自作プラグイン -->
+			<script type="text/javascript" src="<?php echo HTTP; ?>assets/js/salesfllow/sales/folder.js"></script>
+
 			<?php 
 			if($_SERVER["HTTP_HOST"] == "localhost") {
 				
