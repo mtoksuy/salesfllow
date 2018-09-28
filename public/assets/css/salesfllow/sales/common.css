@@ -69,13 +69,22 @@
 }
 
 .folder .folder_inner ul li a .allow {
-display: inline-block;
-position: absolute;
-top: 9px;
-width: 15px;
-height: auto;
-overflow: hidden;
-left: 10px;
+	display: inline-block;
+	position: absolute;
+	top: 9px;
+	width: 15px;
+	height: auto;
+	overflow: hidden;
+	left: 10px;
+}
+.folder .folder_inner ul li a .allow_open {
+	display: inline-block;
+	position: absolute;
+	top: 12px;
+	width: 23px;
+	height: auto;
+	overflow: hidden;
+	left: 6px;
 }
 
 

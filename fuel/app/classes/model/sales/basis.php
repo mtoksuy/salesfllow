@@ -806,26 +806,39 @@ $array_search_key = array_search(3, array_column($arr, 'primary_id'));
 		// 1世代のHTML記述
 		// 最初の処理 ulを始まり
     if ($level_array_value === reset($level_array_1)) {
-			$note_node_html = '<ul>';
+			$note_node_html = '<ul level-data="1">';
     }
 		// 1世代のli始まり
-		$note_node_html = $note_node_html.'<li primary_id-data="'.$level_array_value['primary_id'].'" path-data="'.$level_array_value['path'].'"><a href="">'.$level_array_value['name'].'</a>';
+		$note_node_html = $note_node_html.'<li primary_id-data="'.$level_array_value['primary_id'].'" path-data="'.$level_array_value['path'].'"><a href=""><img class="allow" src="http://localhost/salesfllow/assets/img/common/function_alow_side_1.png">'.$level_array_value['name'].'</a>';
+
+//pre_var_dump($level_array_value['child']);
 		// もし子供がいた場合(2世代検索) ///////////////////////////////
 		foreach($level_array_value['child'] as $level_2_child_key => $level_2_child_value) {
+//pre_var_dump($level_2_child_value);
+
+//pre_var_dump($arr[$array_search_key_2]['child']);
+
 			// 最初の処理 ulを始まり
 	    if ($level_2_child_value === reset($level_array_value['child'])) {
-				$note_node_html = $note_node_html.'<ul>';
+				$note_node_html = $note_node_html.'<ul class="hidden" level-data="2">';
 	    }
 			// array検索
 			$array_search_key_2 = array_search((int)$level_2_child_value, array_column($arr, 'primary_id'));
+
+			// 2世代のli始まりに 使う allow
+			if($arr[$array_search_key_2]['child']) {
+				$allow_class_html = '<img class="allow" src="http://localhost/salesfllow/assets/img/common/function_alow_side_1.png">';
+			}
 			// 2世代のli始まり
 			$note_node_html = $note_node_html.'
-<li primary_id-data="'.$arr[$array_search_key_2]['primary_id'].'" path-data="'.$arr[$array_search_key_2]['path'].'"><a href="">'.$arr[$array_search_key_2]['name'].'</a>';
+<li primary_id-data="'.$arr[$array_search_key_2]['primary_id'].'" path-data="'.$arr[$array_search_key_2]['path'].'"><a href="">'.$allow_class_html.$arr[$array_search_key_2]['name'].'</a>';
+
+
 				// もし子供がいた場合(3世代検索) ////////////////////////
 				foreach($arr[$array_search_key_2]['child'] as $level_3_child_key => $level_3_child_value) {
 					// 最初の処理 ulを始まり
 			    if ($level_3_child_value === reset($arr[$array_search_key_2]['child'])) {
-						$note_node_html = $note_node_html.'<ul>';
+						$note_node_html = $note_node_html.'<ul class="hidden" level-data="3">';
 			    }
 					// array検索
 					$array_search_key_3 = array_search((int)$level_3_child_value, array_column($arr, 'primary_id'));

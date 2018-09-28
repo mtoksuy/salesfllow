@@ -3,18 +3,8 @@
 	<div class="folder_inner">
 <?php
 // 本番はこっち
-//	echo $content_data['folder_html'];
+	echo $content_data['folder_html'];
 ?>
-
-<!--
-・ul内のliにある primary_id-data を集めてリスト表示
-・
-参照array
-	  ['primary_id' => 1, 'name' => 'ノート_1_1_1', 'path' => '.1.', 'level' => 1, 'parent' => null, 'child' => [2]],
-	  ['primary_id' => 2, 'name' => '箱の中', 'path' => '.1.2.', 'level' => 2, 'parent' => 1, 'child' => [3]],
-	  ['primary_id' => 3, 'name' => '3段目', 'path' => '.1.2.3.', 'level' => 3, 'parent' => 2, 'child' => []],
--->
-
 
 		<ul level-data="1">
 			<li primary_id-data="1" path-data=".1.">
@@ -28,9 +18,16 @@
 							</li>
 						</ul>
 					</li>
+					<li primary_id-data="7" path-data=".1.7.">
+						<a href="">2箱の中</a>
+					</li>
 				</ul>
 			</li>
 		</ul>
+
+
+
+
 		<ul level-data="1">
 			<li primary_id-data="4" path-data=".4.">
 				<a href=""><img class="allow" src="http://localhost/salesfllow/assets/img/common/function_alow_side_1.png">下のノート</a>
