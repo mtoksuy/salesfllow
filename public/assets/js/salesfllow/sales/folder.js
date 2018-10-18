@@ -29,14 +29,13 @@ $(function() {
 			var parent_this    = $(this).parent('ul');
 			var this_child_ul  = $(this).closestOpposite('ul');
 			var this_li        = $(this);
-
 			// 
 			this_child_ul.each(function(i, elem) {
 					// 開ける
 					if(parent_this.attr('gate-data') != 'true') {
 						parent_this.attr('gate-data', 'true');
 						this_li.closestOpposite('a').find('img').attr('src', 'http://localhost/salesfllow/assets/img/common/function_alow_vertical_1.png');
-						this_li.closestOpposite('a').find('img').attr('class', 'allow_open');
+						this_li.closestOpposite('a').find('img').attr('class', 'allow_open allow_open_level_'+parent_this.attr('level-data')+'');
 						$(this).css( {
 							'max-height' : '300px',
 						});
@@ -45,7 +44,7 @@ $(function() {
 						else {
 							parent_this.attr('gate-data', 'false');
 							this_li.closestOpposite('a').find('img').attr('src', 'http://localhost/salesfllow/assets/img/common/function_alow_side_1.png');
-							this_li.closestOpposite('a').find('img').attr('class', 'allow');
+							this_li.closestOpposite('a').find('img').attr('class', 'allow allow_level_'+parent_this.attr('level-data')+'');
 							$(this).css( {
 								'max-height' : '0px',
 							});

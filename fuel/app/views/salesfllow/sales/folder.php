@@ -6,6 +6,7 @@
 	echo $content_data['folder_html'];
 ?>
 
+<!--
 		<ul level-data="1">
 			<li primary_id-data="1" path-data=".1.">
 				<a href=""><img class="allow" src="http://localhost/salesfllow/assets/img/common/function_alow_side_1.png">ノート</a>
@@ -44,7 +45,7 @@
 			</li>
 		</ul>
 
-
+-->
 
 
 

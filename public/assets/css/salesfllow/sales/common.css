@@ -18,11 +18,11 @@
 	list-style: none;
 	margin: 0;
 	padding: 0 0 0;
-  -webkit-transition: all 0.5s;
-	-moz-transition: all 0.5s;
-	-ms-transition: all 0.5s;
-	-o-transition: all 0.5s;
-	transition: all 0.5s;
+  -webkit-transition: all 0.3s;
+	-moz-transition: all 0.3s;
+	-ms-transition: all 0.3s;
+	-o-transition: all 0.3s;
+	transition: all 0.3s;
 }
 .folder .folder_inner ul.hidden {
   max-height: 0;
@@ -86,6 +86,25 @@
 	overflow: hidden;
 	left: 6px;
 }
+
+
+.folder .folder_inner ul li .level_2 {
+	padding: 5px 5px 5px 45px;
+}
+.folder .folder_inner ul li .level_3 {
+	padding: 5px 5px 5px 60px;
+}
+.folder .folder_inner ul li a .allow_level_2 {
+	left: 21px;
+}
+.folder .folder_inner ul li a .allow_open_level_2 {
+	left: 16px;
+}
+
+.folder .folder_inner ul li a .allow_level_3 {
+	left: 36px;
+}
+
 
 
 

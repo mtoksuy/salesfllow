@@ -77,8 +77,7 @@ class Controller_Sales extends Controller_Sales_Template {
 		$folder_html = Model_Sales_Basis::sales_nest_type_3_list_get((int)$_COOKIE['user_data']['user_primary_id']);
 		$time = microtime(true) - $time_start;
 //		echo "{$time} 秒";
-
-
+		$note_trash_list_res = Model_Sales_Basis::note_trash_list_get((int)$_COOKIE['user_data']['user_primary_id']);
 
 
 		// コンテンツデータセット

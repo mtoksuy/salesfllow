@@ -816,7 +816,6 @@ $array_search_key = array_search(3, array_column($arr, 'primary_id'));
 		foreach($level_array_value['child'] as $level_2_child_key => $level_2_child_value) {
 //pre_var_dump($level_2_child_value);
 
-//pre_var_dump($arr[$array_search_key_2]['child']);
 
 			// 最初の処理 ulを始まり
 	    if ($level_2_child_value === reset($level_array_value['child'])) {
@@ -825,13 +824,17 @@ $array_search_key = array_search(3, array_column($arr, 'primary_id'));
 			// array検索
 			$array_search_key_2 = array_search((int)$level_2_child_value, array_column($arr, 'primary_id'));
 
+//			pre_var_dump($arr[$array_search_key_2]['child']);
 			// 2世代のli始まりに 使う allow
 			if($arr[$array_search_key_2]['child']) {
-				$allow_class_html = '<img class="allow" src="http://localhost/salesfllow/assets/img/common/function_alow_side_1.png">';
+				$allow_class_html = '<img class="allow allow_level_2" src="http://localhost/salesfllow/assets/img/common/function_alow_side_1.png">';
 			}
+				else {
+					$allow_class_html = '';
+				}
 			// 2世代のli始まり
 			$note_node_html = $note_node_html.'
-<li primary_id-data="'.$arr[$array_search_key_2]['primary_id'].'" path-data="'.$arr[$array_search_key_2]['path'].'"><a href="">'.$allow_class_html.$arr[$array_search_key_2]['name'].'</a>';
+<li primary_id-data="'.$arr[$array_search_key_2]['primary_id'].'" path-data="'.$arr[$array_search_key_2]['path'].'"><a class="level_2" href="">'.$allow_class_html.$arr[$array_search_key_2]['name'].'</a>';
 
 
 				// もし子供がいた場合(3世代検索) ////////////////////////
@@ -844,7 +847,7 @@ $array_search_key = array_search(3, array_column($arr, 'primary_id'));
 					$array_search_key_3 = array_search((int)$level_3_child_value, array_column($arr, 'primary_id'));
 					// 3世代のli始まり
 					$note_node_html = $note_node_html.'
-		<li primary_id-data="'.$arr[$array_search_key_3]['primary_id'].'" path-data="'.$arr[$array_search_key_3]['path'].'"><a href="">'.$arr[$array_search_key_3]['name'].'</a>';
+		<li primary_id-data="'.$arr[$array_search_key_3]['primary_id'].'" path-data="'.$arr[$array_search_key_3]['path'].'"><a class="level_3" href="">'.$arr[$array_search_key_3]['name'].'</a>';
 					// 3世代のli閉じる
 					$note_node_html = $note_node_html.'</li>';
 					// 最後の処理 ulを閉じる
@@ -872,7 +875,17 @@ $array_search_key = array_search(3, array_column($arr, 'primary_id'));
 	$function_html = $note_node_html;
 	return $function_html;
 	}
-
+	//----------------------------
+	//ノートとゴミ箱のリストを取得
+	//----------------------------
+	public static function note_trash_list_get($user_primary_id) {
+		$res = DB::query("
+			SELECT *
+			FROM sales
+			WHERE user_primary_id = ".$user_primary_id."
+		")->execute();
+		return $res;
+	}
 
 
 
