@@ -12,6 +12,8 @@
 		<link rel="stylesheet" href="<?php echo HTTP; ?>assets/css/library/typicons.2.0.7/font/typicons.css" type="text/css">
 		<link rel="stylesheet" href="<?php echo Uri::base(); ?>assets/css/library/flickity.1.1.1/flickity.css" type="text/css" media="screen">
 		<link rel="stylesheet" href="<?php echo Uri::base(); ?>assets/js/library/flexslider.2/flexslider.css" type="text/css" media="screen">
+		<link rel="stylesheet" href="<?php echo Uri::base(); ?>assets/css/library/LigatureSymbols/style.css" type="text/css" media="screen">
+
 		<!-- import_css -->
 		<?php echo $view_data["import_css"]; ?>
 		<!-- icon -->

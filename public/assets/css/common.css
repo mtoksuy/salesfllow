@@ -16,7 +16,7 @@ wrapper
 }
 .header_inner {
 	border-bottom: 1px solid #e9e9e9;
-	margin: 0 30px;
+	padding: 0 30px;
 }
 .header_inner .logo {
    float: left;
@@ -37,6 +37,7 @@ wrapper
     list-style: outside none none;
     margin: 18px 18px 0 0;
     padding: 0;
+		position: relative;
 }
 .header_nav_list li {
    float: left;
@@ -49,6 +50,7 @@ wrapper
 .header_nav_list li.paling  {
     border: 1px solid #3f46ad;
     border-radius: 3px;
+    margin: -6px 0 0 30px;
     padding: 5px;
 }
 

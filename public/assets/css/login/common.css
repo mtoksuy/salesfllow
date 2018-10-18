@@ -1,0 +1,134 @@
+@charset "UTF-8";
+
+.login_content {
+   margin: 100px 0 0;
+}
+.login_content .login_content_inner {
+    margin: 0 auto;
+}
+
+
+
+
+/***********
+ログイン設定
+***********/
+.login_content {
+    bottom: 0;
+    height: 330px;
+    left: 0;
+    margin: auto;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 216px;
+}
+.login_form {
+
+}
+.input {
+    border: 1px solid #DADADA;
+    border-radius: 3px;
+    color: #3A3A3A;
+    font-size: 22px;
+    padding: 5px 7px;
+    width: 200px;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+}
+.login_button {
+    background-color: #599CFC;
+    border: 1px solid #4B8EFD;
+    border-radius: 3px;
+    color: #FCFCFC;
+    cursor: pointer;
+    float: right;
+    padding: 5px;
+    text-decoration: none;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+}
+.block {
+	margin: 0 0 15px;
+}
+.reissue_link {
+    float: left;
+    font-size: 82%;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/***************
+1024px以下の設定
+***************/
+@media screen and (min-width: 0px) and (max-width: 1024px) {
+
+}
+/***************
+1023px以下の設定
+***************/
+@media screen and (min-width: 0px) and (max-width: 1023px) {
+
+}
+/**************
+768px以下の設定
+**************/
+@media screen and (min-width: 0px) and (max-width: 768px) {
+
+}
+/**************
+720px以下の設定
+**************/
+@media screen and (min-width: 0px) and (max-width: 720px) {
+
+}
+/**************
+640px以下の設定
+**************/
+@media screen and (min-width: 0px) and (max-width: 640px) {
+
+}
+/**************
+620px以下の設定
+**************/
+@media screen and (min-width: 0px) and (max-width: 620px) {
+}
+/**************
+568px以下の設定
+**************/
+@media screen and (min-width: 0px) and (max-width: 568px) {
+
+}
+/**************
+480px以下の設定
+**************/
+@media screen and (min-width: 0px) and (max-width: 480px) {
+
+}
+/**************
+360px以下の設定
+**************/
+@media screen and (min-width: 0px) and (max-width: 360px) {
+
+}
+/**************
+320px以下の設定
+**************/
+@media screen and (min-width: 0px) and (max-width: 320px) {
+
+}

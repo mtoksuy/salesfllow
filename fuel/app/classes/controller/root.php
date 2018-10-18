@@ -26,13 +26,59 @@ class Controller_Root extends Controller_Basic_Template {
 	}
 	// 基本アクション
 	public function action_index() {
-		// CSSセット
-		$this->basic_template->view_data['import_css'] = View::forge('root/importcss');
+		// トークン確認
+		$token_check = Model_Login_Basis::token_check($_COOKIE['user_data']['email'], $_COOKIE['user_data']['salesfllow_login_token']);
+		if($token_check) {
+			// ヘッダーセット
+			$this->basic_template->view_data['header'] = View::forge('salesfllow/header');
+			// CSSセット
+			$this->basic_template->view_data['import_css'] = View::forge('salesfllow/importcss');
+			//JSセット
+			$this->basic_template->view_data['script'] = View::forge('salesfllow/script');
 
-		// コンテンツデータセット
-		$this->basic_template->view_data["content"]->set('content_data', array(
-			'recommend_html' => View::forge('root/lp'),
-		), false);
+	
+
+			// コンテンツデータセット
+			$this->basic_template->view_data["header"]->set('content_data', array(
+				'content_html' => 'afafds',
+			), false);
+
+			// コンテンツデータセット
+			$this->basic_template->view_data["content"]->set('content_data', array(
+				'function_html' => View::forge('salesfllow/function'),
+				'content_html'  => '',
+			), false);
+
+			// コンテンツデータセット
+			$this->basic_template->view_data["content"]->content_data['function_html']->set('content_data', array(
+				'dash_bord_now'  => 'now',
+			), false);
+		} // if($token_check) {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+			else {
+				// CSSセット
+				$this->basic_template->view_data['import_css'] = View::forge('root/importcss');
+		
+				// コンテンツデータセット
+				$this->basic_template->view_data["content"]->set('content_data', array(
+					'content_html' => View::forge('root/lp'),
+				), false);
+			}
 	}
 
 

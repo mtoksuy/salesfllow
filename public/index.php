@@ -40,7 +40,7 @@ if(preg_match('/localhost/',$_SERVER["HTTP_HOST"])) {
 	define('HTTP', 'http://localhost/salesfllow/');
 	define('PATH', '/Volumes/2016_ssd_media'.$_SERVER["DOCUMENT_ROOT"].'/salesfllow/');
 	define('INTERNAL_PATH', str_replace('salesfllow/', '', PATH).'fuelphp/salesfllow/');
-	define('TITLE', 'Salesfllow -営業の進捗を管理して業績アップを-');
+	define('TITLE', '営業の進捗をサポート。営業における生産性を最適化するなら、Salesfllow');
 	define('META_KEYWORDS', '');
 	define('META_DESCRIPTION', '');
 	define('TWITTER_ID', '');
@@ -79,6 +79,9 @@ if(! preg_match("/\/$/", $_SERVER['REQUEST_URI']) ) {
 }
 
 
+//
+//クッキーログイン
+//
 
 
 

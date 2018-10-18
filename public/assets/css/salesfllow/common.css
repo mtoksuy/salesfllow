@@ -1,0 +1,225 @@
+@charset "UTF-8";
+
+/********
+ヘッダー
+********/
+.header {
+
+}
+.header_inner {
+
+}
+.header_inner .header_nav_list {
+
+}
+.header_inner .header_nav_list li {
+	position: relative;
+}
+
+.header_inner .header_nav_list li a {
+
+}
+.header_inner .header_nav_list li a img {
+	display: block;
+	position: relative;
+	top: -9px;
+}
+/*************
+ドロップダウン
+*************/
+.dropdown_header {
+	display:none;
+	background-color: #FCFCFC;
+	border: 1px solid #E7E7E7;
+	border-radius: 2px;
+	margin: 13px 0 0;
+	left: -272px;
+	padding: 5px;
+	position: absolute;
+	width: 231px;
+	top: 40px;
+	z-index: 1;
+}
+.dropdown_header::before,
+.dropdown_header::after {
+  bottom: 100%;
+  right: 24px;
+  border: solid transparent;
+  content: " ";
+  height: 0;
+  width: 0;
+  position: absolute;
+}
+.dropdown_header::before {
+  border-color: rgba(194, 225, 245, 0);
+  border-bottom-color: #E7E7E7;
+  border-width: 10px;
+  margin-right: -10px;
+}
+.dropdown_header::after {
+  border-color: rgba(136, 183, 213, 0);
+  border-bottom-color: #FCFCFC;
+  border-width: 8px;
+  margin-right: -8px;
+}
+.dropdown_header ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+.dropdown_header ul li {
+	margin: 0;
+	display: block;
+	float: none;
+}
+.dropdown_header ul li a {
+	display: block;
+}
+
+/*********
+機能ページ
+*********/
+.function {
+	width: 160px;
+	background-color: #F8F8FA;
+	height: 100%;
+	height: 610px;
+	float: left;
+}
+.function .function_inner {
+
+}
+.function .function_inner ul {
+/*
+	list-style: none;
+*/
+	margin: 0;
+	padding: 0;
+}
+.function .function_inner ul li {
+	margin: 0;
+}
+.function .function_inner ul li.now {
+	background-color: #369FDD;
+}
+.function .function_inner ul li.now a {
+	color: #FFFFFF;
+}
+.function .function_inner ul li.now a:hover {
+	background-color: #369FDD;
+}
+
+.function .function_inner ul li a {
+	display: block;
+	padding: 15px;
+	color: #72777B;
+}
+.function .function_inner ul li a:hover {
+	background-color: #F2F2F4;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/***************
+1024px以下の設定
+***************/
+@media screen and (min-width: 0px) and (max-width: 1024px) {
+
+}
+/***************
+1023px以下の設定
+***************/
+@media screen and (min-width: 0px) and (max-width: 1023px) {
+
+}
+/**************
+768px以下の設定
+**************/
+@media screen and (min-width: 0px) and (max-width: 768px) {
+
+}
+/**************
+720px以下の設定
+**************/
+@media screen and (min-width: 0px) and (max-width: 720px) {
+
+}
+/**************
+640px以下の設定
+**************/
+@media screen and (min-width: 0px) and (max-width: 640px) {
+
+}
+/**************
+620px以下の設定
+**************/
+@media screen and (min-width: 0px) and (max-width: 620px) {
+}
+/**************
+568px以下の設定
+**************/
+@media screen and (min-width: 0px) and (max-width: 568px) {
+
+}
+/**************
+480px以下の設定
+**************/
+@media screen and (min-width: 0px) and (max-width: 480px) {
+
+}
+/**************
+360px以下の設定
+**************/
+@media screen and (min-width: 0px) and (max-width: 360px) {
+
+}
+/**************
+320px以下の設定
+**************/
+@media screen and (min-width: 0px) and (max-width: 320px) {
+
+}
