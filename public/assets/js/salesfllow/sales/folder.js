@@ -51,7 +51,7 @@ $(function() {
 						}
 			});
 
-			return false;
+//			return false;
 			// イベントをここで止める
 			event.stopPropagation();
 		}

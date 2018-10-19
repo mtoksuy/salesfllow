@@ -74,6 +74,76 @@ class Model_Sales_Html extends Model {
 		return $salse_html;
 
 	}
+	//--------------------------
+	//セールスフォルダーHTML生成
+	//--------------------------
+	public static function sales_folder_html_create($note_node_res, $note_node_primary_id) {
+		foreach($note_node_res as $level_array_key => $level_array_value) {
+			if($note_node_primary_id == (int)$level_array_value['primary_id']) {
+				$now_class = 'class="now" ';
+			}
+				else {
+					$now_class = '';
+				}
+			// 1世代のli始まり
+			$note_node_html = $note_node_html.'<li '.$now_class.'primary_id-data="'.$level_array_value['primary_id'].'" path-data="'.$level_array_value['path'].'"><a href="'.HTTP.'sales/note/'.$level_array_value['primary_id'].'">
+<span class="lsf symbol folder_lsf_tabs">tabs</span>
+'.$level_array_value['name'].'</a></li>
+';
+		} // foreach($note_node_res as $level_array_key => $level_array_value) {
+		switch($note_node_primary_id) {
+			case 'root':
+				$now_root_class = 'class="now" ';
+			break;
+			case 'importance':
+				$now_importance_class = 'class="now" ';
+			break;
+			case 'complete':
+				$now_complete_class = 'class="now" ';
+			break;
+			case 'trash':
+				$now_trash_class = 'class="now" ';
+			break;
+			default:
+				$now_class = '';
+		}
+		$folder_html = 
+			'<ul>
+				<li '.$now_root_class.'>
+					<a href="'.HTTP.'sales/">
+			<span class="lsf symbol folder_lsf_note">memo</span>
+						ノート
+					</a>
+				</li>
+				<li  '.$now_importance_class.'style="margin: 0 0 15px 0;">
+					<a href="'.HTTP.'sales/importance/">
+			<span class="lsf symbol folder_lsf_tag">tag</span>
+						重要度
+					</a>
+				</li>
+				'.$note_node_html.'
+				<li  '.$now_complete_class.'style="margin: 8px 0 0 0;">
+					<a href="'.HTTP.'sales/complete/">
+			<span class="lsf symbol folder_lsf_complete">check</span>
+						コンプリート
+					</a>
+				</li>
+				<li '.$now_trash_class.'>
+					<a href="'.HTTP.'sales/trash/">
+			<span class="lsf symbol folder_lsf_trash">delete</span>
+						ゴミ箱
+					</a>
+				</li>
+			</ul>';
+		return $folder_html;
+	}
+
+
+
+
+
+
+
 
 
 }

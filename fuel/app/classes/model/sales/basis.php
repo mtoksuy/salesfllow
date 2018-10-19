@@ -202,6 +202,7 @@ class Model_Sales_Basis extends Model {
 				approach, 
 				client, 
 				appointment, 
+				importance, 
 				note, 
 				budget, 
 				earnings, 
@@ -216,6 +217,7 @@ class Model_Sales_Basis extends Model {
 				'".$post['approach']."',
 				'".$post['client']."',
 				'".$post['appointment']."',
+				'".$post['importance']."',
 				'".$node_primary_id."',
 				'".$post['budget']."',
 				'".$post['earnings']."',
@@ -249,6 +251,19 @@ class Model_Sales_Basis extends Model {
 			ORDER BY create_time DESC
 			LIMIT  0, 100")->execute();
 		return $sales_res;
+	}
+	//--------------------
+	//案件ノートリスト取得
+	//--------------------
+	public static function sales_note_list_get($user_primary_id, $note_node_primary_id) {
+		$sales_note_res = DB::query("
+			SELECT *
+			FROM sales
+			WHERE user_primary_id = ".(int)$user_primary_id."
+			AND note              = ".$note_node_primary_id."
+			ORDER BY create_time DESC
+			LIMIT  0, 100")->execute();
+		return $sales_note_res;
 	}
 	//-----------------
 	//セールスresを取得
@@ -874,6 +889,31 @@ $array_search_key = array_search(3, array_column($arr, 'primary_id'));
 //	var_dump($note_node_html);
 	$function_html = $note_node_html;
 	return $function_html;
+	}
+	//----------------------------------
+	//シンプル型の案件フォルダリスト取得
+	//----------------------------------
+	public static function sales_type_simple_folder_list_res_get($user_primary_id) {
+		/////////////////////////////////
+		// note_node_primary_idリスト取得
+		/////////////////////////////////
+		$note_node_primary_id_list_word = '';
+		$sales_note_res = DB::query("SELECT distinct note
+		FROM sales
+		WHERE user_primary_id = ".$user_primary_id."
+		AND del = 0
+		")->execute();
+		foreach($sales_note_res as $sales_note_res_key => $sales_note_res_value) {
+			$note_node_primary_id_list_word = $note_node_primary_id_list_word.$sales_note_res_value['note'].',';
+		}
+		$note_node_primary_id_list_word = rtrim($note_node_primary_id_list_word, ',');
+		if($note_node_primary_id_list_word) {
+			$note_node_res = DB::query("SELECT *
+			FROM note_node
+			WHERE primary_id IN(".$note_node_primary_id_list_word.")
+			ORDER BY name  ASC")->execute();
+		}
+		return $note_node_res;
 	}
 	//----------------------------
 	//ノートとゴミ箱のリストを取得

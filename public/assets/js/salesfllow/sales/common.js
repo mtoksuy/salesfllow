@@ -582,43 +582,43 @@ $('.sales_create').on( {
 							// 追加
 							$('.importance_setting_box').before('<div class="importance_setting_block"><span class="lsf symbol box_font_color_red">tag</span></div>');
 							// 追加
-							$('.importance_hidden').attr('value', 'レッド');
+							$('.importance_hidden').attr('value', 'red');
 						break;
 						case 1:
 							// 追加
 							$('.importance_setting_box').before('<div class="importance_setting_block"><span class="lsf symbol box_font_color_orange">tag</span></div>');
 							// 追加
-							$('.importance_hidden').attr('value', 'オレンジ');
+							$('.importance_hidden').attr('value', 'orange');
 						break;
 						case 2:
 							// 追加
 							$('.importance_setting_box').before('<div class="importance_setting_block"><span class="lsf symbol box_font_color_yellow">tag</span></div>');
 							// 追加
-							$('.importance_hidden').attr('value', 'イエロー');
+							$('.importance_hidden').attr('value', 'yellow');
 						break;
 						case 3:
 							// 追加
 							$('.importance_setting_box').before('<div class="importance_setting_block"><span class="lsf symbol box_font_color_green">tag</span></div>');
 							// 追加
-							$('.importance_hidden').attr('value', 'グリーン');
+							$('.importance_hidden').attr('value', 'green');
 						break;
 						case 4:
 							// 追加
 							$('.importance_setting_box').before('<div class="importance_setting_block"><span class="lsf symbol box_font_color_blue">tag</span></div>');
 							// 追加
-							$('.importance_hidden').attr('value', 'ブルー');
+							$('.importance_hidden').attr('value', 'blue');
 						break;
 						case 5:
 							// 追加
 							$('.importance_setting_box').before('<div class="importance_setting_block"><span class="lsf symbol box_font_color_purple">tag</span></div>');
 							// 追加
-							$('.importance_hidden').attr('value', 'パープル');
+							$('.importance_hidden').attr('value', 'purple');
 						break;
 						case 6:
 							// 追加
 							$('.importance_setting_box').before('<div class="importance_setting_block"><span class="lsf symbol box_font_color_grey">tag</span></div>');
 							// 追加
-							$('.importance_hidden').attr('value', 'グレイ');
+							$('.importance_hidden').attr('value', 'grey');
 						break;
 					}
 					// それ以外を消す

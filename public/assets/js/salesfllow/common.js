@@ -3,15 +3,14 @@
 //読み込み後の処理
 //----------------
 $(function() {
+	//------------------
+	//セールスサブミット
+	//------------------
 	$('html').on( {
 		'click': function() {
 			$('.sales_form').submit();
 		}
 	}, '.submit');
-
-
-
-
 	//--------------------------
 	//全体のポップアップ挙動操作
 	//--------------------------
@@ -200,8 +199,6 @@ $(function() {
 			return false;
 		},
 	}, '.user_icon');
-
-
 	//------------------
 	//全体のエンター挙動
 	//------------------
@@ -249,6 +246,52 @@ $(function() {
 			}
 		}
 	}, window);
+
+
+	//
+	//
+	//
+	
+
+//変数storageにlocalStorageを格納
+var storage = localStorage;
+ 
+
+
+ 
+//  storage.clear();
+
+/*​​
+clear: function clear()
+constructor: function ()
+getItem: function getItem()
+key: function key()
+length: Getter
+removeItem: function removeItem()
+setItem: function setItem()
+
+【サンプル付き】Local Storageとは？使い方を詳しく解説
+​https://webliker.info/how-to-use-localstrage/
+​*/
+/*
+	var k = 'k';
+	var v = 'vbasghjkh';
+	storage.setItem(k, v);
+	storage.setItem('a', v);
+	p(storage);
+	p(storage.length);
+*/
+
+
+
+
+
+
+
+
+
+
+
 
 
 
