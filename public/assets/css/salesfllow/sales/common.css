@@ -188,14 +188,18 @@
 .sales_list .sales_list_inner ul li {
 	border-bottom: 1px solid #eee;
 }
+.sales_list .sales_list_inner .list li {
+	min-height: 70px;
+}
 .sales_list .sales_list_inner ul li.now {
 	border-left: 7px solid lightgreen;
 }
 .sales_list .sales_list_inner ul li a {
 	display: block;
-	padding: 15px;
+	padding: 15px 15px 15px 30px;
 	color: #72777B;
 	text-decoration: none;
+	position: relative;
 }
 .sales_list .sales_list_inner ul li a:hover {
 	background-color: #FCFCFC;
@@ -213,6 +217,29 @@
 line-height: 125%;
 	margin: 0;
 }
+
+.sales_list .sales_list_inner ul li a .importance_box {
+    position: absolute;
+    top: 11px;
+    left: 9px;
+}
+.sales_list .sales_list_inner ul li a .importance_box span {
+	font-size: 20px;
+}
+.sales_list .sales_list_inner ul li a .status_box {
+    position: absolute;
+    top: 30px;
+    left: 9px;
+}
+.sales_list .sales_list_inner ul li a .status_box span {
+	font-size: 11px;
+}
+
+
+
+
+
+
 
 /*****************
 案件リストヘッダー
@@ -284,12 +311,14 @@ left: 120px;
 案件登録
 ********/
 .sales_create {
-float: left;
-width: 70%;
-height: 600px;
-height: 100%;
+	float: left;
+	width: 67%;
+	height: 600px;
+	height: 100%;
+/*
 overflow-y: scroll;
 overflow-x: hidden;
+*/
 position:relative;
 }
 .sales_create .sales_create_inner {
@@ -312,6 +341,7 @@ border-radius: 8px;
 position:relative;
 margin: 0px 0px 0px 15px;
 background-color: #fcfcfc;
+	width: 700px;
 }
 .sales_create .sales_create_inner .right::before,
 .sales_create .sales_create_inner .right::after {
@@ -341,6 +371,10 @@ background-color: #fcfcfc;
 	margin-top: -8px;
 }
 
+
+.sales_create .sales_create_inner .right .sales_form {
+	padding: 15px;
+}
 .sales_create .sales_create_inner .right .sales_form #title /*input[type="text"]*/ {
 	background-color: #FFF;
 	border-color: #eee;
@@ -351,9 +385,9 @@ background-color: #fcfcfc;
 	display: block;
 	font-size: 120%;
 	height: 18px;
-	margin: 15px;
-	padding: 10px;
-	width: 680px;
+	margin: 0 0 15px 0;
+	padding: 20px;
+	width: 100%;
 	font-size: 16px;
 	-webkit-appearance: none;
 	-moz-appearance: none;
@@ -370,9 +404,9 @@ display: block;
 font-size: 16px;
 font-weight: normal;
 height: 18px;
-margin: 12px 15px 15px 15px;
-padding: 10px;
-width: 680px;
+margin: 12px 0px 15px 0px;
+padding: 8px 0 0 15px;
+width: 100%;
 height: 100px;
 -webkit-appearance: none;
 -moz-appearance: none;
@@ -567,7 +601,7 @@ z-index: 2;
 	color: #3a3a3a;
 	display: block;
 	height: 18px;
-	padding: 5px;
+	padding: 10px 0px 10px 5px;
 	width: 260px;
 	font-size: 13px;
 	-webkit-appearance: none;
@@ -606,7 +640,7 @@ z-index: 2;
 	color: #3a3a3a;
 	display: block;
 	height: 18px;
-	padding: 5px;
+	padding: 10px 0px 10px 5px;;
 	width: 120px;
 	font-size: 13px;
 	-webkit-appearance: none;
@@ -688,8 +722,8 @@ z-index: 2;
 	color: #3a3a3a;
 	display: inline-block;
 	height: 18px;
-	padding: 5px;
-	width: 75px;
+	padding: 14px 14px 15px 13px;
+	width: 90px;
 	font-size: 13px;
 	-webkit-appearance: none;
 	-moz-appearance: none;
@@ -735,8 +769,8 @@ z-index: 2;
 	color: #3a3a3a;
 	display: inline-block;
 	height: 18px;
-	padding: 5px;
-	width: 75px;
+	padding: 14px 14px 15px 13px;
+	width: 90px;
 	font-size: 13px;
 	-webkit-appearance: none;
 	-moz-appearance: none;
@@ -784,7 +818,7 @@ z-index: 2;
 	color: #3a3a3a;
 	display: block;
 	height: 18px;
-	padding: 5px;
+	padding: 10px 0px 10px 5px;
 	width: 120px;
 	font-size: 13px;
 	-webkit-appearance: none;
@@ -835,7 +869,7 @@ z-index: 2;
 	color: #3a3a3a;
 	display: block;
 	height: 18px;
-	padding: 5px;
+	padding: 10px 0px 10px 5px;
 	width: 260px;
 	font-size: 13px;
 	-webkit-appearance: none;
@@ -882,11 +916,20 @@ z-index: 2;
 .box_color_limegreen {
 	background-color: limegreen;
 }
+.box_font_color_limegreen{
+	color: limegreen;
+}
 .box_color_grey {
 	background-color: grey;
 }
+.box_font_color_grey {
+	color: grey;
+}
 .box_color_deepskyblue {
 	background-color: deepskyblue;
+}
+.box_font_color_deepskyblue {
+	color: deepskyblue;
 }
 .box_color_orange {
 	background-color: orange;
@@ -903,26 +946,34 @@ z-index: 2;
 .box_color_purple {
 	background-color: #c46fd8;
 }
-/******
-********/
+/*********
+重要度の色
+*********/
+.box_font_color_red,
 .importance_setting_block .box_font_color_red {
 	color: #fc3d39;
 }
+.box_font_color_orange,
 .importance_setting_block .box_font_color_orange {
 	color: orange;
 }
+.box_font_color_yellow,
 .importance_setting_block .box_font_color_yellow {
 	color: #f1c12c;
 }
+.box_font_color_green,
 .importance_setting_block .box_font_color_green {
 	color: #4dbd2e;
 }
+.box_font_color_blue,
 .importance_setting_block .box_font_color_blue {
 	color: #26a8ee;
 }
+.box_font_color_purple,
 .importance_setting_block .box_font_color_purple {
 	color: #c46fd8;
 }
+.box_font_color_grey,
 .importance_setting_block .box_font_color_grey {
 	color: grey;
 }
@@ -945,13 +996,123 @@ position:relative;
 	padding: 15px;
 	position:relative;
 }
+.sales .sales_inner .sales_box {
 
-.sales .sales_inner pre.text {
+
+}
+.sales .sales_inner .sales_box h1 {
+	margin: 0 0 30px 0;
+}
+
+.sales .sales_inner .sales_box .sales_fllow_add {
+    border-radius: 20px;
+    font-size: 14px;
+    padding: 3px 9px 3px 9px;
+    color: #ffffff;
+    background-color: dodgerblue;
+    display: inline-block;
+    cursor: pointer;
+    margin: 0px 0 30px -10px;
+}
+
+.sales .sales_inner .sales_box .sales_fllow_add::before {
+	border-right: 4px dotted dodgerblue;
+	content: "";
+	position: absolute;
+	height: 46px;
+	left: 26px;
+	margin: 15px 0 0 0;
+}
+
+
+
+
+.sales .sales_inner .sales_box .fllow_circle {
+position: absolute;
+top: -13px;
+left: -9px;
+z-index: 1;
+font-size: 14px;
+	color: #aedcf8;
+
+}
+
+.sales .sales_inner .sales_box .sales_block {
+	position: relative;
+	margin: 0 0 0px 15px;
+	padding: 0 0 30px 15px;
+}
+.sales .sales_inner .sales_box pre.text {
 	margin: 0;
 	white-space: pre-wrap;
 	word-wrap: break-word;
 	font-size: 94%;
 	font-family: "游ゴシック体","Yu Gothic",YuGothic,"ヒラギノ角ゴシック Pro","Hiragino Kaku Gothic Pro","メイリオ",Meiryo,Osaka,"ＭＳ Ｐゴシック","MS PGothic",sans-serif;
+}
+
+
+.sales .sales_inner .sales_box .setting_box {
+
+}
+.sales .sales_inner .sales_box .setting_box .setting_type {
+	min-width: 112px;
+	display: inline-block;
+}
+
+.sales .sales_inner .sales_box .setting_box .setting_block {
+border-radius: 3px;
+font-size: 13px;
+padding: 5px 5px 5px 5px;
+color: #ffffff;
+}
+.sales .sales_inner .sales_box .action_delete_box {
+	position: absolute;
+	right: 30px;
+	top: 0px;
+}
+.sales .sales_inner .sales_box .action_delete_box .symbol {
+	font-size: 29px;
+	color: #d8d8d8;
+}
+.sales .sales_inner .sales_box .action_delete_box .hidden_area {
+	display: none;
+}
+
+
+.sales .sales_inner .sales_box .action_edit_box {
+	position: absolute;
+	right: 30px;
+	top: 50px;
+}
+.sales .sales_inner .sales_box .action_edit_box .symbol {
+	font-size: 29px;
+	color: #d8d8d8;
+}
+.sales .sales_inner .sales_box .action_edit_box .hidden_area {
+	display: none;
+}
+
+
+
+.sales .sales_inner .sales_box .sales_block:before {
+	border-left: 2px solid #AEDCF8;
+	border-right: 2px solid #AEDCF8;
+	content: "";
+	position: absolute;
+	height: 100%;
+	left: -4px;
+}
+
+.sales .sales_inner .sales_box .sales_block:after {
+	border-bottom: 10px solid #aedcf8;
+	border-radius: 15px;
+	border-top: 10px solid #aedcf8;
+	content: "";
+	height: 0;
+	left: -12px;
+	position: absolute;
+	top: -10px;
+	width: 20px;
 }
 
 
@@ -980,19 +1141,62 @@ position:relative;
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+/***************
+1210px以下の設定
+***************/
+@media screen and (min-width: 0px) and (max-width: 1210px) {
+	.sales_create {
+		width: 60%;
+	}
+	.sales_create .sales_create_inner .left {
+	
+	}
+	.sales_create .sales_create_inner .right {
+		width: 80%;
+	}
+}
+/***************
+958px以下の設定
+***************/
+@media screen and (min-width: 0px) and (max-width: 958px) {
+	.sales_create {
+		width: 50%;
+	}
+	.sales_create .sales_create_inner .left {
+	
+	}
+	.sales_create .sales_create_inner .right {
+		width: 80%;
+	}
+}
+/***************
+780px以下の設定
+***************/
+@media screen and (min-width: 0px) and (max-width: 780px) {
+	.sales_create {
+		width: 45%;
+	}
+	.sales_create .sales_create_inner .left {
+	
+	}
+	.sales_create .sales_create_inner .right {
+		width: 90%;
+	}
+}
+/***************
+640px以下の設定
+***************/
+@media screen and (min-width: 0px) and (max-width: 640px) {
+	.sales_create {
+		width: 40%;
+	}
+	.sales_create .sales_create_inner .left {
+		display: none;
+	}
+	.sales_create .sales_create_inner .right {
+		width: 85%;
+	}
+}
 
 
 

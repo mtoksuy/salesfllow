@@ -1,12 +1,28 @@
+<?php
+/*
+* Ajax セールス セールスフロー作成取得 コントローラー
+* 
+* 
+* 
+*/
+class Controller_Ajax_Sales_Salesfllorwcreateget extends Controller {
+	// アクション
+	public function action_index() {
+		// ポストの中身をエンティティ化する
+		$post = Model_Security_Basis::post_security($_POST);
+
+
+$sales_create_html= '
+
 
 <!-- sales_create -->
-<div class="sales_create">
+<div class="sales_create clearfix">
 	<div class="sales_create_inner">
 		<div class="left">
-			<img src="<?php echo HTTP; ?>assets/img/user/icon/default_1.png" alt="" title="" width="48" height="48">
+			<img src="'.HTTP.'assets/img/user/icon/default_1.png" alt="" title="" width="48" height="48">
 		</div>
 		<div class="right">
-			<form method="post" action="<?php echo HTTP; ?>sales/" class="sales_form">
+			<form method="post" action="'.HTTP.'sales/" class="sales_form">
 				<input placeholder="案件名" value="" name="title" id="title" type="text">
 				<!-- setting_top -->
 				<div class="setting_top">
@@ -311,5 +327,15 @@ deadline
 4. タグ付け
 3. 締切日登録
 名刺カルテ
--->
+-->';
 
+
+
+		header ("Content-Type: text/javascript; charset=utf-8");
+		$json_data = array(
+			'POST'              => $post,
+			'sales_create_html' => $sales_create_html,
+		);
+		return json_encode($json_data);
+	}
+}

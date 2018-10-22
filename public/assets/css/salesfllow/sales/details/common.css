@@ -1,0 +1,132 @@
+@charset "UTF-8";
+
+.sales_create {
+	float: none;
+
+}
+
+
+/***************
+1210px以下の設定
+***************/
+@media screen and (min-width: 0px) and (max-width: 1210px) {
+	.sales_create {
+		width: 60%;
+	}
+	.sales_create .sales_create_inner .left {
+	
+	}
+	.sales_create .sales_create_inner .right {
+		width: 80%;
+	}
+}
+/***************
+958px以下の設定
+***************/
+@media screen and (min-width: 0px) and (max-width: 958px) {
+	.sales_create {
+		width: 50%;
+	}
+	.sales_create .sales_create_inner .left {
+	
+	}
+	.sales_create .sales_create_inner .right {
+		width: 80%;
+	}
+}
+/***************
+780px以下の設定
+***************/
+@media screen and (min-width: 0px) and (max-width: 780px) {
+	.sales_create {
+		width: 45%;
+	}
+	.sales_create .sales_create_inner .left {
+	
+	}
+	.sales_create .sales_create_inner .right {
+		width: 90%;
+	}
+}
+/***************
+640px以下の設定
+***************/
+@media screen and (min-width: 0px) and (max-width: 640px) {
+	.sales_create {
+		width: 40%;
+	}
+	.sales_create .sales_create_inner .left {
+		display: none;
+	}
+	.sales_create .sales_create_inner .right {
+		width: 85%;
+	}
+}
+
+
+
+
+
+
+
+
+
+/***************
+1024px以下の設定
+***************/
+@media screen and (min-width: 0px) and (max-width: 1024px) {
+
+}
+/***************
+1023px以下の設定
+***************/
+@media screen and (min-width: 0px) and (max-width: 1023px) {
+
+}
+/**************
+768px以下の設定
+**************/
+@media screen and (min-width: 0px) and (max-width: 768px) {
+
+}
+/**************
+720px以下の設定
+**************/
+@media screen and (min-width: 0px) and (max-width: 720px) {
+
+}
+/**************
+640px以下の設定
+**************/
+@media screen and (min-width: 0px) and (max-width: 640px) {
+
+}
+/**************
+620px以下の設定
+**************/
+@media screen and (min-width: 0px) and (max-width: 620px) {
+}
+/**************
+568px以下の設定
+**************/
+@media screen and (min-width: 0px) and (max-width: 568px) {
+
+}
+/**************
+480px以下の設定
+**************/
+@media screen and (min-width: 0px) and (max-width: 480px) {
+
+}
+/**************
+360px以下の設定
+**************/
+@media screen and (min-width: 0px) and (max-width: 360px) {
+
+}
+/**************
+320px以下の設定
+**************/
+@media screen and (min-width: 0px) and (max-width: 320px) {
+
+}

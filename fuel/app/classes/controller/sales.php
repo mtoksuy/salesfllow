@@ -79,6 +79,10 @@ class Controller_Sales extends Controller_Sales_Template {
 		// ゴミ箱(使ってないようだ
 		$note_trash_list_res = Model_Sales_Basis::note_trash_list_get((int)$_COOKIE['user_data']['user_primary_id']);
 
+		//案件リスト取得
+		$sales_res = Model_Sales_Basis::sales_list_get($_COOKIE['user_data']['user_primary_id']);
+		// 案件リストHTML生成
+		$sales_list_html = Model_Sales_Html::sales_list_html_create($sales_res);
 
 		// コンテンツデータセット
 		$this->sales_template->view_data["content"]->set('content_data', array(
@@ -91,11 +95,6 @@ class Controller_Sales extends Controller_Sales_Template {
 			'sales_now'   => 'now',
 			'folder_html' => $folder_html,
 		), false);
-
-		//案件リスト取得
-		$sales_res = Model_Sales_Basis::sales_list_get($_COOKIE['user_data']['user_primary_id']);
-		// 案件リストHTML生成
-		$sales_list_html = Model_Sales_Html::sales_list_html_create($sales_res);
 		// コンテンツデータセット
 		$this->sales_template->view_data["content"]->content_data['sales_list_html']->set('content_data', array(
 			'sales_list_html'  => $sales_list_html,
@@ -110,6 +109,11 @@ class Controller_Sales extends Controller_Sales_Template {
 		// セールスフォルダーHTML生成
 		$folder_html = Model_Sales_Html::sales_folder_html_create($note_node_res, $note_node_primary_id);
 
+		// 案件リスト取得
+		$sales_note_res = Model_Sales_Basis::sales_note_list_get($_COOKIE['user_data']['user_primary_id'], $note_node_primary_id);
+		// 案件リストHTML生成
+		$sales_list_html = Model_Sales_Html::sales_list_html_create($sales_note_res);
+
 		// コンテンツデータセット
 		$this->sales_template->view_data["content"]->set('content_data', array(
 			'folder_html'     => View::forge('salesfllow/sales/folder'),
@@ -121,11 +125,6 @@ class Controller_Sales extends Controller_Sales_Template {
 			'sales_now'   => 'now',
 			'folder_html' => $folder_html,
 		), false);
-
-		// 案件リスト取得
-		$sales_note_res = Model_Sales_Basis::sales_note_list_get($_COOKIE['user_data']['user_primary_id'], $note_node_primary_id);
-		// 案件リストHTML生成
-		$sales_list_html = Model_Sales_Html::sales_list_html_create($sales_note_res);
 		// コンテンツデータセット
 		$this->sales_template->view_data["content"]->content_data['sales_list_html']->set('content_data', array(
 			'sales_list_html'  => $sales_list_html,
@@ -135,12 +134,20 @@ class Controller_Sales extends Controller_Sales_Template {
 	// 案件詳細アクション
 	/////////////////////
 	public function action_sales($sales_primary_id) {
-		// 
-		Model_Sales_Basis::a();
+		// CSSデータセット
+		$this->sales_template->view_data['import_css'] = View::forge('salesfllow/sales/details/importcss');
+
+		// セールスのノートプライマリーid取得
+		$note_primary_id = Model_Sales_Basis::sales_note_primary_id_get($sales_primary_id);
 		// シンプル型の案件フォルダリスト取得
 		$note_node_res = Model_Sales_Basis::sales_type_simple_folder_list_res_get((int)$_COOKIE['user_data']['user_primary_id']);
 		// セールスフォルダーHTML生成
-		$folder_html = Model_Sales_Html::sales_folder_html_create($note_node_res);
+		$folder_html = Model_Sales_Html::sales_folder_html_create($note_node_res, $note_primary_id);
+
+		//案件リスト取得
+		$sales_res = Model_Sales_Basis::sales_note_list_get($_COOKIE['user_data']['user_primary_id'], $note_primary_id);
+		// 案件リストHTML生成
+		$sales_list_html = Model_Sales_Html::sales_list_html_create($sales_res, $sales_primary_id, $sales_primary_id);
 
 		// セールスresを取得
 		$sales_res = Model_Sales_Basis::sales_res_get($sales_primary_id);
@@ -149,7 +156,7 @@ class Controller_Sales extends Controller_Sales_Template {
 
 		// コンテンツデータセット
 		$this->sales_template->view_data["content"]->set('content_data', array(
-			'folder_html'   => View::forge('salesfllow/sales/folder'),
+			'folder_html'     => View::forge('salesfllow/sales/folder'),
 			'sales_list_html' => View::forge('salesfllow/sales/list'),
 			'content_html'    => $sales_html,
 		), false);
@@ -158,20 +165,11 @@ class Controller_Sales extends Controller_Sales_Template {
 			'sales_now'  => 'now',
 			'folder_html' => $folder_html,
 		), false);
-
-		//案件リスト取得
-		$sales_res = Model_Sales_Basis::sales_list_get($_COOKIE['user_data']['user_primary_id']);
-		// 案件リストHTML生成
-		$sales_list_html = Model_Sales_Html::sales_list_html_create($sales_res, $sales_primary_id);
 		// コンテンツデータセット
 		$this->sales_template->view_data["content"]->content_data['sales_list_html']->set('content_data', array(
 			'sales_list_html'  => $sales_list_html,
 		), false);
 	}
-
-
-
-
 	///////////////
 	// エラーページ
 	///////////////

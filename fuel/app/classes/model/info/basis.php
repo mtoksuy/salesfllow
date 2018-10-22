@@ -285,4 +285,16 @@ if($detect->isMobile() || $detect->isTablet()) {
 		list($bm, $bt) = explode(' ', $end);
 		return ((float)$am-(float)$bm) + ((float)$at-(float)$bt);
 	}
+	//------------------------------------------------------------
+	//日付をタイムスタンプに変換してもう一度日付の種類を変えて取得
+	//------------------------------------------------------------
+	public static function date_conversion_date_get($time, $denoted = 'Y年m月d日 H:i:s') {
+		$date = date($denoted, strtotime($time));
+		return $date;
+	}
+
+
+
+
+
 }

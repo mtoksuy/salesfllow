@@ -915,6 +915,21 @@ $array_search_key = array_search(3, array_column($arr, 'primary_id'));
 		}
 		return $note_node_res;
 	}
+	//----------------------------------
+	//セールスのノートプライマリーid取得
+	//----------------------------------
+	public static function sales_note_primary_id_get($sales_primary_id) {
+		$res = DB::query("
+			SELECT note
+			FROM sales
+			WHERE primary_id = ".$sales_primary_id."
+		")->execute();
+		foreach($res as $key => $value) {
+			$note_primary_id = $value['note'];
+		}
+		return $note_primary_id;
+	}
+
 	//----------------------------
 	//ノートとゴミ箱のリストを取得
 	//----------------------------
@@ -926,11 +941,43 @@ $array_search_key = array_search(3, array_column($arr, 'primary_id'));
 		")->execute();
 		return $res;
 	}
+	//------------------------
+	//ノートノードの情報を取得
+	//------------------------
+	public static function note_node_data_get($note_primary_id) {
+		$note_node_data_res = DB::query("
+			SELECT *
+			FROM note_node
+			WHERE primary_id = ".$note_primary_id."
+		")->execute();
+		return $note_node_data_res;
+	}
+	//------------------------
+	//ステータスのカラーを取得
+	//------------------------
+	public static function status_color_get($status) {
+		switch($status) {
+			case '交渉中':
+				$status_color = 'red';
+			break;
+			case '成約':
+				$status_color = 'limegreen';
+			break;
+			case '破談':
+				$status_color = 'grey';
+			break;
+			case '検討':
+				$status_color = 'deepskyblue';
+			break;
+		}
+		return $status_color;
+	}
 
 
 
 
 
+		
 
 
 

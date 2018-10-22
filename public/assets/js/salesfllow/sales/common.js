@@ -1007,6 +1007,36 @@ $('.sales_create').on( {
 		}
 	}
 }, '#input_note');
+//----------------------------------------------
+//セールスに進捗を追加するhtmlを取得して表示する
+//----------------------------------------------
+$('.sales').on( {
+	'click': function() {
+		var sales_url_id_data = $(this).attr('sales-url_id-data');
+		$.ajax( {
+			type: 'POST', 
+			url: http+'ajax/sales/salesfllorwcreateget/',
+			data: {
+				sales_url_id : sales_url_id_data,
+			},
+			dataType: 'json',
+			cache: false,
+			// Ajax完了後の挙動
+		  success: function(data) {
+				$('.sales_fllow_add').after(data['sales_create_html']);
+//				$(this).after(data['sales_create_html']);
+		  },
+		  error: function(data) {
+
+		  },
+		  complete: function(data) {
+
+		  }
+		}); // $.ajax(
+
+
+	}
+}, '.sales_fllow_add');
 
 
 
@@ -1014,7 +1044,19 @@ $('.sales_create').on( {
 
 
 
+	$('.sales_form').on( {
+		'click' : function() {
+			p('dfsff');
+		}
+	}, '.approach');
 
+
+
+	$('html').on( {
+		'click' : function() {
+			p('dfsff');
+		}
+	}, '.test');
 
 
 
