@@ -240,6 +240,57 @@ class Model_Sales_Basis extends Model {
 			primary_id = ".$sales_primary_id."")->execute();
 		return '';
 	}
+	//------------
+	//案件追加作成
+	//------------
+	public static function sales_add_create($post) {
+		// 現在の時間表記を取得
+		$now_date = Model_Info_Basis::now_date_get();
+//		var_dump($now_date);
+pre_var_dump($post);
+$post['sales_primary_id'];
+
+/*
+		// 登録
+		$res = DB::query("
+			INSERT INTO sales_fllow (
+				user_primary_id,
+				title,
+				text,
+				status, 
+				approach, 
+				client, 
+				appointment, 
+				importance, 
+				note, 
+				budget, 
+				earnings, 
+				deadline,
+				update_time
+			)
+			VALUES (
+				".(int)$_COOKIE['user_data']['user_primary_id'].",
+				'".$post['title']."',
+				'".$post['text']."',
+				'".$post['status']."',
+				'".$post['approach']."',
+				'".$post['client']."',
+				'".$post['appointment']."',
+				'".$post['importance']."',
+				'".$node_primary_id."',
+				'".$post['budget']."',
+				'".$post['earnings']."',
+				'".$post['deadline']."',
+				'".$now_date."'
+			)")->execute();
+
+*/
+
+
+
+	}
+
+
 	//--------------
 	//案件リスト取得
 	//--------------

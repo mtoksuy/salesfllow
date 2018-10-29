@@ -1013,6 +1013,15 @@ $('.sales_create').on( {
 $('.sales').on( {
 	'click': function() {
 		var sales_url_id_data = $(this).attr('sales-url_id-data');
+		$('.sales_create').css( {
+			'display' : 'block',
+		});
+		$('.sales_fllow_add').css( {
+			'display' : 'none',
+		});
+
+
+
 		$.ajax( {
 			type: 'POST', 
 			url: http+'ajax/sales/salesfllorwcreateget/',
@@ -1052,11 +1061,11 @@ $('.sales').on( {
 
 
 
-	$('html').on( {
+	$('.sales_form').on( {
 		'click' : function() {
 			p('dfsff');
 		}
-	}, '.test');
+	}, '.right');
 
 
 

@@ -134,6 +134,16 @@ class Controller_Sales extends Controller_Sales_Template {
 	// 案件詳細アクション
 	/////////////////////
 	public function action_sales($sales_primary_id) {
+		// ポストの中身をエンティティ化する
+		$post = Model_Security_Basis::post_security($_POST);
+		// ポストがあった場合
+		if($post) {
+			// 案件作成
+			Model_Sales_Basis::sales_add_create($post);
+		}
+
+
+
 		// CSSデータセット
 		$this->sales_template->view_data['import_css'] = View::forge('salesfllow/sales/details/importcss');
 

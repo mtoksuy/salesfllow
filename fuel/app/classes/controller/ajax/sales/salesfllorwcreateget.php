@@ -12,10 +12,9 @@ class Controller_Ajax_Sales_Salesfllorwcreateget extends Controller {
 		$post = Model_Security_Basis::post_security($_POST);
 
 
-$sales_create_html= '
+$sales_create_html= 
 
-
-<!-- sales_create -->
+'<!-- sales_create -->
 <div class="sales_create clearfix">
 	<div class="sales_create_inner">
 		<div class="left">

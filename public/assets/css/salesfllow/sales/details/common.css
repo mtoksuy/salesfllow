@@ -1,9 +1,21 @@
 @charset "UTF-8";
 
 .sales_create {
+	display: none;
 	float: none;
-
+	margin: 0 0 30px 0;
 }
+
+
+
+
+.sales_create .sales_create_inner .right::after {
+	border: 0px solid transparent;
+}
+.sales_create .sales_create_inner .right::before {
+	border: 0px solid transparent;
+}
+
 
 
 /***************
