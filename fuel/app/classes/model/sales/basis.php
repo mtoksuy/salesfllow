@@ -247,13 +247,12 @@ class Model_Sales_Basis extends Model {
 		// 現在の時間表記を取得
 		$now_date = Model_Info_Basis::now_date_get();
 //		var_dump($now_date);
-pre_var_dump($post);
-$post['sales_primary_id'];
-
-/*
+//pre_var_dump($post['appointment_day']);
+//$post['sales_primary_id'];
 		// 登録
 		$res = DB::query("
 			INSERT INTO sales_fllow (
+				sales_id,
 				user_primary_id,
 				title,
 				text,
@@ -262,13 +261,13 @@ $post['sales_primary_id'];
 				client, 
 				appointment, 
 				importance, 
-				note, 
 				budget, 
 				earnings, 
 				deadline,
 				update_time
 			)
 			VALUES (
+				".(int)$post['sales_primary_id'].",
 				".(int)$_COOKIE['user_data']['user_primary_id'].",
 				'".$post['title']."',
 				'".$post['text']."',
@@ -277,17 +276,11 @@ $post['sales_primary_id'];
 				'".$post['client']."',
 				'".$post['appointment']."',
 				'".$post['importance']."',
-				'".$node_primary_id."',
 				'".$post['budget']."',
 				'".$post['earnings']."',
 				'".$post['deadline']."',
 				'".$now_date."'
 			)")->execute();
-
-*/
-
-
-
 	}
 
 
@@ -1022,6 +1015,23 @@ $array_search_key = array_search(3, array_column($arr, 'primary_id'));
 			break;
 		}
 		return $status_color;
+	}
+	//-----------------------------
+	//セールスの最後のデータres取得
+	//-----------------------------
+	public static function sales_add_last_data_res_get($sales_primary_id) {
+		$sales_add_last_data_res = DB::query("
+			SELECT *
+			FROM sales_fllow
+			WHERE sales_id = ".(int)$sales_primary_id."
+			AND del = 0
+			ORDER BY create_time DESC
+			LIMIT 0,1")->execute();
+//		pre_var_dump($sales_res);
+		foreach($sales_add_last_data_res as $key => $value) {
+///			pre_var_dump($sales_add_last_data_res);
+		}
+		return $sales_add_last_data_res;
 	}
 
 

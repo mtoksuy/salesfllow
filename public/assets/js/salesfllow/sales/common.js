@@ -471,7 +471,7 @@ $('.sales_create').on( {
 				// Ajax完了後の挙動
 			  success: function(data) {
 					// 追加
-					$('.appointment_hidden').attr('value', data['appointment_date']);
+					$('.appointment_hidden').attr('value', data['format_date']);
 					// 追加
 					$('.appointment_setting_box').before('<div class="appointment_setting_block box_color_deepskyblue">'+data['format_date']+'</div>');
 					// 変更
@@ -899,7 +899,7 @@ $('.sales_create').on( {
 				// Ajax完了後の挙動
 			  success: function(data) {
 					// 追加
-					$('.deadline_hidden').attr('value', data['deadline_date']);
+					$('.deadline_hidden').attr('value', data['format_date']);
 					// 追加
 					$('.deadline_setting_box').before('<div class="deadline_setting_block box_color_deepskyblue">'+data['format_date']+'</div>');
 					// 変更

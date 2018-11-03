@@ -176,7 +176,7 @@ class Model_Sales_Html extends Model {
 		}
 
 		// セールス作成HTML取得
-		$sales_add_create_html = Model_Sales_Html::sales_add_create_html_get($sales_array['primary_id'], $sales_array['url_id']);
+		$sales_add_create_html = Model_Sales_Html::sales_add_create_html_get($sales_array['primary_id'], $sales_array['url_id'], $sales_array);
 
 		// ヘッダー
 		$sales_header_html = 
@@ -210,13 +210,22 @@ class Model_Sales_Html extends Model {
 				<pre class="text">'.$sales_array['text'].'</pre>
 			</div>';
 
-			// 
+
+
+
+
+
+
+
+
+
+
+			// 合体
 			$salse_html = 
 			'<div class="sales">
 				<div class="sales_inner">
 					<div class="sales_box clearfix">
 						'.$sales_header_html.'
-						'.$sales_block_add_html.'
 						'.$sales_block_bottom_html.'
 					</div>
 				</div>
@@ -301,7 +310,374 @@ class Model_Sales_Html extends Model {
 	//------------------------
 	//セールス追加作成HTML取得
 	//------------------------
-	public static function sales_add_create_html_get($sales_primary_id, $sales_url_id) {
+	public static function sales_add_create_html_get($sales_primary_id, $sales_url_id, $sales_array) {
+		$sales_add_last_data_res = Model_Sales_Basis::sales_add_last_data_res_get($sales_primary_id);
+		foreach($sales_add_last_data_res as $key => $value) {
+//			$sales_array['primary_id']      = $value['primary_id'];
+			$sales_array['sales_id']        = $value['sales_id'];
+			$sales_array['user_primary_id'] = $value['user_primary_id'];
+			$sales_array['text']            = $value['text'];
+			$sales_array['status']          = $value['status'];
+			$sales_array['approach']        = $value['approach'];
+			$sales_array['appointment']     = $value['appointment'];
+			$sales_array['importance']      = $value['importance'];
+			$sales_array['budget']          = $value['budget'];
+			$sales_array['earnings']        = $value['earnings'];
+			$sales_array['deadline']        = $value['deadline'];
+			$sales_array['create_time']     = $value['create_time'];
+			$sales_array['update_time']     = $value['update_time'];
+		}
+//pre_var_dump($sales_array);
+
+
+
+		// ステータス
+		if($sales_array['status']) {
+			// ステータスのカラーを取得
+			$status_color = Model_Sales_Basis::status_color_get($sales_array['status']);
+			$status_html = '<div class="status_setting_block box_color_'.$status_color.'">'.$sales_array['status'].'</div>';
+			switch($sales_array['status']) {
+				case '交渉中':
+					$status_setting_li_html = '
+						<li check-data="1">
+							<span class="lsf symbol">check</span>
+							<span class="box_color box_color_red"> </span>交渉中</li>
+						<li check-data="0"><span class="box_color box_color_limegreen"> </span>成約</li>
+						<li check-data="0"><span class="box_color box_color_grey"> </span>破談</li>
+						<li check-data="0"><span class="box_color box_color_deepskyblue"> </span>検討</li>';
+				break;
+				case '成約':
+					$status_setting_li_html = '
+						<li check-data="0"><span class="box_color box_color_red"> </span>交渉中</li>
+						<li check-data="1">
+							<span class="lsf symbol">check</span>
+							<span class="box_color box_color_limegreen"> </span>成約</li>
+						<li check-data="0"><span class="box_color box_color_grey"> </span>破談</li>
+						<li check-data="0"><span class="box_color box_color_deepskyblue"> </span>検討</li>';
+				break;
+				case '破談':
+					$status_setting_li_html = '
+						<li check-data="0"><span class="box_color box_color_red"> </span>交渉中</li>
+						<li check-data="0"><span class="box_color box_color_limegreen"> </span>成約</li>
+						<li check-data="1">
+							<span class="lsf symbol">check</span>
+							<span class="box_color box_color_grey"> </span>破談</li>
+						<li check-data="0"><span class="box_color box_color_deepskyblue"> </span>検討</li>';
+				break;
+				case '検討':
+					$status_setting_li_html = '
+						<li check-data="0"><span class="box_color box_color_red"> </span>交渉中</li>
+						<li check-data="0"><span class="box_color box_color_limegreen"> </span>成約</li>
+						<li check-data="0"><span class="box_color box_color_grey"> </span>破談</li>
+						<li check-data="1">
+							<span class="lsf symbol">check</span>
+							<span class="box_color box_color_deepskyblue"> </span>検討</li>';
+				break;
+				default:
+			}
+		} // if($sales_array['status']) {
+			else {
+					$status_setting_li_html = '
+						<li check-data="0"><span class="box_color box_color_red"> </span>交渉中</li>
+						<li check-data="0"><span class="box_color box_color_limegreen"> </span>成約</li>
+						<li check-data="0"><span class="box_color box_color_grey"> </span>破談</li>
+						<li check-data="0"><span class="box_color box_color_deepskyblue"> </span>検討</li>';
+			}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		// アプローチ
+		if($sales_array['approach']) {
+			$approach_html = '<div class="approach_setting_block box_color_deepskyblue">'.$sales_array['approach'].'</div>';
+			switch($sales_array['approach']) {
+				case 'メール':
+					$approach_setting_li_html = '
+						<li check-data="1">
+							<span class="lsf symbol">check</span>
+							<span class="box_color box_color_deepskyblue"> </span>メール</li>
+						<li check-data="0"><span class="box_color box_color_deepskyblue"> </span>電話</li>
+						<li check-data="0"><span class="box_color box_color_deepskyblue"> </span>お問い合わせ</li>
+						<li check-data="0"><span class="box_color box_color_deepskyblue"> </span>紹介</li>
+						<li check-data="0"><span class="box_color box_color_deepskyblue"> </span>イベント</li>
+						<li check-data="0"><span class="box_color box_color_deepskyblue"> </span>SNS</li>
+						<li check-data="0"><span class="box_color box_color_deepskyblue"> </span>飛び込み</li>
+						<li check-data="0"><span class="box_color box_color_deepskyblue"> </span>手紙</li>
+						<li check-data="0"><span class="box_color box_color_deepskyblue"> </span>FAX</li>';
+				break;
+				case '電話':
+					$approach_setting_li_html = '
+						<li check-data="0"><span class="box_color box_color_deepskyblue"> </span>メール</li>
+						<li check-data="1">
+							<span class="lsf symbol">check</span>
+							<span class="box_color box_color_deepskyblue"> </span>電話</li>
+						<li check-data="0"><span class="box_color box_color_deepskyblue"> </span>お問い合わせ</li>
+						<li check-data="0"><span class="box_color box_color_deepskyblue"> </span>紹介</li>
+						<li check-data="0"><span class="box_color box_color_deepskyblue"> </span>イベント</li>
+						<li check-data="0"><span class="box_color box_color_deepskyblue"> </span>SNS</li>
+						<li check-data="0"><span class="box_color box_color_deepskyblue"> </span>飛び込み</li>
+						<li check-data="0"><span class="box_color box_color_deepskyblue"> </span>手紙</li>
+						<li check-data="0"><span class="box_color box_color_deepskyblue"> </span>FAX</li>';
+				break;
+				case 'お問い合わせ':
+					$approach_setting_li_html = '
+						<li check-data="0"><span class="box_color box_color_deepskyblue"> </span>メール</li>
+						<li check-data="0"><span class="box_color box_color_deepskyblue"> </span>電話</li>
+						<li check-data="1">
+							<span class="lsf symbol">check</span>
+							<span class="box_color box_color_deepskyblue"> </span>お問い合わせ</li>
+						<li check-data="0"><span class="box_color box_color_deepskyblue"> </span>紹介</li>
+						<li check-data="0"><span class="box_color box_color_deepskyblue"> </span>イベント</li>
+						<li check-data="0"><span class="box_color box_color_deepskyblue"> </span>SNS</li>
+						<li check-data="0"><span class="box_color box_color_deepskyblue"> </span>飛び込み</li>
+						<li check-data="0"><span class="box_color box_color_deepskyblue"> </span>手紙</li>
+						<li check-data="0"><span class="box_color box_color_deepskyblue"> </span>FAX</li>';
+				break;
+				case '紹介':
+					$approach_setting_li_html = '
+						<li check-data="0"><span class="box_color box_color_deepskyblue"> </span>メール</li>
+						<li check-data="0"><span class="box_color box_color_deepskyblue"> </span>電話</li>
+						<li check-data="0"><span class="box_color box_color_deepskyblue"> </span>お問い合わせ</li>
+						<li check-data="1">
+							<span class="lsf symbol">check</span>
+							<span class="box_color box_color_deepskyblue"> </span>紹介</li>
+						<li check-data="0"><span class="box_color box_color_deepskyblue"> </span>イベント</li>
+						<li check-data="0"><span class="box_color box_color_deepskyblue"> </span>SNS</li>
+						<li check-data="0"><span class="box_color box_color_deepskyblue"> </span>飛び込み</li>
+						<li check-data="0"><span class="box_color box_color_deepskyblue"> </span>手紙</li>
+						<li check-data="0"><span class="box_color box_color_deepskyblue"> </span>FAX</li>';
+				break;
+				case 'イベント':
+					$approach_setting_li_html = '
+						<li check-data="0"><span class="box_color box_color_deepskyblue"> </span>メール</li>
+						<li check-data="0"><span class="box_color box_color_deepskyblue"> </span>電話</li>
+						<li check-data="0"><span class="box_color box_color_deepskyblue"> </span>お問い合わせ</li>
+						<li check-data="0"><span class="box_color box_color_deepskyblue"> </span>紹介</li>
+						<li check-data="1">
+							<span class="lsf symbol">check</span>
+							<span class="box_color box_color_deepskyblue"> </span>イベント</li>
+						<li check-data="0"><span class="box_color box_color_deepskyblue"> </span>SNS</li>
+						<li check-data="0"><span class="box_color box_color_deepskyblue"> </span>飛び込み</li>
+						<li check-data="0"><span class="box_color box_color_deepskyblue"> </span>手紙</li>
+						<li check-data="0"><span class="box_color box_color_deepskyblue"> </span>FAX</li>';
+				break;
+				case 'SNS':
+					$approach_setting_li_html = '
+						<li check-data="0"><span class="box_color box_color_deepskyblue"> </span>メール</li>
+						<li check-data="0"><span class="box_color box_color_deepskyblue"> </span>電話</li>
+						<li check-data="0"><span class="box_color box_color_deepskyblue"> </span>お問い合わせ</li>
+						<li check-data="0"><span class="box_color box_color_deepskyblue"> </span>紹介</li>
+						<li check-data="0"><span class="box_color box_color_deepskyblue"> </span>イベント</li>
+						<li check-data="1">
+							<span class="lsf symbol">check</span>
+							<span class="box_color box_color_deepskyblue"> </span>SNS</li>
+						<li check-data="0"><span class="box_color box_color_deepskyblue"> </span>飛び込み</li>
+						<li check-data="0"><span class="box_color box_color_deepskyblue"> </span>手紙</li>
+						<li check-data="0"><span class="box_color box_color_deepskyblue"> </span>FAX</li>';
+				break;
+				case '飛び込み':
+					$approach_setting_li_html = '
+						<li check-data="0"><span class="box_color box_color_deepskyblue"> </span>メール</li>
+						<li check-data="0"><span class="box_color box_color_deepskyblue"> </span>電話</li>
+						<li check-data="0"><span class="box_color box_color_deepskyblue"> </span>お問い合わせ</li>
+						<li check-data="0"><span class="box_color box_color_deepskyblue"> </span>紹介</li>
+						<li check-data="0"><span class="box_color box_color_deepskyblue"> </span>イベント</li>
+						<li check-data="0"><span class="box_color box_color_deepskyblue"> </span>SNS</li>
+						<li check-data="1">
+							<span class="lsf symbol">check</span>
+							<span class="box_color box_color_deepskyblue"> </span>飛び込み</li>
+						<li check-data="0"><span class="box_color box_color_deepskyblue"> </span>手紙</li>
+						<li check-data="0"><span class="box_color box_color_deepskyblue"> </span>FAX</li>';
+				break;
+				case '手紙':
+					$approach_setting_li_html = '
+						<li check-data="0"><span class="box_color box_color_deepskyblue"> </span>メール</li>
+						<li check-data="0"><span class="box_color box_color_deepskyblue"> </span>電話</li>
+						<li check-data="0"><span class="box_color box_color_deepskyblue"> </span>お問い合わせ</li>
+						<li check-data="0"><span class="box_color box_color_deepskyblue"> </span>紹介</li>
+						<li check-data="0"><span class="box_color box_color_deepskyblue"> </span>イベント</li>
+						<li check-data="0"><span class="box_color box_color_deepskyblue"> </span>SNS</li>
+						<li check-data="0"><span class="box_color box_color_deepskyblue"> </span>飛び込み</li>
+						<li check-data="1">
+							<span class="lsf symbol">check</span>
+							<span class="box_color box_color_deepskyblue"> </span>手紙</li>
+						<li check-data="0"><span class="box_color box_color_deepskyblue"> </span>FAX</li>';
+				break;
+				case 'FAX':
+					$approach_setting_li_html = '
+						<li check-data="0"><span class="box_color box_color_deepskyblue"> </span>メール</li>
+						<li check-data="0"><span class="box_color box_color_deepskyblue"> </span>電話</li>
+						<li check-data="0"><span class="box_color box_color_deepskyblue"> </span>お問い合わせ</li>
+						<li check-data="0"><span class="box_color box_color_deepskyblue"> </span>紹介</li>
+						<li check-data="0"><span class="box_color box_color_deepskyblue"> </span>イベント</li>
+						<li check-data="0"><span class="box_color box_color_deepskyblue"> </span>SNS</li>
+						<li check-data="0"><span class="box_color box_color_deepskyblue"> </span>飛び込み</li>
+						<li check-data="0"><span class="box_color box_color_deepskyblue"> </span>手紙</li>
+						<li check-data="1">
+							<span class="lsf symbol">check</span>
+							<span class="box_color box_color_deepskyblue"> </span>FAX</li>';
+				break;
+				default:
+			}
+		} // if($sales_array['approach']) {
+			else {
+					$approach_setting_li_html = '
+						<li check-data="0"><span class="box_color box_color_deepskyblue"> </span>メール</li>
+						<li check-data="0"><span class="box_color box_color_deepskyblue"> </span>電話</li>
+						<li check-data="0"><span class="box_color box_color_deepskyblue"> </span>お問い合わせ</li>
+						<li check-data="0"><span class="box_color box_color_deepskyblue"> </span>紹介</li>
+						<li check-data="0"><span class="box_color box_color_deepskyblue"> </span>イベント</li>
+						<li check-data="0"><span class="box_color box_color_deepskyblue"> </span>SNS</li>
+						<li check-data="0"><span class="box_color box_color_deepskyblue"> </span>飛び込み</li>
+						<li check-data="0"><span class="box_color box_color_deepskyblue"> </span>手紙</li>
+						<li check-data="0"><span class="box_color box_color_deepskyblue"> </span>FAX</li>';
+			}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		// アポイント
+		if($sales_array['appointment']) {
+			$appointment_html = 
+				'<div class="setting_box">
+					<span class="setting_type">アポイント：</span><span class="setting_block box_color_deepskyblue">'.$sales_array['appointment'].'</span>
+				</div>';
+		}
+		// 予算
+		if($sales_array['budget']) {
+			$budget_html = 
+				'<div class="setting_box">
+					<span class="setting_type">予算：</span><span class="setting_block box_color_deepskyblue">'.$sales_array['budget'].'</span>
+				</div>';
+		}
+		// 売上
+		if($sales_array['earnings']) {
+			$earnings_html = 
+				'<div class="setting_box">
+					<span class="setting_type">売上：</span><span class="setting_block box_color_deepskyblue">'.$sales_array['earnings'].'</span>
+				</div>';
+		}
+		// 締切日
+		if($sales_array['deadline']) {
+			$deadline_html = 
+				'<div class="setting_box">
+					<span class="setting_type">締切日：</span><span class="setting_block box_color_deepskyblue">'.$sales_array['deadline'].'</span>
+				</div>';
+		}
+		// クライアント
+		if($sales_array['client']) {
+			$client_html = 
+				'<div class="setting_box">
+					<span class="setting_type">クライアント：</span><span class="setting_block box_color_deepskyblue">'.$sales_array['client'].'</span>
+				</div>';
+		}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	$sales_add_create_html = '<!-- sales_create -->
 	<div class="sales_create clearfix">
 		<div class="sales_create_inner">
@@ -309,26 +685,37 @@ class Model_Sales_Html extends Model {
 				<form method="post" action="'.HTTP.'sales/'.$sales_url_id.'/" class="sales_form">
 					<input class="sales_primary_id_hidden" type="hidden" name="sales_primary_id" value="'.$sales_primary_id.'">
 
-					<input placeholder="案件名" value="" name="title" id="title" type="text">
+
 					<!-- setting_top -->
 					<div class="setting_top">
 						<!-- sales_settings -->
+
+
+
+
+
+
+
+
+
+
+
+
+
 						<div class="sales_settings o_8 status">
 							<span class="parts">ステータス</span>
 							<span class="lsf symbol">setting</span>
-							<input class="status_hidden" type="hidden" name="status" value="">
+							<input class="status_hidden" type="hidden" name="status" value="'.$sales_array['status'].'">
 							<!-- status_setting_block -->
 	<!--
 							<div class="status_setting_block status_setting_block_red">交渉中</div>
 	-->
+							'.$status_html.'
 							<!-- status_setting_box -->
 							<div class="status_setting_box" display-data="0">
 								<div class="status_setting_box_inner">
 									<ul>
-										<li check-data="0"><span class="box_color box_color_red"> </span>交渉中</li>
-										<li check-data="0"><span class="box_color box_color_limegreen"> </span>成約</li>
-										<li check-data="0"><span class="box_color box_color_grey"> </span>破談</li>
-										<li check-data="0"><span class="box_color box_color_deepskyblue"> </span>検討</li>
+										'.$status_setting_li_html.'
 									</ul>
 								</div>
 							</div> <!-- status_setting_box -->
@@ -336,30 +723,56 @@ class Model_Sales_Html extends Model {
 	
 	
 	
-	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	
 						<!-- sales_settings -->
 						<div class="sales_settings o_8 approach">
 							<span class="parts">アプローチ</span>
 							<span class="lsf symbol">setting</span>
-							<input class="approach_hidden" type="hidden" name="approach" value="">
+							<input class="approach_hidden" type="hidden" name="approach" value="'.$sales_array['approach'].'">
 							<!-- approach_setting_block -->
 	<!--
 							<div class="approach_setting_block approach_setting_block_red">交渉中</div>
 	-->
+							'.$approach_html.'
 							<!-- approach_setting_box -->
 							<div class="approach_setting_box" display-data="0">
 								<div class="approach_setting_box_inner">
 									<ul>
-										<li check-data="0"><span class="box_color box_color_deepskyblue"> </span>メール</li>
-										<li check-data="0"><span class="box_color box_color_deepskyblue"> </span>電話</li>
-										<li check-data="0"><span class="box_color box_color_deepskyblue"> </span>お問い合わせ</li>
-										<li check-data="0"><span class="box_color box_color_deepskyblue"> </span>紹介</li>
-										<li check-data="0"><span class="box_color box_color_deepskyblue"> </span>イベント</li>
-										<li check-data="0"><span class="box_color box_color_deepskyblue"> </span>SNS</li>
-										<li check-data="0"><span class="box_color box_color_deepskyblue"> </span>飛び込み</li>
-										<li check-data="0"><span class="box_color box_color_deepskyblue"> </span>手紙</li>
-										<li check-data="0"><span class="box_color box_color_deepskyblue"> </span>FAX</li>
+										'.$approach_setting_li_html.'
 									</ul>
 								</div>
 							</div> <!-- approach_setting_box -->
@@ -387,7 +800,7 @@ class Model_Sales_Html extends Model {
 						<div class="sales_settings o_8 appointment">
 							<span class="parts">アポ</span>
 							<span class="lsf symbol">setting</span>
-							<input class="appointment_hidden" type="hidden" name="appointment" value="">
+							<input class="appointment_hidden" type="hidden" name="appointment" value="'.$sales_array['appointment'].'">
 							<!-- appointment_setting_block -->
 	<!--
 							<div class="appointment_setting_block appointment_setting_block_red">交渉中</div>
@@ -396,7 +809,7 @@ class Model_Sales_Html extends Model {
 							<div class="appointment_setting_box" display-data="0">
 								<div class="appointment_setting_box_inner">
 									<ul>
-										<li><input class="appointment_day" id="appointment_day" type="text" name="appointment_day" placeholder="日付と時間" value=""></li>
+										<li><input class="appointment_day" id="appointment_day" type="text" name="appointment_day" placeholder="日付と時間" value="'.$sales_array['appointment'].'"></li>
 									</ul>
 								</div>
 							</div> <!-- appointment_setting_box -->
@@ -531,34 +944,9 @@ class Model_Sales_Html extends Model {
 	
 	
 	
-						<div class="sales_settings o_8 client">
-							<span class="parts">クライアント</span>
-							<span class="lsf symbol">setting</span>
-							<input class="client_hidden" type="hidden" name="client" value="">
-							<!-- client_setting_block -->
-	<!--
-							<div class="client_setting_block client_setting_block_red">交渉中</div>
-	-->
-							<!-- client_setting_box -->
-							<div class="client_setting_box" display-data="0">
-								<div class="client_setting_box_inner">
-									<ul>
-										<li><input placeholder="クライアント名" value="" name="input_client" id="input_client" type="text"></li>
-									</ul>
-								</div>
-							</div> <!-- client_setting_box -->
-						</div>
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+		
+		
 	
 	
 	
@@ -571,7 +959,7 @@ class Model_Sales_Html extends Model {
 	
 	
 	
-					<input class="o_8 submit" value="作成" name="submit" type="submit">
+					<input class="o_8 submit" value="追加" name="submit" type="submit">
 				</form>
 			</div>
 		</div>
