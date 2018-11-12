@@ -124,28 +124,28 @@ class Model_Sales_Html extends Model {
 		if($sales_array['appointment']) {
 			$appointment_html = 
 				'<div class="setting_box">
-					<span class="setting_type">アポイント：</span><span class="setting_block box_color_deepskyblue">'.$sales_array['appointment'].'</span>
+					<span class="setting_type">アポイント：</span><span class="setting_block box_color_deepskyblue">'.Model_Info_Basis::date_conversion_date_get($sales_array['appointment'],'Y年m月d日 H:i').'</span>
 				</div>';
 		}
 		// 予算
 		if($sales_array['budget']) {
 			$budget_html = 
 				'<div class="setting_box">
-					<span class="setting_type">予算：</span><span class="setting_block box_color_deepskyblue">'.$sales_array['budget'].'</span>
+					<span class="setting_type">予算：</span><span class="setting_block box_color_deepskyblue">'.number_format($sales_array['budget']).'円</span>
 				</div>';
 		}
 		// 売上
 		if($sales_array['earnings']) {
 			$earnings_html = 
 				'<div class="setting_box">
-					<span class="setting_type">売上：</span><span class="setting_block box_color_deepskyblue">'.$sales_array['earnings'].'</span>
+					<span class="setting_type">売上：</span><span class="setting_block box_color_deepskyblue">'.number_format($sales_array['earnings']).'円</span>
 				</div>';
 		}
 		// 締切日
 		if($sales_array['deadline']) {
 			$deadline_html = 
 				'<div class="setting_box">
-					<span class="setting_type">締切日：</span><span class="setting_block box_color_deepskyblue">'.$sales_array['deadline'].'</span>
+					<span class="setting_type">締切日：</span><span class="setting_block box_color_deepskyblue">'.Model_Info_Basis::date_conversion_date_get($sales_array['deadline'],'Y年m月d日').'</span>
 				</div>';
 		}
 		// クライアント
@@ -169,9 +169,11 @@ class Model_Sales_Html extends Model {
 		// 更新時間
 		if($sales_array['update_time']) {
 			$update_date = Model_Info_Basis::date_conversion_date_get($sales_array['update_time'], 'Y年m月d日');
+			// 相対的時間取得
+			$relative_time_word = Model_Info_Basis::relative_time_get($sales_array['update_time']);
 			$update_time_html = 
-				'<div class="setting_box">
-					<span class="setting_type">更新時間：</span><span class="setting_block box_color_deepskyblue">'.$update_date.'</span>
+				'<div class="relative_time_box">
+					<span>'.$relative_time_word.'</span>
 				</div>';
 		}
 
@@ -198,6 +200,8 @@ class Model_Sales_Html extends Model {
 					<div class="lsf symbol">edit</div>
 					<div class="hidden_area">案件編集</div>
 				</div>
+					'.$update_time_html.'
+
 					'.$status_html.'
 					'.$approach_html.'
 					'.$appointment_html.'
@@ -206,7 +210,6 @@ class Model_Sales_Html extends Model {
 					'.$deadline_html.'
 					'.$client_html.'
 					'.$note_html.'
-					'.$update_time_html.'
 				<pre class="text">'.$sales_array['text'].'</pre>
 			</div>';
 
@@ -588,31 +591,182 @@ class Model_Sales_Html extends Model {
 		// アポイント
 		if($sales_array['appointment']) {
 			$appointment_html = 
-				'<div class="setting_box">
-					<span class="setting_type">アポイント：</span><span class="setting_block box_color_deepskyblue">'.$sales_array['appointment'].'</span>
-				</div>';
+				'<div class="appointment_setting_block box_color_deepskyblue">'.$sales_array['appointment'].'</div>';
 		}
+
+
+
+
+
+
+
+
+		// 重要度
+		if($sales_array['importance']) {
+			$importance_html = 
+				'<div class="importance_setting_block"><span class="lsf symbol box_font_color_'.$sales_array['importance'].'">tag</span></div>';
+			switch($sales_array['importance']) {
+				case 'red':
+					$importance_setting_li_html = '
+						<li check-data="1">
+							<span class="lsf symbol">check</span>
+							<span class="box_color box_color_red"> </span>レッド</li>
+						<li check-data="0"><span class="box_color box_color_orange"> </span>オレンジ</li>
+						<li check-data="0"><span class="box_color box_color_yellow"> </span>イエロー</li>
+						<li check-data="0"><span class="box_color box_color_green"> </span>グリーン</li>
+						<li check-data="0"><span class="box_color box_color_blue"> </span>ブルー</li>
+						<li check-data="0"><span class="box_color box_color_purple"> </span>パープル</li>
+						<li check-data="0"><span class="box_color box_color_grey"> </span>グレー</li>';
+				break;
+				case 'orange':
+					$importance_setting_li_html = '
+						<li check-data="0"><span class="box_color box_color_red"> </span>レッド</li>
+						<li check-data="1">
+							<span class="lsf symbol">check</span>
+							<span class="box_color box_color_orange"> </span>オレンジ</li>
+						<li check-data="0"><span class="box_color box_color_yellow"> </span>イエロー</li>
+						<li check-data="0"><span class="box_color box_color_green"> </span>グリーン</li>
+						<li check-data="0"><span class="box_color box_color_blue"> </span>ブルー</li>
+						<li check-data="0"><span class="box_color box_color_purple"> </span>パープル</li>
+						<li check-data="0"><span class="box_color box_color_grey"> </span>グレー</li>';
+				break;
+				case 'yellow':
+					$importance_setting_li_html = '
+						<li check-data="0"><span class="box_color box_color_red"> </span>レッド</li>
+						<li check-data="0"><span class="box_color box_color_orange"> </span>オレンジ</li>
+						<li check-data="1">
+							<span class="lsf symbol">check</span>
+							<span class="box_color box_color_yellow"> </span>イエロー</li>
+						<li check-data="0"><span class="box_color box_color_green"> </span>グリーン</li>
+						<li check-data="0"><span class="box_color box_color_blue"> </span>ブルー</li>
+						<li check-data="0"><span class="box_color box_color_purple"> </span>パープル</li>
+						<li check-data="0"><span class="box_color box_color_grey"> </span>グレー</li>';
+				break;
+				case 'green':
+					$importance_setting_li_html = '
+						<li check-data="0"><span class="box_color box_color_red"> </span>レッド</li>
+						<li check-data="0"><span class="box_color box_color_orange"> </span>オレンジ</li>
+						<li check-data="0"><span class="box_color box_color_yellow"> </span>イエロー</li>
+						<li check-data="1">
+							<span class="lsf symbol">check</span>
+							<span class="box_color box_color_green"> </span>グリーン</li>
+						<li check-data="0"><span class="box_color box_color_blue"> </span>ブルー</li>
+						<li check-data="0"><span class="box_color box_color_purple"> </span>パープル</li>
+						<li check-data="0"><span class="box_color box_color_grey"> </span>グレー</li>';
+				break;
+				case 'blue':
+					$importance_setting_li_html = '
+						<li check-data="0"><span class="box_color box_color_red"> </span>レッド</li>
+						<li check-data="0"><span class="box_color box_color_orange"> </span>オレンジ</li>
+						<li check-data="0"><span class="box_color box_color_yellow"> </span>イエロー</li>
+						<li check-data="0"><span class="box_color box_color_green"> </span>グリーン</li>
+						<li check-data="1">
+							<span class="lsf symbol">check</span>
+							<span class="box_color box_color_blue"> </span>ブルー</li>
+						<li check-data="0"><span class="box_color box_color_purple"> </span>パープル</li>
+						<li check-data="0"><span class="box_color box_color_grey"> </span>グレー</li>';
+				break;
+				case 'purple':
+					$importance_setting_li_html = '
+						<li check-data="0"><span class="box_color box_color_red"> </span>レッド</li>
+						<li check-data="0"><span class="box_color box_color_orange"> </span>オレンジ</li>
+						<li check-data="0"><span class="box_color box_color_yellow"> </span>イエロー</li>
+						<li check-data="0"><span class="box_color box_color_green"> </span>グリーン</li>
+						<li check-data="0"><span class="box_color box_color_blue"> </span>ブルー</li>
+						<li check-data="1">
+							<span class="lsf symbol">check</span>
+							<span class="box_color box_color_purple"> </span>パープル</li>
+						<li check-data="0"><span class="box_color box_color_grey"> </span>グレー</li>';
+				break;
+				case 'grey':
+					$importance_setting_li_html = '
+						<li check-data="0"><span class="box_color box_color_red"> </span>レッド</li>
+						<li check-data="0"><span class="box_color box_color_orange"> </span>オレンジ</li>
+						<li check-data="0"><span class="box_color box_color_yellow"> </span>イエロー</li>
+						<li check-data="0"><span class="box_color box_color_green"> </span>グリーン</li>
+						<li check-data="0"><span class="box_color box_color_blue"> </span>ブルー</li>
+						<li check-data="0"><span class="box_color box_color_purple"> </span>パープル</li>
+						<li check-data="1">
+							<span class="lsf symbol">check</span>
+							<span class="box_color box_color_grey"> </span>グレー</li>';
+				break;
+				default:
+				break;
+			}
+		}
+			else {
+				$importance_setting_li_html = '
+					<li check-data="0"><span class="box_color box_color_red"> </span>レッド</li>
+					<li check-data="0"><span class="box_color box_color_orange"> </span>オレンジ</li>
+					<li check-data="0"><span class="box_color box_color_yellow"> </span>イエロー</li>
+					<li check-data="0"><span class="box_color box_color_green"> </span>グリーン</li>
+					<li check-data="0"><span class="box_color box_color_blue"> </span>ブルー</li>
+					<li check-data="0"><span class="box_color box_color_purple"> </span>パープル</li>
+					<li check-data="0"><span class="box_color box_color_grey"> </span>グレー</li>';
+			}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 		// 予算
 		if($sales_array['budget']) {
 			$budget_html = 
-				'<div class="setting_box">
-					<span class="setting_type">予算：</span><span class="setting_block box_color_deepskyblue">'.$sales_array['budget'].'</span>
-				</div>';
+				'<div class="budget_setting_block box_color_deepskyblue">'.number_format($sales_array['budget']).'円</div>';
 		}
 		// 売上
 		if($sales_array['earnings']) {
 			$earnings_html = 
-				'<div class="setting_box">
-					<span class="setting_type">売上：</span><span class="setting_block box_color_deepskyblue">'.$sales_array['earnings'].'</span>
-				</div>';
+				'<div class="earnings_setting_block box_color_deepskyblue">'.number_format($sales_array['earnings']).'円</div>';
 		}
+
+
+
+
 		// 締切日
 		if($sales_array['deadline']) {
 			$deadline_html = 
-				'<div class="setting_box">
-					<span class="setting_type">締切日：</span><span class="setting_block box_color_deepskyblue">'.$sales_array['deadline'].'</span>
-				</div>';
+				'<div class="deadline_setting_block box_color_deepskyblue">'.$sales_array['deadline'].'</div>';
 		}
+
+
 		// クライアント
 		if($sales_array['client']) {
 			$client_html = 
@@ -805,6 +959,7 @@ class Model_Sales_Html extends Model {
 	<!--
 							<div class="appointment_setting_block appointment_setting_block_red">交渉中</div>
 	-->
+							'.$appointment_html.'
 							<!-- appointment_setting_box -->
 							<div class="appointment_setting_box" display-data="0">
 								<div class="appointment_setting_box_inner">
@@ -816,6 +971,37 @@ class Model_Sales_Html extends Model {
 						</div>
 					</div> <!-- setting_top -->
 	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	
 	
 					<!-- setting_bottom -->
@@ -828,17 +1014,12 @@ class Model_Sales_Html extends Model {
 	<!--
 							<div class="importance_setting_block importance_setting_block_red">交渉中</div>
 	-->
+								'.$importance_html.'
 							<!-- importance_setting_box -->
 							<div class="importance_setting_box" display-data="0">
 								<div class="importance_setting_box_inner">
 									<ul>
-										<li check-data="0"><span class="box_color box_color_red"> </span>レッド</li>
-										<li check-data="0"><span class="box_color box_color_orange"> </span>オレンジ</li>
-										<li check-data="0"><span class="box_color box_color_yellow"> </span>イエロー</li>
-										<li check-data="0"><span class="box_color box_color_green"> </span>グリーン</li>
-										<li check-data="0"><span class="box_color box_color_blue"> </span>ブルー</li>
-										<li check-data="0"><span class="box_color box_color_purple"> </span>パープル</li>
-										<li check-data="0"><span class="box_color box_color_grey"> </span>グレー</li>
+										'.$importance_setting_li_html.'
 									</ul>
 								</div>
 							</div> <!-- importance_setting_box -->
@@ -864,16 +1045,17 @@ class Model_Sales_Html extends Model {
 						<div class="sales_settings o_8 budget">
 							<span class="parts">予算</span>
 							<span class="lsf symbol">setting</span>
-							<input class="budget_hidden" type="hidden" name="budget" value="">
+							<input class="budget_hidden" type="hidden" name="budget" value="'.$sales_array['budget'].'">
 							<!-- budget_setting_block -->
 	<!--
 							<div class="budget_setting_block budget_setting_block_red">交渉中</div>
 	-->
+							'.$budget_html.'
 							<!-- budget_setting_box -->
 							<div class="budget_setting_box" display-data="0">
 								<div class="budget_setting_box_inner">
 									<ul>
-										<li><input placeholder="予算" value="" name="input_budget" id="input_budget" type="text"><span class="money_type" moneyType-data="円">円</span></li>
+										<li><input placeholder="予算" value="'.$sales_array['budget'].'" name="input_budget" id="input_budget" type="text"><span class="money_type" moneyType-data="円">円</span></li>
 									</ul>
 								</div>
 							</div> <!-- budget_setting_box -->
@@ -889,16 +1071,17 @@ class Model_Sales_Html extends Model {
 						<div class="sales_settings o_8 earnings">
 							<span class="parts">売上</span>
 							<span class="lsf symbol">setting</span>
-							<input class="earnings_hidden" type="hidden" name="earnings" value="">
+							<input class="earnings_hidden" type="hidden" name="earnings" value="'.$sales_array['earnings'].'">
 							<!-- earnings_setting_block -->
 	<!--
 							<div class="earnings_setting_block earnings_setting_block_red">交渉中</div>
 	-->
+								'.$earnings_html.'
 							<!-- earnings_setting_box -->
 							<div class="earnings_setting_box" display-data="0">
 								<div class="earnings_setting_box_inner">
 									<ul>
-										<li><input placeholder="売上" value="" name="input_earnings" id="input_earnings" type="text"><span class="money_type" moneyType-data="円">円</span></li>
+										<li><input placeholder="売上" value="'.$sales_array['earnings'].'" name="input_earnings" id="input_earnings" type="text"><span class="money_type" moneyType-data="円">円</span></li>
 									</ul>
 								</div>
 							</div> <!-- earnings_setting_box -->
@@ -924,16 +1107,17 @@ class Model_Sales_Html extends Model {
 						<div class="sales_settings o_8 deadline">
 							<span class="parts">締切日</span>
 							<span class="lsf symbol">setting</span>
-							<input class="deadline_hidden" type="hidden" name="deadline" value="">
+							<input class="deadline_hidden" type="hidden" name="deadline" value="'.$sales_array['deadline'].'">
 							<!-- deadline_setting_block -->
 	<!--
 							<div class="deadline_setting_block deadline_setting_block_red">交渉中</div>
 	-->
+								'.$deadline_html.'
 							<!-- deadline_setting_box -->
 							<div class="deadline_setting_box" display-data="0">
 								<div class="deadline_setting_box_inner">
 									<ul>
-										<li><input class="deadline_day" id="deadline_day" type="text" name="deadline_day" placeholder="日付" value=""></li>
+										<li><input class="deadline_day" id="deadline_day" type="text" name="deadline_day" placeholder="日付" value="'.$sales_array['deadline'].'"></li>
 									</ul>
 								</div>
 							</div> <!-- deadline_setting_box -->

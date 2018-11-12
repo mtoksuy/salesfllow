@@ -440,8 +440,10 @@ margin: 0 0 0 15px;
 height: 80px;
 width: 120px;
 */
+
 height: 56px;
-width: 120px;
+width: 135px;
+
 	-webkit-user-select: none;
 	   -moz-user-select: none;
 	    -ms-user-select: none;
@@ -1051,6 +1053,12 @@ font-size: 14px;
 }
 
 
+.sales .sales_inner .sales_box .relative_time_box {
+	color: #c9c9c9;
+	margin: 0px 0px 0px 0px;
+	position: relative;
+	top: -13px;
+}
 .sales .sales_inner .sales_box .setting_box {
 
 }

@@ -292,7 +292,142 @@ if($detect->isMobile() || $detect->isTablet()) {
 		$date = date($denoted, strtotime($time));
 		return $date;
 	}
-
+	//--------------
+	//相対的時間取得
+	//--------------
+	public static function relative_time_get($date_time) {
+		$now_timestamp         = time();
+		$designation_timestamp = strtotime($date_time);
+		$difference_timestamp  = ($now_timestamp - $designation_timestamp);
+			if($difference_timestamp >= 518401) {
+				// 日付をタイムスタンプに変換してもう一度日付の種類を変えて取得
+				$relative_time_word = Model_Info_Basis::date_conversion_date_get($date_time, 'Y年m月d日');
+			}
+			else if($difference_timestamp >= 518400) {
+				$relative_time_word = '6日前';
+			}
+			else if($difference_timestamp >= 432000) {
+				$relative_time_word = '5日前';
+			}
+			else if($difference_timestamp >= 345600) {
+				$relative_time_word = '4日前';
+			}
+			else if($difference_timestamp >= 259200) {
+				$relative_time_word = '3日前';
+			}
+			else if($difference_timestamp >= 172800) {
+				$relative_time_word = '2日前';
+			}
+			else if($difference_timestamp >= 86400) {
+				$relative_time_word = '1日前';
+			}
+			else if($difference_timestamp >= 82800) {
+				$relative_time_word = '23時間前';
+			}
+			else if($difference_timestamp >= 79200) {
+				$relative_time_word = '22時間前';
+			}
+			else if($difference_timestamp >= 75600) {
+				$relative_time_word = '21時間前';
+			}
+			else if($difference_timestamp >= 72000) {
+				$relative_time_word = '20時間前';
+			}
+			else if($difference_timestamp >= 68400) {
+				$relative_time_word = '19時間前';
+			}
+			else if($difference_timestamp >= 64800) {
+				$relative_time_word = '18時間前';
+			}
+			else if($difference_timestamp >= 61200) {
+				$relative_time_word = '17時間前';
+			}
+			else if($difference_timestamp >= 57600) {
+				$relative_time_word = '16時間前';
+			}
+			else if($difference_timestamp >= 54000) {
+				$relative_time_word = '15時間前';
+			}
+			else if($difference_timestamp >= 50400) {
+				$relative_time_word = '14時間前';
+			}
+			else if($difference_timestamp >= 46800) {
+				$relative_time_word = '13時間前';
+			}
+			else if($difference_timestamp >= 43200) {
+				$relative_time_word = '12時間前';
+			}
+			else if($difference_timestamp >= 39600) {
+				$relative_time_word = '11時間前';
+			}
+			else if($difference_timestamp >= 36000) {
+				$relative_time_word = '10時間前';
+			}
+			else if($difference_timestamp >= 32400) {
+				$relative_time_word = '9時間前';
+			}
+			else if($difference_timestamp >= 28800) {
+				$relative_time_word = '8時間前';
+			}
+			else if($difference_timestamp >= 25200) {
+				$relative_time_word = '7時間前';
+			}
+			else if($difference_timestamp >= 21600) {
+				$relative_time_word = '6時間前';
+			}
+			else if($difference_timestamp >= 18000) {
+				$relative_time_word = '5時間前';
+			}
+			else if($difference_timestamp >= 14400) {
+				$relative_time_word = '4時間前';
+			}
+			else if($difference_timestamp >= 10800) {
+				$relative_time_word = '3時間前';
+			}
+			else if($difference_timestamp >= 7200) {
+				$relative_time_word = '2時間前';
+			}
+			else if($difference_timestamp >= 3600) {
+				$relative_time_word = '1時間前';
+			}
+			else if($difference_timestamp >= 1800) {
+				$relative_time_word = '30分前';
+			}
+			else if($difference_timestamp >= 900) {
+				$relative_time_word = '15分前';
+			}
+			else if($difference_timestamp >= 600) {
+				$relative_time_word = '10分前';
+			}
+			else if($difference_timestamp >= 300) {
+				$relative_time_word = '5分前';
+			}
+			else if($difference_timestamp >= 180) {
+				$relative_time_word = '3分前';
+			}
+			else if($difference_timestamp >= 60) {
+				$relative_time_word = '1分前';
+			}
+			else if($difference_timestamp >= 30) {
+				$relative_time_word = '30秒前';
+			}
+			else if($difference_timestamp >= 10) {
+				$relative_time_word = '10秒前';
+			}
+			else if($difference_timestamp >= 5) {
+				$relative_time_word = '5秒前';
+			}
+			else if($difference_timestamp >= 3) {
+				$relative_time_word = '3秒前';
+			}
+			else if($difference_timestamp >= 2) {
+				$relative_time_word = '2秒前';
+			}
+			else if($difference_timestamp >= 1) {
+				$relative_time_word = '1秒前';
+			}
+		return $relative_time_word;
+	}
 
 
 
